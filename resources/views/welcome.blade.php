@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 	<div class="row">
-		<div class="medium-3 centered columns">
+		<div class="medium-3 align-center columns">
 			<img src="/img/logo.png">
 		</div>
 		<div class="medium-9 columns">
@@ -32,14 +32,14 @@
 		</div>
 	</div>
 		<div class="row">
-				<div class="small-4 columns centered">
+				<div class="small-4 columns align-center">
 						<hr class="expand"/>
 						<a class="medium radius button expand" href="results.php?id=demo_run_kd">Demo Run</a>
 				</div>
 		</div>
 
 	<div class="row footer">
-		<div class="small-3 columns centered">
+		<div class="small-3 columns align-center">
 			<p>&copy 2013 <a href="http://dbmi.ucsd.edu/" target="_blank">DBMI @ UCSD</a></p>
 		</div>
 	</div>
