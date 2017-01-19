@@ -15,13 +15,34 @@ $app->get('/', function () use ($app) {
     // return $app->version();
     return $app->make('view')->make('welcome');
 });
-
-$app->post('/upload', function () use ($app) {
-    // return $app->version();
-    return $app->make('view')->make('upload');
+$app->get('/test/{id}', function ($id)  {
+    return view('test',['name'=>'test name', 'id'=>$id]);
 });
+$app->get('/upload/{id}', ['as'=>'upload', function ($id) {
+    $run = \App\Run::findOrFail($id);
+    return view('upload', ['id'=>$run->id, 'dir'=>$run->directory()]);
+}]);
 
 $app->get('/foundation', function () use ($app) {
     // return $app->version();
     return $app->make('view')->make('foundation');
 });
+
+$app->post('/createRun', [
+    'as' => 'create', 'uses' => 'RunController@postCreateRun'
+]);
+
+$app->get('getRuns', [
+    'as' => 'runs', 'uses' => 'RunController@getRuns'
+]);
+
+$app->get('uploadProgress', [
+    'as' => 'uploadProgress', 'uses' => 'FileController@getUploadProgress'
+]);
+$app->post('renameFile', [
+    'as' => 'renameFile', 'uses' => 'FileController@postRenameFile'
+]);
+$app->post('deleteData', [
+    'as' => 'deleteData', 'uses' => 'FileController@postDeleteData'
+]);
+

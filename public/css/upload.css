@@ -1,0 +1,154 @@
+/**
+ * perfect-scrollbar settings for File upload
+ * modal
+ */
+#file-list {
+	position: relative;
+	overflow: hidden;
+	width: initial;
+	/*height: 40em;*/
+	padding-right: 2em;
+}
+
+/**
+ * Dropbox modal in storage
+ */
+#drop-box {
+	min-height: 12rem;
+}
+
+/**
+ * On file hover functionality.
+ */
+#drop-box.hover {
+   -moz-box-shadow:    inset 0 0 3em #000000;
+   -webkit-box-shadow: inset 0 0 3em #000000;
+   box-shadow:         inset 0 0 3em #000000;
+}
+
+#drop-box.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+#upload-modal .tabs-content, #upload-modal .tabs {
+	margin-bottom: 0 !important;
+}
+
+
+/**
+ * Not sure if we need this, but im keeing it here just in case.
+ */
+/*.files > .large-1 > span [info] {
+	float: right;
+}
+
+.files > * {
+	position: relative;
+	top: 0.25em;
+}*/
+
+/* =====================================
+	 ====  Storage Tab =======
+	 =====================================
+*/
+#stored-files .accordion .accordion-navigation {
+	background: #F7F7F7;
+}
+#stored-files .accordion .accordion-navigation > a {
+	background: initial;
+	display: inline-block;
+}
+
+#stored-files .accordion .accordion-navigation > .content{
+	padding: 0;
+	border-left-style: solid;
+	border-width: .1em;
+}
+
+#stored-files .accordion > li {
+	display: block;
+  border-bottom: 1px solid #e5e5e5;
+}
+li.selected {
+	background-color: #e3f2ff !important;
+  border-color: #d3e4f3 !important;
+}
+
+img.folder ,img.file{
+	height: 1.5em;
+}
+
+#stored-files .accordion-navigation > a:after {
+  content: "▼";
+  /*padding-left: 5px;*/
+  /*float: right;*/
+  /*font-size: 20px;*/
+}
+#stored-files .accordion-navigation.active > a:after {
+  content: "▲";
+}
+#stored-files li.file:hover{ 
+  /*background-color: #F0F0F0;*/
+  box-shadow: 0px 0px 10px #888888;
+}
+
+#delete-modal-selected-files > li {
+  list-style-type: none;
+}
+
+#stored-files .accordion .accordion-navigation > a.tabHeading {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 1rem;
+}
+
+#possible-destinations li {
+  list-style-type: none;
+  /*border-bottom: 1px solid #e5e5e5;*/
+}
+#possible-destinations ul {
+	background: white;
+}
+#possible-destinations li ul {
+ 	padding-left: 1rem;
+ 	margin-left: 0;
+ 	border-left-style: solid;
+	border-width: .1em;
+} 
+#possible-destinations li ul li{
+  border-top: 1px solid #e5e5e5;
+}
+
+.not-X {
+	position: relative !important;
+	color: initial !important;
+	font-size: initial !important;
+	font-weight: initial !important;
+	line-height: initial !important;
+	top: initial !important;
+	right: initial !important;
+}
+
+#upload-modal select.prefix{
+	background-position-x: -5%;
+  padding-left: .75rem;
+  padding-right: 0;
+  /*From span.prefix*/
+  border-right: none;
+  color: #333333;
+  border-color: #cccccc;
+  direction: rtl;
+}
+
+#upload-modal select.prefix > option{
+	direction: ltr;
+}
+
+.uploadFileName {
+	overflow-wrap: break-word;
+}

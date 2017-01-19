@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="small-12 columns">
 			<div class="callout">
-				<form action="/upload" method="post" class="custom" enctype="multipart/form-data">
+				<form action="/createRun" method="post" class="custom" enctype="multipart/form-data">
 					<div class="row">
 						<div class="medium-6 columns">
 							<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address</span></label>
@@ -19,7 +19,7 @@
 						</div>
 						<div class="medium-6 columns">
 							<label for="name"><span class="has-tip tip-top whiteTxt" title="Please give this data a name">Experiment Name</span></label>
-							<input id="name" name="run_name" type="text"/>
+							<input id="name" name="name" type="text"/>
 						</div>
 					</div>
 					<div class="row">
