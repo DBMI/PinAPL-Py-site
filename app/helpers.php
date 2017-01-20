@@ -1,6 +1,6 @@
 <?php 
 set_include_path(getcwd());
-include '../vendor/laravel/framework/src/Illuminate/Foundation/helpers.php';
+// include '/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php';
 restore_include_path();
 
 function download($file, $name = null, array $headers = array(), $disposition = 'attachment')

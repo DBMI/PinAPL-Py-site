@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Run;
 
 class RunController extends Controller
@@ -18,34 +19,44 @@ class RunController extends Controller
 	}
 
 	// Create a run. 
-	public function postCreateRun(Request $request)
+	public function postCreate(Request $request)
 	{
 		$email = $request->input('email');
 		$name = $request->input('name');
-		$status = 'upload';
 
 		$run = Run::create( [
 			'email'=>$email,
 			'name'=>$name,
-			'status'=> $status,
+			'status'=> 'uploading',
 			'dir'=>time()
 		]);
 
-		makeDir( $run->directory() );
+		$dir = $run->directory();
+		makeDir( $dir, 0775 );
+		makeDir( $dir."/workingDir", 0775 );
+		makeDir( $dir."/workingDir/Data", 0775 );
+		makeDir( $dir."/workingDir/Library", 0775 );
 
-		return redirect()->route('upload', ['id'=>$run->id, 'dir'=>$dir]);
-	}
+		File::copy(app()->basePath().'/storage/exampleFiles/configuration.yaml', "$dir/workingDir/configuration.yaml");
+		File::copy(app()->basePath().'/storage/exampleFiles/GeCKOv2_library.tsv', "$dir/workingDir/Library/GeCKOv2_library.tsv");
 
-	// Show upload page if run is in upload step. 
-	public function getUpload($id)
-	{
-		# code...
+		return redirect("/upload/$run->id");
 	}
 
 	// Prevent lock recipe from further uploads, start the run. 
 	public function postStart($id)
 	{
-		# code...
+		$run = Run::findOrFail($id);
+		$run->status='running';
+		$run->save();
+		$dir = $run->directory();
+		File::put("$dir/status.log", 'Started');
+		$runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/output.log 2>&1 &";
+		$runStatus = shell_exec($runCmd);
+		File::put("$dir/runCmd.sh", $runCmd);
+		File::put("$dir/cmdResult.log", $runStatus);
+		dispatch(new \App\Jobs\MonitorRun($run));
+		return "ok";
 	}
 
 	// Return result page

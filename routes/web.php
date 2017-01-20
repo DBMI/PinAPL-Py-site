@@ -15,13 +15,30 @@ $app->get('/', function () use ($app) {
     // return $app->version();
     return $app->make('view')->make('welcome');
 });
-$app->get('/test/{id}', function ($id)  {
-    return view('test',['name'=>'test name', 'id'=>$id]);
+$app->get('/test/', function ()  {
+    return app()->basePath();
 });
 $app->get('/upload/{id}', ['as'=>'upload', function ($id) {
     $run = \App\Run::findOrFail($id);
-    return view('upload', ['id'=>$run->id, 'dir'=>$run->directory()]);
+    if ($run->status == 'uploading') {
+        return view('upload', ['id'=>$id, 'dir'=>$run->directory().'/workingDir/Data']);
+    }
+    else {
+        return redirect("/run/$id");
+    }
 }]);
+$app->get('/run/{id}', function ($id)  {
+    $run = \App\Run::findOrFail($id);
+    switch ($run->status) {
+        case 'uploading':
+            return redirect("/upload/$id");
+            break;
+        
+        default:
+            return view('run', ['run'=>$run, 'dir'=>$run->directory()]);
+            break;
+    }
+});
 
 $app->get('/foundation', function () use ($app) {
     // return $app->version();
@@ -29,7 +46,10 @@ $app->get('/foundation', function () use ($app) {
 });
 
 $app->post('/createRun', [
-    'as' => 'create', 'uses' => 'RunController@postCreateRun'
+    'as' => 'create', 'uses' => 'RunController@postCreate'
+]);
+$app->post('/run/start/{id}', [
+    'as' => 'start', 'uses' => 'RunController@postStart'
 ]);
 
 $app->get('getRuns', [

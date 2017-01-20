@@ -60,6 +60,7 @@
 <script type="text/javascript" src="/js/upload.js"></script>
 <script>
 function doneUploadingClicked() {
+	$('#done-uploading-button').addClass('disabled')
 	if (sending==true) {
 		userDoneUploading = true;
 	}
@@ -89,6 +90,8 @@ $(document).ready(function() {
 
   //when the user drops file(s) into the designated area
   $('#drop-box').on('drop', dropBoxOnFileDrop);		
+
+  $('#done-uploading-button').on('click', doneUploadingClicked);
 
 	//////////////////////////////////////////
 	// STORAGE (CLIENT TO SERVER) LOGIC  	//
