@@ -51,7 +51,7 @@ class RunController extends Controller
 		$run->save();
 		$dir = $run->directory();
 		File::put("$dir/status.log", 'Started');
-		$runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/output.log 2>&1 &";
+		$runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir &";
 		$runStatus = shell_exec($runCmd);
 		File::put("$dir/runCmd.sh", $runCmd);
 		File::put("$dir/cmdResult.log", $runStatus);

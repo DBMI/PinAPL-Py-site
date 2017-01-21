@@ -5,7 +5,7 @@
 			<img src="/img/logo.png">
 		</div>
 		<div class="medium-9 columns">
-			<h2>Drag-and-drop FASTQ files for microRNA-Seq Analysis </h2>
+			<h2>A no hassle tool for analyzing your favorite CRISPR screen dataset!</h2>
 		</div>
 	</div>
 	<div class="row">
