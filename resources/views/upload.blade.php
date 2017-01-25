@@ -19,41 +19,13 @@
 	<link rel="stylesheet" type="text/css" href="/css/upload.css">
 @stop
 
-
-
-<!-- Delete file/folder modal -->
-<div id="delete-modal" class="reveal-modal tiny" data-reveal>
-	<a class="close-reveal-modal">&#215;</a>
-	<h3 >Delete these items?</h3>
-	<div class="row fullWidth">
-		<ul id="delete-modal-selected-files"></ul>
-	</div>
-	<div class="row">
-		<div class="columns medium-6"><a id="delete-storage" class="button alert expand">Delete</a></div>
-		<div class="columns medium-6"><a class="button secondary expand close-reveal-modal not-X">Cancel</a></div>
-	</div>
-</div>
-
-
-<!-- Rename item modal -->
-<div id="rename-modal" class="reveal-modal tiny" data-reveal>
-	<a href="" class="close-reveal-modal">&#215;</a>
-	<h3>Rename item</h3>
-	<input id="rename-item" type="text" name="directory" placeholder="New Name" />
-</div>
-
-<!-- Error modal -->
-<div id="error-modal" class="reveal-modal tiny" data-reveal>
-	<a href="" class="close-reveal-modal">&#215;</a>
-	<span id="error-modal-text"></span>
-</div>
-
 @section('customScripts')
 @parent
 <script>
 	var runDirectory = "{{$dir}}";
 	var runId = "{{ $id }}";
 	var userDoneUploading = false;
+	var client = {};
 </script>
 <script type="text/javascript" src="/js/kotrans/kotrans.client.js"></script>
 <script type="text/javascript" src="/js/binary.min.js"></script>
@@ -77,10 +49,14 @@ function redirectToStartRun (argument) {
 	);
 }
 
-$(document).ready(function() {
+$(document).ready(function() {	
+	if (window.location.hostname == '172.21.51.26') {
+		client = kotrans.client.createClient({host: '172.21.51.26', port:'9000'});
+	}
+	else {
+		client = kotrans.client.createClient({host:'{{env('APP_HOST')}}', port:'9000' });
+	}	
 
-	console.log('document.ready fired');
-	client = kotrans.client.createClient({ port:'9000' });
 
 	//This is to prevent the browser from accessing the default attrerty of dragging and
   //dropping the file in the browser.
