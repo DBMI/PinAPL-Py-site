@@ -6,7 +6,7 @@
 	<br>
 	Output log: 
 	<pre>
-		{{ Illuminate\Support\Facades\File::get($dir."/output.log") }}
+		{{ Illuminate\Support\Facades\File::get($dir."/workingDir/output.log") }}
 	</pre>
 
 @stop

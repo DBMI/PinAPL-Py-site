@@ -2,6 +2,10 @@
 
 namespace App\Jobs;
 
+// Allows this Job to release itself
+use Illuminate\Contracts\Bus\SelfHandling;
+
+
 use App\Run;
 use Illuminate\Support\Facades\File;
 
@@ -36,15 +40,30 @@ class MonitorRun extends Job
         if ((empty($this->run)) || (!$this->run->exists)) {
             $this->delete();
             \Log::info("MonitorRun job cancled because it's run does not exist");
-            \Log::info(print_r($this->run, true));
             return;
         }
         try{
             $run = $this->run;
             $logFile = $run->directory()."/output.log";
             $statusFile = $run->directory()."/status.log";
-
-            File::put($run->directory()."/job.log", "Jobs done");
+            $status = File::get($statusFile);
+            $status = trim(strtolower($status));
+            switch ($status) {
+                case 'finished':
+                    $run->status='compressing';
+                    $run->save();
+                    dispatch(new \App\Jobs\CompressRun($run));
+                    break;
+                case 'errored':
+                case 'error':
+                    $run->status='error';
+                    $run->save;
+                    break;
+                case 'running':
+                default:
+                    $this->release(30);
+                    break;
+            }
         }
         catch (\Exception $e) {
             $this->delete();
