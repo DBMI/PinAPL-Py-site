@@ -26,6 +26,8 @@
 	var runId = "{{ $id }}";
 	var userDoneUploading = false;
 	var client = {};
+	var koTransPort = "{{ env('KOTRANS_PORT') }}";
+	var appHost = "{{ env('APP_HOST') }}";
 </script>
 <script type="text/javascript" src="/js/kotrans/kotrans.client.js"></script>
 <script type="text/javascript" src="/js/binary.min.js"></script>
@@ -51,10 +53,10 @@ function redirectToStartRun (argument) {
 
 $(document).ready(function() {	
 	if (window.location.hostname == '172.21.51.26') {
-		client = kotrans.client.createClient({host: '172.21.51.26', port:'9000'});
+		client = kotrans.client.createClient({host: '172.21.51.26', port:koTransPort});
 	}
 	else {
-		client = kotrans.client.createClient({host:'{{env('APP_HOST')}}', port:'9000' });
+		client = kotrans.client.createClient({host:appHost, port:koTransPort });
 	}	
 
 
