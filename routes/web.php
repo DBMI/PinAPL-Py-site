@@ -15,13 +15,8 @@ $app->get('/', function () use ($app) {
 	// return $app->version();
 	return $app->make('view')->make('welcome');
 });
-$app->get('/test/', function ()  {
-	\Log::info('Test Page accessed');
-	$run = \App\Run::findOrFail(2);
-	dispatch(new \App\Jobs\CompressRun($run));
-	\Log::info('CompressRun dispatched');
-});
 
+// The upload page for a run. If the run has a status of running, redirect to run page
 $app->get('/upload/{id}', ['as'=>'upload', function ($id) {
 	$run = \App\Run::findOrFail($id);
 	if ($run->status == 'uploading') {
@@ -32,6 +27,7 @@ $app->get('/upload/{id}', ['as'=>'upload', function ($id) {
 	}
 }]);
 
+// Display the run results. Unless the run is still in the upload stage, then redirect to upload page
 $app->get('/run/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
@@ -51,6 +47,8 @@ $app->get('/run/{id}', function ($id)  {
 	}
 });
 
+// Return a download of the results archive for a finished run.
+// If it does not exist or is not finished, 404
 $app->get('/run/download/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
@@ -66,9 +64,15 @@ $app->get('/run/download/{id}', function ($id)  {
 	}
 });
 
-$app->get('/foundation', function () use ($app) {
-	// return $app->version();
-	return $app->make('view')->make('foundation');
+// Return the status of a run or a 404 if it does not exist
+$app->get('/run/status/{id}', function ($id)  {
+	try {
+		$run = \App\Run::findOrFail($id);
+		return $run->status;
+	} 
+	catch(Exception $e) {
+		abort(404);
+	}
 });
 
 $app->post('/createRun', [
