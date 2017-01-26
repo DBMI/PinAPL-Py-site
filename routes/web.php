@@ -51,6 +51,21 @@ $app->get('/run/{id}', function ($id)  {
 	}
 });
 
+$app->get('/run/download/{id}', function ($id)  {
+	try {
+		$run = \App\Run::findOrFail($id);
+		if ($run->status == "finished") {
+			return download($run->directory()."/archive.tgz");
+		}
+		else {
+			abort(404);
+		}
+	} 
+	catch(Exception $e) {
+		abort(404);
+	}
+});
+
 $app->get('/foundation', function () use ($app) {
 	// return $app->version();
 	return $app->make('view')->make('foundation');

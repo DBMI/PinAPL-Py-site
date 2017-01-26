@@ -33,21 +33,16 @@ class CompressRun extends Job
      */
     public function handle()
     {
-        \Log::debug('CompressRun Started');
         if ((empty($this->run)) || (!$this->run->exists)) {
             $this->delete();
             \Log::info("MonitorRun job cancled because it's run does not exist");
             return;
         }
         try{
-            \Log::debug('CompressRun Run exists');
             $run = $this->run;
             $dir = $run->directory();
             $tarCmd = "tar -C $dir -zcf $dir/archive.tgz workingDir/Alignments workingDir/Analysis workingDir/configuration.yaml workingDir/Library workingDir/output.log";
-            \Log::debug('About to compress');
             $compressResults = `$tarCmd`;
-            \Log::debug('Compressed');
-            \Log::debug($compressResults);
             $run->status = 'finished';
             $run->save();
         }
