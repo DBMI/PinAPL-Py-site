@@ -53,7 +53,7 @@ $app->get('/run/download/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		if ($run->status == "finished") {
-			return download($run->directory()."/archive.tgz");
+			return download($run->directory()."/archive.tgz", sanitizeFileName($run->name) .'_'. $run->dir . ".tgz");
 		}
 		else {
 			abort(404);
