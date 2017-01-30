@@ -3,7 +3,7 @@
 @section('content')
 	<div class="row align-justify">
 		<div class="columns shrink">Drop Files Below</div>
-		<div class="columns shrink"><a id="done-uploading-button" class="button">Done Uploading Files</a></div>
+		<div class="columns shrink"><a id="done-uploading-button" class="button">Start Run</a></div>
 	</div>
 	<div id="drop-box">
 		<div class="row">

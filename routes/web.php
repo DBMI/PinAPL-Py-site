@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Response;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -96,27 +96,34 @@ $app->post('deleteData', [
 	'as' => 'deleteData', 'uses' => 'FileController@postDeleteData'
 ]);
 
-
-$app->get('/run/{id}/image/{filename}', function ($id, $filename)
+// Return an image stored in a run directory. 
+$app->get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
 {
 
 	try {
 		$run = \App\Run::findOrFail($id);
 		
-		$path = $run->directory() . '/' . $filename;
+		$path = $run->directory() . '/workingDir/' . $request->input('path');
+		
 
-		if(!File::exists($path)) abort(404);
+		if(!\Illuminate\Support\Facades\File::exists($path)) abort(404);
 
-		$file = File::get($path);
-		$type = File::mimeType($path);
+		$file = Illuminate\Support\Facades\File::get($path);
+		$type = Illuminate\Support\Facades\File::mimeType($path);
 
-		$response = Response::make($file, 200);
+		$response = new Response($file, 200);
 		$response->header("Content-Type", $type);
 
 		return $response;
+		// return $path;
 	} 
 	catch(ModelNotFoundException $e) {
 		abort(404);
 	}
 	
 });
+
+
+$app->get('/run/results/{id}', [
+	'as' => 'results', 'uses' => 'RunController@getResults'
+]);

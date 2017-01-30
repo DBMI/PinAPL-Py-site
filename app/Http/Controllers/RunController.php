@@ -59,10 +59,10 @@ class RunController extends Controller
 		return "ok";
 	}
 
-	// Return result page
-	public function getResult($id)
+	public function getResults($id)
 	{
-		# code...
+		$run = Run::findOrFail($id);
+		return view('results')->with('run',$run);
 	}
 
 	public function getRuns()
