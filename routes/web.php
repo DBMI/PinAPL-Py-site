@@ -11,9 +11,12 @@ use Illuminate\Http\Response;
 |
 */
 
-$app->get('/', function () use ($app) {
-	// return $app->version();
-	return $app->make('view')->make('welcome');
+
+$app->get('/', function () {
+	return view('welcome');
+});
+$app->get('/contact', function () {
+	return view('contact');
 });
 
 // The upload page for a run. If the run has a status of running, redirect to run page
@@ -82,17 +85,17 @@ $app->post('/run/start/{id}', [
 	'as' => 'start', 'uses' => 'RunController@postStart'
 ]);
 
-$app->get('getRuns', [
+$app->get('/getRuns', [
 	'as' => 'runs', 'uses' => 'RunController@getRuns'
 ]);
 
-$app->get('uploadProgress', [
+$app->get('/uploadProgress', [
 	'as' => 'uploadProgress', 'uses' => 'FileController@getUploadProgress'
 ]);
-$app->post('renameFile', [
+$app->post('/renameFile', [
 	'as' => 'renameFile', 'uses' => 'FileController@postRenameFile'
 ]);
-$app->post('deleteData', [
+$app->post('/deleteData', [
 	'as' => 'deleteData', 'uses' => 'FileController@postDeleteData'
 ]);
 
@@ -127,3 +130,14 @@ $app->get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
 $app->get('/run/results/{id}', [
 	'as' => 'results', 'uses' => 'RunController@getResults'
 ]);
+
+
+// Return a download of the sample-data
+$app->get('/sample-data', function ()  {
+	try {
+		return download(storage_path()."/exampleFiles/PinAPL-py_demo_data.zip");
+	} 
+	catch(Exception $e) {
+		abort(404);
+	}
+});
