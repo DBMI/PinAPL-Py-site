@@ -25,3 +25,24 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.button.success {
+  color: white;
+}
+
+.button.bold {
+  font-weight: bold;
+}
+.button.trim {
+  margin: 0;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.top-bar-left li.menu-text > a {
+  padding: 0;
+}

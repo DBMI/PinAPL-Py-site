@@ -2,16 +2,36 @@
 
 @section('content')
 	<div class="row align-justify">
-		<div class="columns shrink">Drop Files Below</div>
-		<div class="columns shrink"><a id="done-uploading-button" class="button">Start Run</a></div>
+		<div class="columns ">
+			<ol>
+				<li>Please add a prefix to your filenames to specify samples, controls and replicate numbers (see right) </li>
+				<li>Drag and drop your sequencing data files (*.fastq.gz)</li>
+			  <li>Click "Start"</li>  
+			</ol>
+		</div>
+		<div class="columns shrink">
+			<small>
+				<strong>ToxinA_R1_</strong> 	&#60;rest of filename	&#62;.fastq.gz<br/>
+				<strong>ToxinA_R2_</strong> 	&#60;rest of filename	&#62;.fastq.gz<br/>
+				<strong>Control_R1_</strong>	&#60;rest of filename	&#62;.fastq.gz<br/>
+				<strong>Control_R2_</strong>	&#60;rest of filename	&#62;.fastq.gz<br/>
+				etc. "
+			</small>
+		</div>
 	</div>
-	<div id="drop-box">
+	<div id="drop-box" class="callout">
 		<div class="row">
 				<div class="columns medium-12">
 					<div id="file-list">
 					</div>
+					<div id="drop-box-tips" class="center">
+						<h4>Drag & drop files here</h4>
+					</div>
 				</div>
 			</div>
+	</div>
+	<div class="row align-right">
+		<div class="columns shrink"><a id="done-uploading-button" class="button">Start Run</a></div>
 	</div>
 @stop
 @section('customCSS')
