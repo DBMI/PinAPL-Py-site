@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 */
 
 
+
 $app->get('/', function () {
 	return view('welcome');
 });

@@ -42,4 +42,10 @@ class Run extends Model
 	{
 		return storage_path()."/runs/$this->dir";
 	}
+
+	public function delete()
+	{
+		File::deleteDirectory($this->directory);
+		parent::delete();
+	}
 }

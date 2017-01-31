@@ -169,3 +169,35 @@ function assetGen ($url){
 		return asset($url);
 	}
 }
+
+function svToHTML($csv, $seperator = ',', $attributes = "")
+{
+	$html = "<table $attributes>";
+	
+	$file = fopen($csv,"r");
+
+	// Generate first row
+	$row = fgetcsv($file, 0, $seperator);
+	$html.= "<tr>";
+		foreach ($row as $value) {
+			$html.="<th>$value</th>";
+		}
+	$html.= "</tr>";
+
+	// Generate the rest
+	// while(! feof($file))
+	for ($i=0; $i < 15; $i++) {
+		$row = fgetcsv($file, 0, $seperator);
+		$html.= "<tr>";
+			foreach ($row as $value) {
+				$html.="<td>$value</td>";
+				// $html.="<td>".print_r($row,true)."</td>";
+			}
+		$html.= "</tr>";
+	}
+
+	fclose($file);
+
+	$html .= "</table>";
+	return $html;
+}

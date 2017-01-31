@@ -41,8 +41,17 @@ class CompressRun extends Job
         try{
             $run = $this->run;
             $dir = $run->directory();
-            $tarCmd = "tar -C $dir -zcf $dir/archive.tgz workingDir/Alignments workingDir/Analysis workingDir/configuration.yaml workingDir/Library workingDir/output.log";
-            $compressResults = `$tarCmd`;
+            $archiveName = sanitizeFileName($run->name)."_$run->dir";
+            makeDir($dir."/".$archiveName);
+            `ln -s $dir/workingDir/Analysis $dir/$archiveName/Analysis`;
+            `ln -s $dir/workingDir/configuration.yaml $dir/$archiveName/configuration.yaml`;
+            `ln -s $dir/workingDir/output.log $dir/$archiveName/output.log`;
+            $zipCommand = "cd $dir && zip -r archive.zip $archiveName";
+            $zipStatus = `$zipCommand`;
+            \Illuminate\Support\Facades\File::deleteDirectory($dir."/$archiveName");
+            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Alignments");
+            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Data");
+            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Library");
             $run->status = 'finished';
             $run->save();
         }

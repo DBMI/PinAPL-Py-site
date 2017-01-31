@@ -54,7 +54,6 @@ class RunController extends Controller
 		$runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir &";
 		$runStatus = shell_exec($runCmd);
 		File::put("$dir/runCmd.sh", $runCmd);
-		File::put("$dir/cmdResult.log", $runStatus);
 		dispatch(new \App\Jobs\MonitorRun($run));
 		return "ok";
 	}
