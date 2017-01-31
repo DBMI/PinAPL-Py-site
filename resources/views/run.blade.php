@@ -2,7 +2,9 @@
 @section('content')
 	<div class="row align-justify">
 		<div class="columns shrink"><h4>{{ $run->name }}</h4></div>
-		<div class="columns shrink"><a id="download-archive" class="button" href="/run/download/{{ $run->id }}">Download Results Archive</a></div>
+		@if ($run->status == "finished")
+			<div class="columns shrink"><a id="download-archive" class="button success bold" href="/run/download/{{ $run->id }}">Download Results Archive</a></div>
+		@endif
 	</div>
 	<div id="status-dependent">
 		@if ($run->status == "finished")
