@@ -61,7 +61,7 @@ class MonitorRun extends Job
                     break;
                 case 'running':
                 default:
-                    $this->release(30);
+                    $this->release(10);
                     break;
             }
         }
