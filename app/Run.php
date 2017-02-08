@@ -48,4 +48,9 @@ class Run extends Model
 		File::deleteDirectory($this->directory);
 		parent::delete();
 	}
+
+	public function url()
+	{
+		return "http://pinapl-py.ucsd.edu/run/".$this->id;
+	}
 }

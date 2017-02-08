@@ -3,7 +3,9 @@
 namespace App\Jobs;
 
 use \App\Run;
-
+use \Illuminate\Support\Facades\File;
+use \Illuminate\Support\Facades\Mail;
+use \App\Mail\RunFinished;
 
 
 class CompressRun extends Job
@@ -48,12 +50,14 @@ class CompressRun extends Job
             `ln -s $dir/workingDir/output.log $dir/$archiveName/output.log`;
             $zipCommand = "cd $dir && zip -r archive.zip $archiveName";
             $zipStatus = `$zipCommand`;
-            \Illuminate\Support\Facades\File::deleteDirectory($dir."/$archiveName");
-            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Alignments");
-            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Data");
-            \Illuminate\Support\Facades\File::deleteDirectory($dir."/workingDir/Library");
+            File::deleteDirectory($dir."/$archiveName");
+            File::deleteDirectory($dir."/workingDir/Alignments");
+            File::deleteDirectory($dir."/workingDir/Data");
+            File::deleteDirectory($dir."/workingDir/Library");
             $run->status = 'finished';
             $run->save();
+            Mail::to($run->email)->send(new RunFinished($run));
+
         }
         catch (Exception $e) {
             \Log::error("ERROR: An error occured compressing a run", ['run' => $this->run]);

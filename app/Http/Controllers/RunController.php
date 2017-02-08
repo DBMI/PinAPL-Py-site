@@ -39,7 +39,9 @@ class RunController extends Controller
 
 		File::copy(app()->basePath().'/storage/exampleFiles/configuration.yaml', "$dir/workingDir/configuration.yaml");
 		File::copy(app()->basePath().'/storage/exampleFiles/GeCKOv2_library.tsv', "$dir/workingDir/Library/GeCKOv2_library.tsv");
-
+		
+		\Illuminate\Support\Facades\Mail::to($run->email)->send(new \App\Mail\RunCreated($run));
+		
 		return redirect("/upload/$run->id");
 	}
 
