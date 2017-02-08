@@ -1,7 +1,10 @@
 .top-bar{
 	margin-bottom: 1em;
+  background-color: #222;
 }
-
+.top-bar ul{
+  background-color: inherit;
+}
 /* CSS for the loading wheel*/
 .loader {
   margin-top: 25%;
