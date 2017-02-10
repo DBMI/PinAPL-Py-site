@@ -257,6 +257,7 @@ class RunController extends Controller
 			"script08: 'PlotHeatmap'";
 
 			File::put("$dir/workingDir/configuration.yaml", $config);
+			File::put("$dir/workingDir/output.log", "");
 			if ($req->hasFile('libFile')) {
 				\Log::debug("Lib file provided. Moving.");
 				$req->file('libFile')->move("$dir/workingDir/Library/", "library.tsv");
