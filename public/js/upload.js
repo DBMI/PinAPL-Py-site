@@ -253,7 +253,7 @@ function dropBoxOnFileDrop(e) {
 function onSendClick() {
 	if(fileQueue.length == 0 || !fileQueue || sending) {
 		if (userDoneUploading == true) {
-			redirectToStartRun()
+			redirectToNext()
 		}
 	} else {
 		sending = true;

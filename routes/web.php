@@ -33,16 +33,51 @@ $app->get('/upload/{id}', ['as'=>'upload', function ($id) {
 
 // Display the run results. Unless the run is still in the upload stage, then redirect to upload page
 $app->get('/run/{id}', function ($id)  {
+	// try {
+		$run = \App\Run::findOrFail($id);
+		$redirect = $run->redirectFromStatus('running');
+		if ($redirect) {
+			return $redirect;
+		}
+		else {
+			return view('run', ['run'=>$run, 'dir'=>$run->directory()]);
+		}
+		
+	// } 
+	// catch(Exception $e) {
+	// 	abort(404);
+	// }
+});
+
+// Manage the uploaded files
+$app->get('/files/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
-		switch ($run->status) {
-			case 'uploading':
-				return redirect("/upload/$id");
-				break;
-			
-			default:
-				return view('run', ['run'=>$run, 'dir'=>$run->directory()]);
-				break;
+		$redirect = $run->redirectFromStatus('managing-files');
+		if ($redirect) {
+			return $redirect;
+		}
+		else {
+			$files = Illuminate\Support\Facades\File::files($run->directory()."/workingDir/Data");
+			return view('files', ['run'=>$run, 'files'=>$files]);
+		}
+		
+	} 
+	catch(Exception $e) {
+		abort(404);
+	}
+});
+
+// Create the configuration.yaml
+$app->get('/parameters/{id}', function ($id)  {
+	try {
+		$run = \App\Run::findOrFail($id);
+		$redirect = $run->redirectFromStatus('setting-parameters');
+		if ($redirect) {
+			return $redirect;
+		}
+		else {
+			return view('parameters', ['run'=>$run]);
 		}
 		
 	} 
@@ -57,7 +92,7 @@ $app->get('/run/download/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		if ($run->status == "finished") {
-			return download($run->directory()."/archive.tgz", sanitizeFileName($run->name) .'_'. $run->dir . ".tgz");
+			return download($run->directory()."/archive.zip", sanitizeFileName($run->name) .'_'. $run->dir . ".zip");
 		}
 		else {
 			abort(404);
@@ -84,6 +119,13 @@ $app->post('/createRun', [
 ]);
 $app->post('/run/start/{id}', [
 	'as' => 'start', 'uses' => 'RunController@postStart'
+]);
+$app->post('/done-uploading/{id}', [
+	'as' => 'start', 'uses' => 'RunController@postDoneUploading'
+]);
+
+$app->post('/configure-files/{id}', [
+	'as' => 'start', 'uses' => 'RunController@postConfigureFiles'
 ]);
 
 $app->get('/getRuns', [
@@ -141,4 +183,13 @@ $app->get('/sample-data', function ()  {
 	catch(Exception $e) {
 		abort(404);
 	}
+});
+
+
+$app->get('/test-email', function ()
+{
+	echo "before<br>";
+	$email = (new App\Mail\RunCreated(\App\Run::findOrFail(6)));
+	Illuminate\Support\Facades\Mail::to('tylerbath@gmail.com')->send($email);
+	return "after";
 });

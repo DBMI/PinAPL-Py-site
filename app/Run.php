@@ -53,4 +53,33 @@ class Run extends Model
 	{
 		return "http://pinapl-py.ucsd.edu/run/".$this->id;
 	}
+
+	public function redirectFromStatus($status)
+	{
+		$id = $this->id;
+		$runStatus = $this->status;
+		if ($runStatus == "finished") {
+			$runStatus = "running";
+		}
+		if ($runStatus == $status) {
+			return false;
+		}
+		switch ($runStatus) {
+			case 'uploading':
+				return redirect("/upload/$id");
+				break;
+			case 'running':
+			case 'finished':
+				return redirect("/run/$id");
+				break;
+			case 'managing-files':
+				return redirect("/files/$id");
+				break;
+			case 'setting-parameters':
+				return redirect("/parameters/$id");
+				break;
+			default:
+				abort(404);
+		}
+	}
 }
