@@ -184,8 +184,6 @@ class RunController extends Controller
 				$values[$key] = $req->input($key);
 			}
 		}
-		\Log::debug("Values after reading input\n================================");
-		\Log::debug(print_r($values,true));
 		$config = "";
 		// Project Parameters
 		$config.= "# PROJECT PARAMETERS\n";

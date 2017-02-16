@@ -2,6 +2,7 @@
 
 @section('content')
 <form action="/run/start/{{$run->id}}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <fieldset>
 	<legend>Project Parameters</legend>
@@ -55,8 +56,11 @@
 		</ul>
 	</div>
 </div>
-
-<input type="submit" value="Submit" class="button">
+<div class="row align-right">
+	<div class="column shrink">
+		<input type="submit" value="Submit" class="button">
+	</div>
+</div>
 </form>
 @stop
 @section('customCSS')

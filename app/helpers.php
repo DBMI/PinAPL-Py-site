@@ -190,7 +190,7 @@ function svToHTML($csv, $seperator = ',', $attributes = "")
 		$row = fgetcsv($file, 0, $seperator);
 		$html.= "<tr>";
 			foreach ($row as $value) {
-				$html.="<td>$value</td>";
+				$html.="<td>".htmlspecialchars($value)."</td>";
 				// $html.="<td>".print_r($row,true)."</td>";
 			}
 		$html.= "</tr>";
@@ -200,4 +200,14 @@ function svToHTML($csv, $seperator = ',', $attributes = "")
 
 	$html .= "</table>";
 	return $html;
+}
+
+function sortCSV($file, $seperator, $index)
+{
+	if (File::exists("$file.sortBy_$index")) {
+		return true;
+	}
+	else {
+		// TODO 
+	}
 }

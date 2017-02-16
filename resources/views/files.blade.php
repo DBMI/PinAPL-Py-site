@@ -16,6 +16,7 @@
 	<div class="column medium-5"><strong title="Rename the file to make it easier on yourself. Invalid characters will be replaced with underscores">Sample Name</strong></div>
 </div>
 <form action="/configure-files/{{ $run->id }}" method="POST">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
 @foreach ($files as $file)
 	<?php $file = basename($file); ?>
 	<div class="row" id="{{ $file }}">

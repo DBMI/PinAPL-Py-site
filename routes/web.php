@@ -13,15 +13,15 @@ use Illuminate\Http\Response;
 
 
 
-$app->get('/', function () {
+Route::get('/', function () {
 	return view('welcome');
 });
-$app->get('/contact', function () {
+Route::get('/contact', function () {
 	return view('contact');
 });
 
 // The upload page for a run. If the run has a status of running, redirect to run page
-$app->get('/upload/{id}', ['as'=>'upload', function ($id) {
+Route::get('/upload/{id}', ['as'=>'upload', function ($id) {
 	$run = \App\Run::findOrFail($id);
 	if ($run->status == 'uploading') {
 		return view('upload', ['id'=>$id, 'dir'=>$run->directory().'/workingDir/Data']);
@@ -32,7 +32,7 @@ $app->get('/upload/{id}', ['as'=>'upload', function ($id) {
 }]);
 
 // Display the run results. Unless the run is still in the upload stage, then redirect to upload page
-$app->get('/run/{id}', function ($id)  {
+Route::get('/run/{id}', function ($id)  {
 	// try {
 		$run = \App\Run::findOrFail($id);
 		$redirect = $run->redirectFromStatus('running');
@@ -50,7 +50,7 @@ $app->get('/run/{id}', function ($id)  {
 });
 
 // Manage the uploaded files
-$app->get('/files/{id}', function ($id)  {
+Route::get('/files/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		$redirect = $run->redirectFromStatus('managing-files');
@@ -69,7 +69,7 @@ $app->get('/files/{id}', function ($id)  {
 });
 
 // Create the configuration.yaml
-$app->get('/parameters/{id}', function ($id)  {
+Route::get('/parameters/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		$redirect = $run->redirectFromStatus('setting-parameters');
@@ -88,7 +88,7 @@ $app->get('/parameters/{id}', function ($id)  {
 
 // Return a download of the results archive for a finished run.
 // If it does not exist or is not finished, 404
-$app->get('/run/download/{id}', function ($id)  {
+Route::get('/run/download/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		if ($run->status == "finished") {
@@ -104,7 +104,7 @@ $app->get('/run/download/{id}', function ($id)  {
 });
 
 // Return the status of a run or a 404 if it does not exist
-$app->get('/run/status/{id}', function ($id)  {
+Route::get('/run/status/{id}', function ($id)  {
 	try {
 		$run = \App\Run::findOrFail($id);
 		return $run->status;
@@ -114,36 +114,36 @@ $app->get('/run/status/{id}', function ($id)  {
 	}
 });
 
-$app->post('/createRun', [
+Route::post('/createRun', [
 	'as' => 'create', 'uses' => 'RunController@postCreate'
 ]);
-$app->post('/run/start/{id}', [
+Route::post('/run/start/{id}', [
 	'as' => 'start', 'uses' => 'RunController@postStart'
 ]);
-$app->post('/done-uploading/{id}', [
+Route::post('/done-uploading/{id}', [
 	'as' => 'start', 'uses' => 'RunController@postDoneUploading'
 ]);
 
-$app->post('/configure-files/{id}', [
+Route::post('/configure-files/{id}', [
 	'as' => 'start', 'uses' => 'RunController@postConfigureFiles'
 ]);
 
-$app->get('/getRuns', [
+Route::get('/getRuns', [
 	'as' => 'runs', 'uses' => 'RunController@getRuns'
 ]);
 
-$app->get('/uploadProgress', [
+Route::get('/uploadProgress', [
 	'as' => 'uploadProgress', 'uses' => 'FileController@getUploadProgress'
 ]);
-$app->post('/renameFile', [
+Route::post('/renameFile', [
 	'as' => 'renameFile', 'uses' => 'FileController@postRenameFile'
 ]);
-$app->post('/deleteData', [
+Route::post('/deleteData', [
 	'as' => 'deleteData', 'uses' => 'FileController@postDeleteData'
 ]);
 
 // Return an image stored in a run directory. 
-$app->get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
+Route::get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
 {
 
 	try {
@@ -170,13 +170,13 @@ $app->get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
 });
 
 
-$app->get('/run/results/{id}', [
+Route::get('/run/results/{id}', [
 	'as' => 'results', 'uses' => 'RunController@getResults'
 ]);
 
 
 // Return a download of the sample-data
-$app->get('/sample-data', function ()  {
+Route::get('/sample-data', function ()  {
 	try {
 		return download(storage_path()."/exampleFiles/PinAPL-py_demo_data.zip");
 	} 
@@ -186,10 +186,28 @@ $app->get('/sample-data', function ()  {
 });
 
 
-$app->get('/test-email', function ()
+Route::get('/test-excel', function ()
 {
-	echo "before<br>";
-	$email = (new App\Mail\RunCreated(\App\Run::findOrFail(6)));
-	Illuminate\Support\Facades\Mail::to('tylerbath@gmail.com')->send($email);
-	return "after";
+	$rows=[
+		["FILENAME"=>"File1","TREATMENT"=>"Control"],
+		["FILENAME"=>"File2","TREATMENT"=>"Control"],
+		["FILENAME"=>"File3","TREATMENT"=>"ToxinA"],
+		["FILENAME"=>"File4","TREATMENT"=>"ToxinB"],
+		["FILENAME"=>"File5","TREATMENT"=>"ToxinB"],
+		["FILENAME"=>"File6","TREATMENT"=>"ToxinA"]
+	];
+	Excel::create('DataSheet', function($excel) use (&$rows){
+
+	    $excel->sheet('Sheet1', function($sheet) use (&$rows){
+
+          $sheet->with($rows, null, 'A1', false, false);
+
+      });
+
+	})->save('xlsx',storage_path('/runs/myrun/'));
+});
+
+Route::get('/test-php', function ()
+{
+	\Log::error("This is an error message. But a fake one");
 });

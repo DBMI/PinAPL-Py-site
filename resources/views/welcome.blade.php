@@ -31,6 +31,7 @@
 	<div class="small-12 columns">
 		<div class="callout">
 			<form action="/createRun" method="post" class="custom" enctype="multipart/form-data">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="row">
 					<div class="medium-6 columns">
 						<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address</span></label>

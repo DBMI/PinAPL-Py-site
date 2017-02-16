@@ -2,14 +2,22 @@
 
 namespace App\Jobs;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+
 use \App\Run;
 use \Illuminate\Support\Facades\File;
 use \Illuminate\Support\Facades\Mail;
 use \App\Mail\RunFinished;
 
 
-class CompressRun extends Job
+class CompressRun implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    
     protected $run;
 
     /**
@@ -62,7 +70,7 @@ class CompressRun extends Job
         catch (Exception $e) {
             \Log::error("ERROR: An error occured compressing a run", ['run' => $this->run]);
             $this->delete();
-            $run->status = "Error";
+            $run->status = "error";
             $run->save();
             throw $e;
         }

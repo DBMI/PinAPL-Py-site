@@ -48,6 +48,7 @@
 	var client = {};
 	var koTransPort = "{{ env('KOTRANS_PORT') }}";
 	var appHost = "{{ env('APP_HOST') }}";
+	var token = "{{csrf_token()}}";
 </script>
 <script type="text/javascript" src="/js/kotrans/kotrans.client.js"></script>
 <script type="text/javascript" src="/js/binary.min.js"></script>
@@ -66,7 +67,7 @@
 	}
 	function redirectToNext (argument) {
 			 $.post(
-			'/done-uploading/'+runId,
+			'/done-uploading/'+runId,{_token : token},
 			function (data) {
 				location.replace('/files/'+runId);
 			}

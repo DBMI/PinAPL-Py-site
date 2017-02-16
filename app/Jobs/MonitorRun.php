@@ -2,6 +2,12 @@
 
 namespace App\Jobs;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+
 // Allows this Job to release itself
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -10,8 +16,10 @@ use App\Run;
 use Illuminate\Support\Facades\File;
 
 
-class MonitorRun extends Job
+class MonitorRun implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    
     protected $run;
 
     /**
@@ -66,8 +74,9 @@ class MonitorRun extends Job
             }
         }
         catch (\Exception $e) {
+            \Log::error("Exception thrown");
             $this->delete();
-            $run->status = "Error";
+            $run->status = "error";
             $run->save();
             \Log::error("ERROR: An error occured while monitoring a run", ['run' => $this->run]);
             throw $e;

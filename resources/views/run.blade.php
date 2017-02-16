@@ -1,3 +1,6 @@
+<?php 
+use Illuminate\Support\Facades\File;
+?>
 @extends('layouts.master')
 @section('content')
 	<div class="row align-justify">
@@ -12,7 +15,11 @@
 		@else
 				<div class="columns shrink">Run Status {{ $run->status }}</div>
 				Output log: 
-				<pre>{{ Illuminate\Support\Facades\File::get($dir."/workingDir/output.log") }}</pre>
+				@if (File::exists($dir."/workingDir/output.log"))
+					<pre>{{ File::get($dir."/workingDir/output.log") }}</pre>
+				@else 
+					An error has occured
+				@endif
 		@endif
 	</div>
 	

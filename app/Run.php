@@ -57,8 +57,9 @@ class Run extends Model
 	public function redirectFromStatus($status)
 	{
 		$id = $this->id;
-		$runStatus = $this->status;
-		if ($runStatus == "finished") {
+		$runStatus = strtolower(trim($this->status));
+		if ($runStatus == "finished" || $runStatus == "error") {
+			\Log::debug("Status: ".$runStatus." --- Set to running");
 			$runStatus = "running";
 		}
 		if ($runStatus == $status) {
@@ -68,6 +69,7 @@ class Run extends Model
 			case 'uploading':
 				return redirect("/upload/$id");
 				break;
+			case 'error':
 			case 'running':
 			case 'finished':
 				return redirect("/run/$id");
