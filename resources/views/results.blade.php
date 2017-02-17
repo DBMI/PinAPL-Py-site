@@ -1,10 +1,10 @@
 <?php
 use Illuminate\Support\Facades\File;
 
-$filePrefixes = File::directories($run->directory()."/workingDir/Alignments");
-foreach ($filePrefixes as $key => $value) {
-	$filePrefixes[$key] = basename($value);
-}
+// $filePrefixes = File::directories($run->directory()."/workingDir/Alignments");
+// foreach ($filePrefixes as $key => $value) {
+// 	$filePrefixes[$key] = basename($value);
+// }
 ?>
 <ul class="tabs" data-tabs id="result-sections-tabs">
 	<li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Candidate Lists</a></li>
@@ -17,7 +17,7 @@ foreach ($filePrefixes as $key => $value) {
 </ul>
 <div class="tabs-content" data-tabs-content="result-sections-tabs">
 	<div class="tabs-panel is-active" id="panel1">
-		 @foreach (File::files($run->directory()."/workingDir/Analysis/Candidate_Lists") as $file)
+		 @foreach (File::allFiles($run->directory()."/workingDir/Analysis/Candidate_Lists") as $file)
 			<label>{{ basename($file) }}</label>
 			{!! svToHTML($file, "\t") !!}
 		 @endforeach
@@ -33,9 +33,15 @@ foreach ($filePrefixes as $key => $value) {
 		</object>
 	</div>
 	<div class="tabs-panel" id="panel4">
-		@foreach ($filePrefixes as $prefix)
-			<label>{{ $prefix }}</label>
-			<img src='/run/{{ $run->id }}/images?path={{ urlencode("Analysis/QC/$prefix/Bowtie2_AlignmentScores.png") }}'>
+		@foreach (File::allFiles($run->directory()."/workingDir/Analysis/QC") as $file)
+			<?php 
+				$ext = pathinfo($file, PATHINFO_EXTENSION);
+				$file = str_replace($run->directory()."/workingDir/", '', $file);
+			 ?>
+			@if ($ext == "png")
+				<label>{{ basename($file) }}</label>
+				<img src='/run/{{ $run->id }}/images?path={{ urlencode($file) }}'>
+			@endif
 		@endforeach
 	</div>
 	<div class="tabs-panel" id="panel5">
