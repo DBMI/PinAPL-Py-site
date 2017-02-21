@@ -211,3 +211,18 @@ Route::get('/test-php', function ()
 {
 	\Log::error("This is an error message. But a fake one");
 });
+
+// Results requests
+Route::get('/results/candidate_lists/{id}',   'ResultsController@getCandidateLists');
+Route::get('/results/control/{id}',           'ResultsController@getControl');
+Route::get('/results/heatmap/{id}',           'ResultsController@getHeatmap');
+Route::get('/results/qc/{id}',                'ResultsController@getQc');
+Route::get('/results/scatter_plots/{id}',     'ResultsController@getScatterPlots');
+Route::get('/results/sgrna_efficiency/{id}',  'ResultsController@getSgrnaEfficiency');
+Route::get('/results/output_log/{id}',        'ResultsController@getOutputLog');
+
+
+
+
+
+

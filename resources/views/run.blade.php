@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 	</div>
 	<div id="status-dependent">
 		@if ($run->status == "finished")
-				<div class="loader align-center"></div>
+			@include('results')
 		@else
 				<div class="columns shrink">Run Status {{ $run->status }}</div>
 				Output log: 
@@ -24,22 +24,6 @@ use Illuminate\Support\Facades\File;
 	</div>
 	
 
-@stop
-@section('customScripts')
-@parent
-	<script type="text/javascript" src="/js/run.js"></script>
-	<script type="text/javascript">
-		var runStatus = '{{ $run->status }}';
-		var runId = '{{ $run->id }}';
-	</script>
-	<script type="text/javascript">
-		if (runStatus == "finished") {
-			$.get('/run/results/'+runId, function(data) {	
-				$('#status-dependent').html(data);
-				$(document).foundation();
-			});
-		}
-	</script>
 @stop
 @section('customCSS')
 	@parent
