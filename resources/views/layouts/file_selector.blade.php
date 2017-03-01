@@ -15,25 +15,38 @@
 	}
 	$files = $files + $mapping['treatment'];
 ?>
-<select id="{{ $result }}_selector">
-	@foreach ($files as $fileName => $fileProperties)
-		<option value="{{ $fileName }}">
-			{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }}
-		</option>
-	@endforeach
-</select>
+<div class="row">
+	<div class="column">
+		<select id="{{ $result }}_selector">
+			@foreach ($files as $fileName => $fileProperties)
+				<option value="{{ $fileName }}">
+					{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }}
+				</option>
+			@endforeach
+		</select>
+	</div>
+</div>
 
 @foreach ($files as $fileName => $fileProperties)
-	<div id="{{ $fileName }}_{{ $result }}">
-		<h4 class="text-center">{{ $fileName }}</h4>
-		@include("results.".$result."_component", 
-			[ 'prefix'=>$fileProperties['condition'].'_'.$fileProperties['index'],
-				'fileName'=>$fileName, 'fileProperties'=>$fileProperties,
-				'runHash'=>$runHash
-			])
+	<div class="row align-center" id="{{ $fileName }}_{{ $result }}">
+		<div class="column shrink">
+			<h4 class="text-center">{{ $fileName }}</h4>
+			@include("results.".$result."_component", 
+				[ 'prefix'=>$fileProperties['condition'].'_'.$fileProperties['index'],
+					'fileName'=>$fileName, 'fileProperties'=>$fileProperties,
+					'runHash'=>$runHash
+				])
+		</div>
 	</div>
 @endforeach
 
 <script>
-	$("#")
+	$("#{{ $result }}_selector").change(function () {
+		fileSelectorChange("{{ $result }}")
+	});
+	function fileSelectorChange(param) {
+		var selected = $("#"+param+"_selector").val();
+		$("[id$=_"+param+"]").hide();
+		$("[id='"+selected+"_"+param+"']").show();
+	}
 </script>

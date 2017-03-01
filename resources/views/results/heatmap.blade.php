@@ -1,5 +1,9 @@
 {{-- 
 Provided
 	$link The link to reference the Heatmap
- --}}
-<img src='{{ $link }}'>
+--}}
+<div class="row align-center">
+	<div class="column shrink">
+		<img src='{{ $link }}'>
+	</div>
+</div>

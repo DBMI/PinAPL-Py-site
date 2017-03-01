@@ -32,7 +32,7 @@ $defaultSelectedTab = reset($sections);
 		@else
 		<div class="tabs-panel" id="{{ $key }}_tab">
 			<div class="row align-center">
-				<div class="column shrink" id="{{ $key }}_content">
+				<div class="column" id="{{ $key }}_content">
 					<div class="loader"></div>
 				</div>
 			</div>
