@@ -36,8 +36,8 @@
 	var runId = "{{ $id }}";
 	var userDoneUploading = false;
 	var client = {};
-	var koTransPort = "{{ env('KOTRANS_PORT') }}";
-	var appHost = "{{ env('APP_HOST') }}";
+	var koTransPort = "{{ config('kotrans.port') }}";
+	var appHost = "{{ $_SERVER['SERVER_ADDR'] }}";
 	var token = "{{csrf_token()}}";
 </script>
 <script type="text/javascript" src="/js/kotrans/kotrans.client.js"></script>
