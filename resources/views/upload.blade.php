@@ -45,50 +45,28 @@
 <script type="text/javascript" src="/js/upload.js"></script>
 <script>
 	
-	
-	function doneUploadingClicked() {
-		$('#done-uploading-button').addClass('disabled')
-		if (sending==true) {
-			userDoneUploading = true;
-		}
-		else{
-				redirectToNext();
-		}
-	}
-	function redirectToNext (argument) {
+	var uploadManager = new uploader('#drop-box',runDirectory, koTransPort, appHost, token);
+	uploadManager.setDoneUploadingCallBack (function (){
 			 $.post(
 			'/done-uploading/'+runId,{_token : token},
 			function (data) {
 				location.replace('/files/'+runId);
 			}
 		);
+	});
+	function doneUploadingClicked() {
+		$('#done-uploading-button').addClass('disabled')
+		uploadManager.setDoneUploading();
+		// if (sending==true) {
+		// 	userDoneUploading = true;
+		// }
+		// else{
+		// 		redirectToNext();
+		// }
 	}
-	
-	$(document).ready(function() {	
-		if (window.location.hostname == '172.21.51.26') {
-			client = kotrans.client.createClient({host: '172.21.51.26', port:koTransPort});
-		}
-		else {
-			client = kotrans.client.createClient({host:appHost, port:koTransPort });
-		}	
-
-
-		//This is to prevent the browser from accessing the default attrerty of dragging and
-		//dropping the file in the browser.
-		$('#drop-box').on('dragenter', onDragEnterDisabled);
-		$('#drop-box').on('dragleave', onDragLeaveDisabled);
-		$('#drop-box').on('dragover', onDragEnterDisabled);
-
-		//when the user drops file(s) into the designated area
-		$('#drop-box').on('drop', dropBoxOnFileDrop);		
-
-		$('#done-uploading-button').on('click', doneUploadingClicked);
-
-		//////////////////////////////////////////
-		// STORAGE (CLIENT TO SERVER) LOGIC  	//
-		//////////////////////////////////////////
-		client.on('open', onClientOpen);
-		client.on('close', onClientClose);
+	$('#done-uploading-button').on('click', doneUploadingClicked);
+		$(document).ready(function() {	
+		uploadManager.initilize();
 	});
 </script>
 @stop
