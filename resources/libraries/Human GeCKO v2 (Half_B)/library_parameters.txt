@@ -1,0 +1,6 @@
+LibFilename: 'Human_GeCKOv2_Library_B.csv'            # filename of library spreadsheet  
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       # sequence 5' of sgRNA in read
+seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       # sequence 3' of sgRNA in read
+NonTargetPrefix: 'NonTargeting'        # prefix for non-targeting sgRNAs in library (keep at default if none present)
+sgRNAsPerGene: 3                       # number of sgRNAs targeting each gene (excluding non-targeting controls and miRNAs). 
+                                       #    ONLY IMPORTANT IF 'ES' is chosen for gene ranking method !

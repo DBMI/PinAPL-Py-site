@@ -143,13 +143,12 @@ Route::post('/deleteData', [
 ]);
 
 // Return an image stored in a run directory. 
-Route::get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
+Route::get('/run-images', function (\Illuminate\Http\Request $request)
 {
 
 	try {
-		$run = \App\Run::findOrFail($id);
 		
-		$path = $run->directory() . '/workingDir/' . $request->input('path');
+		$path = storage_path().'/runs/'.$request->input('path');
 		
 
 		if(!\Illuminate\Support\Facades\File::exists($path)) abort(404);
@@ -161,7 +160,6 @@ Route::get('/run/{id}/images', function (\Illuminate\Http\Request $request, $id)
 		$response->header("Content-Type", $type);
 
 		return $response;
-		// return $path;
 	} 
 	catch(ModelNotFoundException $e) {
 		abort(404);
@@ -178,7 +176,7 @@ Route::get('/run/results/{id}', [
 // Return a download of the sample-data
 Route::get('/sample-data', function ()  {
 	try {
-		return download(storage_path()."/exampleFiles/PinAPL-py_demo_data.zip");
+		return download(resource_path("exampleFiles/PinAPL-py_demo_data.zip"));
 	} 
 	catch(Exception $e) {
 		abort(404);
@@ -186,31 +184,6 @@ Route::get('/sample-data', function ()  {
 });
 
 
-Route::get('/test-excel', function ()
-{
-	$rows=[
-		["FILENAME"=>"File1","TREATMENT"=>"Control"],
-		["FILENAME"=>"File2","TREATMENT"=>"Control"],
-		["FILENAME"=>"File3","TREATMENT"=>"ToxinA"],
-		["FILENAME"=>"File4","TREATMENT"=>"ToxinB"],
-		["FILENAME"=>"File5","TREATMENT"=>"ToxinB"],
-		["FILENAME"=>"File6","TREATMENT"=>"ToxinA"]
-	];
-	Excel::create('DataSheet', function($excel) use (&$rows){
-
-	    $excel->sheet('Sheet1', function($sheet) use (&$rows){
-
-          $sheet->with($rows, null, 'A1', false, false);
-
-      });
-
-	})->save('xlsx',storage_path('/runs/myrun/'));
-});
-
-Route::get('/test-php', function ()
-{
-	\Log::error("This is an error message. But a fake one");
-});
 
 // Results requests
 Route::get('/results/candidate_lists/{id}',   'ResultsController@getCandidateLists');
@@ -222,7 +195,35 @@ Route::get('/results/sgrna_efficiency/{id}',  'ResultsController@getSgrnaEfficie
 Route::get('/results/output_log/{id}',        'ResultsController@getOutputLog');
 
 
+// TEST ROUTES
 
 
+
+// Route::get('/test-excel', function ()
+// {
+// 	$rows=[
+// 		["FILENAME"=>"File1","TREATMENT"=>"Control"],
+// 		["FILENAME"=>"File2","TREATMENT"=>"Control"],
+// 		["FILENAME"=>"File3","TREATMENT"=>"ToxinA"],
+// 		["FILENAME"=>"File4","TREATMENT"=>"ToxinB"],
+// 		["FILENAME"=>"File5","TREATMENT"=>"ToxinB"],
+// 		["FILENAME"=>"File6","TREATMENT"=>"ToxinA"]
+// 	];
+// 	Excel::create('DataSheet', function($excel) use (&$rows){
+
+// 	    $excel->sheet('Sheet1', function($sheet) use (&$rows){
+
+//           $sheet->with($rows, null, 'A1', false, false);
+
+//       });
+
+// 	})->save('xlsx',storage_path('/runs/myrun/'));
+// });
+
+Route::get('/test', function ()
+{
+	$run = \App\Run::findOrFail(10);
+	return view('layouts.file_selector', ['withControl'=>false, 'runDir'=>$run->directory(), 'result'=>'sgrna_efficiency', 'runHash'=>$run->dir]);
+});
 
 

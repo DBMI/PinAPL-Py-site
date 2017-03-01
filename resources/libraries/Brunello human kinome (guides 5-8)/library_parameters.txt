@@ -1,0 +1,5 @@
+LibFilename: 'Brunello_kinome_guides5-8.tsv'
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       
+seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'
+NonTargetPrefix: 'Non-Targeting'
+sgRNAsPerGene: 4         

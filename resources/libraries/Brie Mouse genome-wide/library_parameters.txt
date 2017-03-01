@@ -1,0 +1,6 @@
+LibFilename: 'Brie_Genome-wide_including_Controls.tsv'
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       
+seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       
+NonTargetPrefix: 'BRDN0000'
+sgRNAsPerGene: 4                       
+

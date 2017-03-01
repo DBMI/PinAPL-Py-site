@@ -1,11 +1,11 @@
 <?php
 $sections = [
-	"candidate_lists"  => "Candidate Lists",
-	"control"          => "Control",
-	"heatmap"          => "Heatmap",
 	"qc"               => "QC",
-	"scatter_plots"    => "Scatter Plots",
+	"control"          => "Control",
+	"candidate_lists"  => "Candidate Lists",
 	"sgrna_efficiency" => "sgRNA Efficiency",
+	"scatter_plots"    => "Scatter Plots",
+	"heatmap"          => "Heatmap",
 	"output_log"       => "Output Log"
 ];
 $defaultSelectedTab = reset($sections);
@@ -23,11 +23,19 @@ $defaultSelectedTab = reset($sections);
 	@foreach ($sections as $key=>$value)
 		@if ($value === $defaultSelectedTab)
 		<div class="tabs-panel is-active" id="{{ $key }}_tab">
-			<div class="loader align-center"></div>
+			<div class="row align-center">
+				<div class="column shrink" id="{{ $key }}_content">
+					<div class="loader"></div>
+				</div>
+			</div>
 		</div>
 		@else
 		<div class="tabs-panel" id="{{ $key }}_tab">
-			<div class="loader align-center"></div>
+			<div class="row align-center">
+				<div class="column shrink" id="{{ $key }}_content">
+					<div class="loader"></div>
+				</div>
+			</div>
 		</div>
 		@endif
 
@@ -46,7 +54,7 @@ $defaultSelectedTab = reset($sections);
 	@if( $run->status == "finished")
 		@foreach ($sections as $key=>$value)
 				$.get('/results/{{ $key }}/'+runId, function(data) {	
-					$('#{{ $key }}_tab').html(data);
+					$('#{{ $key }}_content').html(data);
 					$(document).foundation();
 				});
 		@endforeach

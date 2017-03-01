@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\File;
 // 	$filePrefixes[$key] = basename($value);
 // }
 ?>
-@foreach (File::allFiles($run->directory()."/workingDir/Analysis/QC") as $file)
+@foreach (File::allFiles(storage_path("runs/$runHash/workingDir/Analysis/QC")) as $file)
 	<?php 
 		$ext = pathinfo($file, PATHINFO_EXTENSION);
-		$file = str_replace($run->directory()."/workingDir/", '', $file);
+		$file = str_replace(storage_path("runs"), '', $file);
 	 ?>
 	@if ($ext == "png")
-		<label>{{ basename($file) }}</label>
-		<img src='/run/{{ $run->id }}/images?path={{ urlencode($file) }}'>
+		<img src='/run-images?path={{ urlencode("/$file") }}'>
 	@endif
 @endforeach

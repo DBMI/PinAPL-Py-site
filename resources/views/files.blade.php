@@ -1,10 +1,9 @@
 @extends('layouts.master')
 <?php
 	$filePlaceHolders = [
+		"ToxA",
+		"ToxB",
 		"Subject_13",
-		"Expirement_X_Test_4",
-		"Patient_Sally",
-		"Some_Kid",
 		"Hair_From_Steve",
 		"that_guy_two_cubicles_down"
 	];
@@ -13,7 +12,7 @@
 <div class="row">
 	<div class="column medium-5"><strong>Filename</strong></div>
 	<div class="column medium-2"><strong title="Select a group for each file">File Group</strong></div>
-	<div class="column medium-5"><strong title="Rename the file to make it easier on yourself. Invalid characters will be replaced with underscores">Sample Name</strong></div>
+	<div class="column medium-5"><strong title="Rename the file to make it easier on yourself. Invalid characters will be replaced with underscores">Condition</strong></div>
 </div>
 <form action="/configure-files/{{ $run->id }}" method="POST">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -32,7 +31,7 @@
 	</div>
 @endforeach
 <div class="row align-right">
-	<div class="column shrink"><input type="submit" class="button success" value="Submit"></div>
+	<div class="column shrink"><input type="submit" class="button success" value="Configure Parameters"></div>
 </div>
 </form>
 @stop

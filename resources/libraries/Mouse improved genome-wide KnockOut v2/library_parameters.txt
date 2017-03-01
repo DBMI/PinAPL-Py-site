@@ -1,0 +1,6 @@
+LibFilename: 'Mouse_improved_genome-wide_KnockOut_v2.tsv'
+seq_5_end: 'GCAGATGGCTCTTTGTCCTAGACATCGAAGACAACACCG'       
+seq_3_end: 'GTTTTAGTCTTCTCGTCGC'    
+NonTargetPrefix: '(None)'
+sgRNAsPerGene: 5                       
+
