@@ -52,14 +52,6 @@
 		</div>
 	</div>
 </div>
-<div class="row  align-center align-middle">
-	<div class="shrink columns">
-		To see an exemplary output from a test dataset, click here
-	</div>
-	<div class="shrink columns">
-		<a class="button trim" href="/run/1">View Example Output</a>
-	</div>
-</div>
 
 <div class="row footer align-center">
 	<div class="shrink columns">
