@@ -24,7 +24,8 @@
 <div class="column">
 	<label for="#{{$name}}-input">{{ $label }}</label>
 	@if ($type == 'select')
-		<select name="{{ $name }}" id="{{$name}}-input" {{ $requiredText }}>
+		<select name="{{$name}}" id="{{$name}}-input" {{$requiredText}} title="{{$helpText}}">
+			<option value="" hidden></option>
 			@foreach ($options as $value => $displayName)
 				<option value="{{ $value }}">{{ $displayName }}</option>
 			@endforeach
