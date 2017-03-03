@@ -1,0 +1,1 @@
+@extends('layouts.results_section', ['idPrefix' => 'sgrna_rankings'])

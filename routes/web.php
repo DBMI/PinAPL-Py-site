@@ -185,14 +185,32 @@ Route::get('/sample-data', function ()  {
 
 
 
-// Results requests
-Route::get('/results/candidate_lists/{id}',   'ResultsController@getCandidateLists');
-Route::get('/results/control/{id}',           'ResultsController@getControl');
-Route::get('/results/heatmap/{id}',           'ResultsController@getHeatmap');
-Route::get('/results/qc/{id}',                'ResultsController@getQc');
-Route::get('/results/scatter_plots/{id}',     'ResultsController@getScatterPlots');
+/**************************************************************************
+ *** Results requests
+**************************************************************************/
+/*** Enrichment / Depletion *********/
+Route::get('/results/p-values/{id}',           'ResultsController@getP_Values');
+Route::get('/results/gene_rankings/{id}',  'ResultsController@getGeneRankings');
+Route::get('/results/sgrna_rankings/{id}',  'ResultsController@getSgrnaRankings');
 Route::get('/results/sgrna_efficiency/{id}',  'ResultsController@getSgrnaEfficiency');
+Route::get('/results/control/{id}',           'ResultsController@getControl');
+
+/*** Statistics *********************/
+Route::get('/results/readcount_statistics/{id}',           'ResultsController@getReadCountStatistics');
+Route::get('/results/alignment_statistics/{id}',           'ResultsController@getAlignmentStatistics');
+
+/*** Scatter Plots ******************/
+Route::get('/results/readcount_scatterplots/{id}',     'ResultsController@getReadCountScatterplots');
+Route::get('/results/replicate_correlation/{id}',     'ResultsController@getReplicateCorrelation');
+
+/*** Heatmap ************************/
+Route::get('/results/heatmap/{id}',           'ResultsController@getHeatmap');
+
+/*** Output *************************/
 Route::get('/results/output_log/{id}',        'ResultsController@getOutputLog');
+
+Route::get('/results/candidate_lists/{id}',   'ResultsController@getCandidateLists');
+Route::get('/results/qc/{id}',                'ResultsController@getQc');
 
 
 // TEST ROUTES

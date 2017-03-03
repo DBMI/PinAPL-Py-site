@@ -28,7 +28,7 @@
 </div>
 
 @foreach ($files as $fileName => $fileProperties)
-	<div class="row align-center" id="{{ $fileName }}_{{ $result }}">
+	<div class="row align-center" id="{{ $fileName }}_{{ $result }}" @if (!$loop->first) style="display:none;" @endif>
 		<div class="column shrink">
 			<h4 class="text-center">{{ $fileName }}</h4>
 			@include("results.".$result."_component", 
