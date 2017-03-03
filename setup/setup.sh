@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Change directory to where the script is stored, not run from
@@ -7,6 +8,8 @@ sitePath=$(pwd)
 
 sudo apt -qq install npm
 sudo apt -qq install zip
+sudo apt -qq install php-zip
+sudo phpenmod zip
 sudo npm install -g forever
 
 sudo apt -qq install supervisor
