@@ -20,7 +20,7 @@
 		<select id="{{ $result }}_selector">
 			@foreach ($files as $fileName => $fileProperties)
 				<option value="{{ $fileName }}">
-					{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }}
+					{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }} ({{ $fileName }})
 				</option>
 			@endforeach
 		</select>
@@ -30,7 +30,6 @@
 @foreach ($files as $fileName => $fileProperties)
 	<div class="row align-center" id="{{ $fileName }}_{{ $result }}" @if (!$loop->first) style="display:none;" @endif>
 		<div class="column shrink">
-			<h4 class="text-center">{{ $fileName }}</h4>
 			@include("results.".$result."_component", 
 				[ 'prefix'=>$fileProperties['condition'].'_'.$fileProperties['index'],
 					'fileName'=>$fileName, 'fileProperties'=>$fileProperties,
