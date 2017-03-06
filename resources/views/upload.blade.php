@@ -15,7 +15,7 @@
 					<div id="file-list">
 					</div>
 					<div id="drop-box-tips" class="center">
-						<h4>Drag & drop files here</h4>
+						<h4>Drag & drop FASTQ files here</h4>
 					</div>
 				</div>
 			</div>

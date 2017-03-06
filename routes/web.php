@@ -174,13 +174,8 @@ Route::get('/run/results/{id}', [
 
 
 // Return a download of the sample-data
-Route::get('/sample-data', function ()  {
-	try {
-		return download(resource_path("exampleFiles/PinAPL-py_demo_data.zip"));
-	} 
-	catch(Exception $e) {
-		abort(404);
-	}
+Route::get('/documentation', function ()  {
+	return view('documentation');
 });
 
 

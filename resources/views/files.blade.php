@@ -1,17 +1,8 @@
 @extends('layouts.master')
-<?php
-	$filePlaceHolders = [
-		"ToxA",
-		"ToxB",
-		"Subject_13",
-		"Hair_From_Steve",
-		"that_guy_two_cubicles_down"
-	];
-?>
 @section('content')
 <div class="row">
 	<div class="column medium-5"><strong>Filename</strong></div>
-	<div class="column medium-2"><strong title="Select a group for each file">File Group</strong></div>
+	<div class="column medium-2"><strong title="Select a group for each file">Sample Type</strong></div>
 	<div class="column medium-5"><strong title="Rename the file to make it easier on yourself. Invalid characters will be replaced with underscores">Condition</strong></div>
 </div>
 <form action="/configure-files/{{ $run->id }}" method="POST">
@@ -27,11 +18,11 @@
 				<option value="treatment">Treatment</option>
 			</select>
 		</div>
-		<div class="column medium-5"><input type="text" name="rename-{{$file}}" placeholder="{{ $filePlaceHolders[array_rand($filePlaceHolders)] }}"></div>
+		<div class="column medium-5"><input type="text" name="rename-{{$file}}" placeholder="Treatment Name"></div>
 	</div>
 @endforeach
 <div class="row align-right">
-	<div class="column shrink"><input type="submit" class="button success" value="Configure Parameters"></div>
+	<div class="column shrink"><input type="submit" class="button success" value="Configure Run"></div>
 </div>
 </form>
 @stop
