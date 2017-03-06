@@ -58,7 +58,7 @@ return [
 				"hidden" =>false,
 				"rules" => "string|in:cpm,size",
 				"type" =>"select",
-				"options" => ["cpm"=>"cpm","size"=>"size"]
+				"options" => ["cpm"=>"cpm","size"=>"size","total"=>"total"]
 			],
 			"Cutoff" => [
 				"default"=>"0",
