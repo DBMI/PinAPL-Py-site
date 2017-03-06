@@ -16,6 +16,10 @@ sudo apt -qq install supervisor
 
 # Setup and start queue
 sudo ln -s $sitePath/setup/pinapl-worker.conf /etc/supervisor/conf.d/pinapl-worker.conf
+sudo ln -s $sitePath/setup/pinapl-worker-monitor.conf /etc/supervisor/conf.d/pinapl-worker-monitor.conf
+sudo ln -s $sitePath/setup/pinapl-worker-start-run.conf /etc/supervisor/conf.d/pinapl-worker-start-run.conf
+
+
 $scriptPath/startSupervisor.sh
 
 # Start Kotrans server

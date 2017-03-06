@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\File;
 	<div id="status-dependent">
 		@if ($run->status == "finished")
 			@include('results')
+		@elseif($run->status == "queued")
+			<div class="row align-center">
+				<div class="column shrink">
+					<h2>In Queue - {{ \App\Run::where("status", "queued")->count() }} runs ahead of you. </h2>
+					<p>There are other runs ahead of you, your run is qurrently in queue. Please be patient. You will recieve an email when it has completed.</p>
+				</div>
+			</div>
 		@else
 				<div class="columns shrink">Run Status {{ $run->status }}</div>
 				Output log: 

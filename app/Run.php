@@ -58,7 +58,7 @@ class Run extends Model
 	{
 		$id = $this->id;
 		$runStatus = strtolower(trim($this->status));
-		if ($runStatus == "finished" || $runStatus == "error") {
+		if ($runStatus == "finished" || $runStatus == "error" || $runStatus == "queued") {
 			\Log::debug("Status: ".$runStatus." --- Set to running");
 			$runStatus = "running";
 		}
@@ -71,6 +71,7 @@ class Run extends Model
 				break;
 			case 'error':
 			case 'running':
+			case 'queued':
 			case 'finished':
 				return redirect("/run/$id");
 				break;

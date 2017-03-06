@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Run;
 
+use Illuminate\Support\Facades\DB;
+
 class RunController extends Controller
 {
 	/**
@@ -47,52 +49,36 @@ class RunController extends Controller
 	// Prevent lock recipe from further uploads, start the run. 
 	public function postStart(Request $req, $id)
 	{
-		ignore_user_abort(true);
-		set_time_limit(0);
+		try {
+			DB::beginTransaction();
 
-		$run = Run::findOrFail($id);
-		$run->status='running';
-		$run->save();
-		$dir = $run->directory();
-		File::put("$dir/status.log", 'Started');
+			$run = Run::findOrFail($id);
 
-		// Putting this in because dispatch is hanging
-		// Buffer all upcoming output...
-    // ob_start();
-
-    // // Send your response.
-    // echo redirect("/run/$id");
-
-    // // Get the size of the output.
-    // $size = ob_get_length();
-
-    // // Disable compression (in case content length is compressed).
-    // header("Content-Encoding: none");
-
-    // // Set the content length of the response.
-    // header("Content-Length: {$size}");
-
-    // // Close the connection.
-    // header("Connection: close");
-
-    // // Flush all output.
-    // ob_end_flush();
-    // ob_flush();
-    // flush();
-
-    // Close current session (if it exists).
-    // if(session_id()) session_write_close();
+			$dir = $run->directory();
+			File::put("$dir/status.log", 'Queued');
 
 
-    $data = $req->all();
-    $this->generateConfig($req, $run->directory());
+	    $data = $req->all();
+	    $this->generateConfig($req, $run->directory());
 
 
-    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/runStatus.log 2>&1 &";
-    File::put("$dir/runCmd.sh", $runCmd);
-    exec($runCmd);
+	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/runStatus.log";
+	    File::put("$dir/runCmd.sh", $runCmd);
+	    $runsInQueue = Run::where('status','queued')->exists();
+	    $run->status='queued';
+	    $run->save();
+	    if (! $runsInQueue) {
+				dispatch((new \App\Jobs\StartRun($run))->onQueue("start_run"));
+	    }
+	    else{
+	    	
+	    }
 
-		dispatch(new \App\Jobs\MonitorRun($run));
+	    DB::commit();
+		} catch (Exception $e) {
+			Log::error($e);
+		}
+
 
 		return redirect("/run/$id");
 	}
@@ -199,7 +185,6 @@ class RunController extends Controller
 					$libPath = resource_path("libraries/$folderName");
 					$libParameters = File::get("$libPath/library_parameters.txt");
 					$bowTieCopySuccessful = File::copyDirectory("$libPath/Bowtie2_Index", "$dir/workingDir/Library/Bowtie2_Index");
-					\Log::debug("Bowtie copy status ". ($bowTieCopySuccessful ? "successful" :"failed"));
 					File::copy("$libPath/$libFilename", "$dir/workingDir/Library/$libFilename");
 					$config.= "\n$libParameters\n";
 					continue;

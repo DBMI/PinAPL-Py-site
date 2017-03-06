@@ -61,6 +61,10 @@ class MonitorRun implements ShouldQueue
                     $run->status='compressing';
                     $run->save();
                     dispatch(new \App\Jobs\CompressRun($run));
+                    $nextRun = Run::where('status','queued')->first();
+                    if (!empty($nextRun)) {
+                        dispatch(new \App\Jobs\StartRun($nextRun))->onQueue("start_run");
+                    }
                     break;
                 case 'errored':
                 case 'error':
@@ -69,7 +73,12 @@ class MonitorRun implements ShouldQueue
                     break;
                 case 'running':
                 default:
-                    $this->release(10);
+                    $delayTime = 30;
+                    if ($this->attempts() >= 250) {
+                        dispatch((new \App\Jobs\MonitorRun($run))->delay($delayTime))->onQueue("monitor");
+                    } else {
+                        $this->release($delayTime);
+                    }
                     break;
             }
         }
