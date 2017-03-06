@@ -88,7 +88,7 @@ class uploader {
 			var fileProgress = (kotrans.client.getProgress() * 100).toFixed(2) + '%';
 			$('#' + this.curFileBasename + ' .progress > span').css('width', fileProgress);
 			$('#' + this.curFileBasename + ' .progress > span > p').text(fileProgress);
-		}, 1000)
+		}.bind(this), 100);
 	}
 
 	stopProgress() {
