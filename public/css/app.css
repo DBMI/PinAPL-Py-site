@@ -1,9 +1,15 @@
 .top-bar{
 	margin-bottom: 1em;
-  background-color: #222;
+  background-color: #8a8a8a;
 }
 .top-bar ul{
   background-color: inherit;
+}
+#top-bar-name {
+  font-size: 1.5em;
+}
+.top-bar a{
+  color: white;
 }
 /* CSS for the loading wheel*/
 .loader {

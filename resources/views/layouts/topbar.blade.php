@@ -1,7 +1,7 @@
 <div class="top-bar">
   <div class="top-bar-left">
     <ul class="menu">
-      <li class="menu-text"><a href="/">PinAPL-Py</a></li>
+      <li class="menu-text"><a id="top-bar-name" href="/">PinAPL-Py</a></li>
     </ul>
   </div>
   <div class="top-bar-right">

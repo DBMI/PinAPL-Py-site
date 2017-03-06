@@ -36,4 +36,8 @@
 
 @stop
 @section('customScripts')
+<script type="text/javascript">
+$("#LibFilename-input").change(eventObject)
+	
+</script>
 @stop
