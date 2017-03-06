@@ -212,7 +212,7 @@ return [
 				"type"=>'number'
 			],
 		],
-		"Visualization" => [
+		"Output Formatting" => [
 			"dpi" => [
 				"default"=>"300",
 				"help_text"=>"Resolution of PNG graphics.",
@@ -295,8 +295,6 @@ return [
 				"type" =>"select",
 				"options" => ["True"=>"True", "False"=>"False"]
 			],
-		],
-		"Ungrouped" => [
 			"HitListFormat" => [
 				"default"=>"xlsx",
 				"help_text"=>"Format of results spreadsheets (sgRNA hits and gene ranking)",
