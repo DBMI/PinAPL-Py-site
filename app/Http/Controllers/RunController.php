@@ -65,14 +65,14 @@ class RunController extends Controller
 	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/runStatus.log";
 	    File::put("$dir/runCmd.sh", $runCmd);
 	    $runsInQueue = Run::where('status','queued')->exists();
-	    $run->status='queued';
-	    $run->save();
 	    if (! $runsInQueue) {
 				dispatch((new \App\Jobs\StartRun($run))->onQueue("start_run"));
+		    $run->status='running';
 	    }
 	    else{
-	    	
+		    $run->status='queued';
 	    }
+	    $run->save();
 
 	    DB::commit();
 		} catch (Exception $e) {
@@ -111,30 +111,25 @@ class RunController extends Controller
 			$groupInputName = "group-".str_replace(".", "_", $basename);
 			$renameInputName = "rename-".str_replace(".", "_", $basename);
 			$group = $request->input($groupInputName);
-			$index = 0;
 			switch ($group) {
 				case 'control':
 					$prefix = "Control";
-					$numControl++;
-					$index = $numControl;
 					break;
 				case 'treatment':
 					$prefix = $request->input($renameInputName,"Treatment");
 					if (empty($prefix)) {
 						$prefix = "Treatment";
 					}
-					$conditionCounts[$prefix] = ($conditionCounts[$prefix] ?? 0) + 1;
-					$numTreatment++;
-					$index = $numTreatment;
 					break;
 				default:
 					$prefix="ERROR";
 					break;
 			}
+			$conditionCounts[$prefix] = ($conditionCounts[$prefix] ?? 0) + 1;
 			array_push($excelRows, ['FILENAME'=>$basename, 'TREATMENT' => $prefix]);
-			$treatmentMap[$group][$basename] = (object)["condition"=>$prefix, "index"=>$index];
-			File::put("$runDir/fileMap.json", json_encode($treatmentMap));
+			$treatmentMap[$group][$basename] = (object)["condition"=>$prefix, "index"=>$conditionCounts[$prefix]];
 		}
+		File::put("$runDir/fileMap.json", json_encode($treatmentMap));
 
 		\Excel::create('DataSheet', function($excel) use (&$excelRows){
 
