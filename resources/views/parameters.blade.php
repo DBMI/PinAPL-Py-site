@@ -12,7 +12,15 @@
 	@endforeach
 	</div>
 </fieldset>
-
+<fieldset id="custom-library-fields" style="display: none;" disabled="true">
+	<legend>Custom Library Parameters</legend>
+	<div class="row">
+		<div class="column medium-3"><label for="custom-lib-file">Custom Library File</label><input type="file" id="custom-lib-file" name="custom-lib-file" required="true"></div>
+		@foreach (config('pinapl_config.parameter_groups.Library Parameters') as $paramName => $parameter)
+			@include('layouts.input',["name" => $paramName, "parameter"=>$parameter, "required"=>true])
+		@endforeach
+	</div>
+</fieldset>
 <div class="row">
 	<div class="columns">
 		<ul class="accordion" data-accordion data-allow-all-closed="true">
@@ -37,7 +45,16 @@
 @stop
 @section('customScripts')
 <script type="text/javascript">
-$("#LibFilename-input").change(eventObject)
+$("#LibFilename-input").change(function function_name(argument) {
+	if (this.value == "custom") {
+		$("#custom-library-fields").attr('disabled',false)
+		$("#custom-library-fields").slideDown();
+	}
+	else {
+		$("#custom-library-fields").slideUp();
+		$("#custom-library-fields").attr('disabled',true)
+	}
+})
 	
 </script>
 @stop

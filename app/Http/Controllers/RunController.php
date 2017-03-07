@@ -151,29 +151,25 @@ class RunController extends Controller
 
 
 		$config = "";
+		$libFilename = $req->input("LibFilename");
+		$customFile;
+		$customFilename;
+		if ($libFilename == 'custom') {
+			$customFile = $req->file('custom-lib-file');
+			$customFilename = $customFile->getClientOriginalName();
+			\Log::debug("Custom File selected, name: ".$customFilename);
+		}
 		foreach (config('pinapl_config.parameter_groups') as $groupname => $parameters) {
 			$config.= "# $groupname \n";
 			if ($groupname == "Library Parameters") {
-				$libFilename = $req->input("LibFilename");
 				if ($libFilename=='custom') {
-					// if ($req->hasFile('libFile')) {
-					// 	\Log::debug("Lib file provided. Moving.");
-					// 	$req->file('libFile')->move("$dir/workingDir/Library/", "library.tsv");
-					// }
-					// else {
-					// 	\Log::debug("No lib file provided. Copying default.\n =================");
-					// 	\Log::debug("Has file");
-					// 	\Log::debug(print_r((int)$req->hasFile('libFile'),true));
-					// 	\Log::debug("Is Valid");
-					// 	\Log::debug(print_r((int)$req->file('libFile')->isValid(),true));
-					// 	\Log::debug("File itself");
-					// 	\Log::debug(print_r($req->file('libFile'),true));
-					// 	\Log::debug("File error number");
-					// 	\Log::debug(print_r($req->file('libFile')->getError(),true));
-					// 	\Log::debug("File error message");
-					// 	\Log::debug(print_r($req->file('libFile')->getErrorMessage(),true));
-					// 	File::copy(app()->basePath().'/storage/exampleFiles/GeCKOv2_library.tsv', "$dir/workingDir/Library/library.tsv");
-					// }
+					if ($req->hasFile('custom-lib-file')) {
+						\Log::debug("Lib file provided. Moving.");
+						$customFile->move("$dir/workingDir/Library/",$customFilename);
+					}
+					else {
+						\Log::error("Custom Lib selected, but no file provided");
+					}
 				}
 				else{
 					$folderName = config('pinapl_config.libraries')[$libFilename];
@@ -186,11 +182,17 @@ class RunController extends Controller
 				}
 			}
 			foreach ($parameters as $param_name => $param_properties) {
-				if (!empty($req->input($param_name))) {
-					$value = $req->input($param_name);
+				if ($param_name == "LibFilename"&& $libFilename =="custom") {
+					\Log::debug("In LibFilename ifblock");
+					$value = $customFilename;
 				}
 				else {
-					$value = $param_properties['default'];
+					if (!empty($req->input($param_name))) {
+						$value = $req->input($param_name);
+					}
+					else {
+						$value = $param_properties['default'];
+					}
 				}
 				if ($param_properties['in_quotes']) {
 					$config .= "$param_name".":"." '$value' \n";
