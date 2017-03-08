@@ -1,5 +1,9 @@
-@extends('layouts.master')
-
+@php
+	$title = "Step 3: Configure your analysis run";
+	$description = "Please choose your screen type and the library used in your screen.<br>
+	For advanced options, click “Advanced” (optional)";
+@endphp
+@extends('layouts.master',["title"=>$title, "description"=>$description])
 @section('content')
 <form action="/run/start/{{$run->id}}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">

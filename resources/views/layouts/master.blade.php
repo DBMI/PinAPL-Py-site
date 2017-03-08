@@ -13,6 +13,20 @@
   </head>
   <body>
     @include('layouts.topbar')
+    @if (!empty($title))
+      <div class="row collapse">
+        <div class="column">
+          <h2>{{ $title }}</h2>
+        </div>
+      </div>
+    @endif
+    @if (!empty($description))
+      <div class="row collapse" id="description-row">
+        <div class="column">
+          <p>{!! $description !!}</p>
+        </div>
+      </div>
+    @endif
     <div class="row collapse">
       <div class="columns small-12">
         @yield('content')

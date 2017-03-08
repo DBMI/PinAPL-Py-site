@@ -1,12 +1,18 @@
-@extends('layouts.master')
+@php
+	$title = "Step1: Upload your sequence files (fastq.gz)";
+	$description = 
+			"<ol>
+				<li>Drag and drop your sequencing data files (*.fastq.gz)</li>
+			  <li>Click \"Enter Sample Information\" when finished.</li>  
+			</ol>";
+@endphp
+@extends('layouts.master',["title"=>$title, "description"=>$description])
+
 
 @section('content')
 	<div class="row align-justify">
 		<div class="columns ">
-			<ol>
-				<li>Drag and drop your sequencing data files (*.fastq.gz)</li>
-			  <li>Click "Enter Sample Information" when finished.</li>  
-			</ol>
+			
 		</div>
 	</div>
 	<div id="drop-box" class="callout">

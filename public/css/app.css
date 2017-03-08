@@ -85,3 +85,7 @@
   color: #fefefe;
   border-radius: 50%;
 }
+
+#description-row {
+  border-bottom-style: ridge;
+}
