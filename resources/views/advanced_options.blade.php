@@ -4,7 +4,9 @@
 		<legend>{{ $group }}</legend>
 		<div class="row">
 			@foreach ($parameters as $paramName => $parameter)
-				@include('layouts.input',["name" => $paramName, "parameter"=>$parameter])
+				@if (!($parameter['hidden'] ?? false))
+					@include('layouts.input',["name" => $paramName, "parameter"=>$parameter])
+				@endif
 			@endforeach
 		</div>
 	</fieldset>

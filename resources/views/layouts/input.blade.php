@@ -4,7 +4,7 @@
 	*/
 
 	$type = $parameter['type'] ?? 'text';
-	$label = $parameter['label'] ?? $name;
+	$label = $parameter['display_name'] ?? $name;
 	$placeholder = $parameter['default'];
 	$helpText = $parameter['help_text'];
 	$rules = $parameter['rules'];

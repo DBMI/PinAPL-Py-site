@@ -4,6 +4,7 @@ return [
 	"parameter_groups" =>[
 		"Required" => [	
 			"ScreenType" => [
+				"display_name"=>"Screen Type",
 				"default"=>"enrichment",
 				"help_text"=>"Specifies the type of screen.",
 				"in_quotes"=>true,
@@ -12,6 +13,7 @@ return [
 				"options" => ["enrichment"=>"Enrichment", "depletion"=>"Depletion"]
 			],
 			"LibFilename" => [ 
+				"display_name"=>"Library",
 				"default"=> "GeCKOv2_library.tsv",
 				"help_text"=>"filename of library spreadsheet",
 				"in_quotes"=>true,
@@ -21,6 +23,7 @@ return [
 		],
 		"Library Parameters" => [	
 			"seq_5_end" => [
+				"display_name"=>"5'-adapter",
 				"default"=>"TCTTGTGGAAAGGACGAAACACCG",
 				"help_text"=>"sequence 5' of sgRNA in read",
 				"in_quotes"=>true,
@@ -28,6 +31,7 @@ return [
 				"rules" => "string|min:20|regex:/[TCGA]+/"
 			],
 			"seq_3_end" => [
+				"display_name"=>"3'-adapter",
 				"default"=>"GTTTTAGAGCTAGAAATAGCAAGTT",
 				"help_text"=>"sequence 3' of sgRNA in read",
 				"in_quotes"=>true,
@@ -35,6 +39,7 @@ return [
 				"rules" => "string|min:20|regex:/[TCGA]+/"
 			],
 			"NonTargetPrefix" => [
+				"display_name"=>"Prefix for non-targeting controls",
 				"default"=>"NonTargeting",
 				"help_text"=>"prefix for non-targeting sgRNAs in library (keep at default if none present)",
 				"in_quotes"=>true,
@@ -42,6 +47,7 @@ return [
 				"rules" => "string"
 			],
 			"sgRNAsPerGene" => [
+				"display_name"=>"#sgRNAs per Gene",
 				"default"=>"6",
 				"help_text"=>"number of sgRNAs targeting each gene (excluding non-targeting controls and miRNAs). ONLY IMPORTANT IF 'ES' is chosen for gene ranking method !",
 				"in_quotes"=>false,
@@ -52,7 +58,7 @@ return [
 		],
 		"Read Counting" => [
 			"Normalization" => [
-				"default"=>"size",
+				"default"=>"cpm",
 				"help_text"=>"Method of read count normalization. cpm = counts per million reads.",
 				"in_quotes"=>true,
 				"hidden" =>false,
@@ -71,7 +77,8 @@ return [
 		],
 		"Heatmap" => [
 			"ClusterBy" => [
-				"default"=>"counts",
+				"display_name"=>"Cluster by",
+				"default"=>"variance",
 				"help_text"=>"Clustering of samples either based on most variable sgRNAs or most enriched/depleted sgRNAs.",
 				"in_quotes"=>true,
 				"hidden" =>false,
@@ -80,6 +87,7 @@ return [
 				"options" => ["variance"=>"Variance","counts"=>"Counts"]
 			],
 			"TopN" => [
+				"display_name"=>"#sgRNAs for clustering",
 				"default"=>"25",
 				"help_text"=>"Number of sgRNAs to be taken into account for clustering. If ClusterBy is set to ‘counts’ the union of the TopN enriched/depleted sgRNAs over all samples is taken.",
 				"in_quotes"=>false,
@@ -90,6 +98,7 @@ return [
 		],
 		"Gene Ranking" => [
 			"GeneMetric" => [
+				"display_name"=>"Gene Ranking Metric",
 				"default"=>"aRRA",
 				"help_text"=>"Metric for gene ranking analysis.",
 				"in_quotes"=>true,
@@ -99,6 +108,7 @@ return [
 				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS","ES"=>"ES"]
 			],
 			"Np" => [
+				"display_name"=>"Number of permutations",
 				"default"=>"1000",
 				"help_text"=>"Number of permutations to run to estimate p-values in gene ranking analysis. CAUTION: Different ranking methods take more computation time than others, so adjust according to method!",
 				"in_quotes"=>false,
@@ -107,6 +117,7 @@ return [
 				"type"=>'number'
 			],
 			"thr_STARS" => [
+				"display_name"=>"% Genes Displayed (STARS only)",
 				"default"=>"10",
 				"help_text"=>"Percentage of reported genes after ranking analysis. ONLY RELEVANT IF ‘STARS’ METHOD IS CHOSEN.",
 				"in_quotes"=>false,
@@ -126,6 +137,7 @@ return [
 				"type"=>'number'
 			],
 			"padj" => [
+				"display_name"=>"p-value adjustment",
 				"default"=>"fdr_bh",
 				"help_text"=>"Method for p-value adjustment for multiple tests.",
 				"in_quotes"=>true,
@@ -137,6 +149,7 @@ return [
 		],
 		"Adapter Trimming" => [
 			"R_min" => [
+				"display_name"=>"Minimal Read Length",
 				"default"=>"10",
 				"help_text"=>"Minimal allowed read length after cutting the 5' adapter. Reads with length shorter than R_min after cutting the adaptor will be discarded. Refer to the cutadapt manual for more information.",
 				"in_quotes"=>false,
@@ -145,6 +158,7 @@ return [
 				"type"=>'number'
 			],
 			"CutErrorTol" => [
+				"display_name"=>"Error Tolerance",
 				"default"=>"0.25",
 				"help_text"=>"Allowed error rate for Identification of the 5’ and 3’ read adapters. Refer to the cutadapt manual for more information.",
 				"in_quotes"=>false,
@@ -155,7 +169,8 @@ return [
 		],
 		"Alignment" => [
 			"AlnOutput" => [
-				"default"=>"Compress",
+				"display_name"=>"Alignment Output",
+				"default"=>"Delete",
 				"help_text"=>"Keep raw alignment output?",
 				"in_quotes"=>true,
 				"hidden" =>true,
@@ -164,6 +179,7 @@ return [
 				"options" => ["Keep"=>"Keep", "Compress"=>"Compress", "Delete"=>"Delete"]
 			],
 			"keepCutReads" => [
+				"display_name"=>"Keep Trimmed Reads",
 				"default"=>"False",
 				"help_text"=>"Keep files containing trimmed reads?",
 				"in_quotes"=>false,
@@ -193,8 +209,9 @@ return [
 				"help_text"=>"Bowtie2 seed number parameter. Refer to the Bowtie2 manual for more information.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
+				"rules" => "numeric|in:0,1,2",
+				"type"=>'select',
+				"options" => ["0"=>"0", "1"=>"1", "2"=>"2"]
 			],
 			"i_bw" => [
 				"default"=>"S,1,0.75",
@@ -214,12 +231,14 @@ return [
 		],
 		"Output Formatting" => [
 			"dpi" => [
+				"display_name"=>"PNG Resolution",
 				"default"=>"300",
 				"help_text"=>"Resolution of PNG graphics.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|min:300",
-				"type"=>'number'
+				"rules" => "numeric|in:150,300,600",
+				"type"=>'select',
+				"options" => ["150"=>"150", "300"=>"300", "600"=>"600"]
 			],
 			"dotsize" => [
 				"default"=>"10",
@@ -235,13 +254,14 @@ return [
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|in:2,10",
-				"type"=>'number'
+				"type"=>'select',
+				"options" => ["2"=>"2", "10"=>"10"]
 			],
 			"width_p" => [
 				"default"=>"800",
 				"help_text"=>"Width of heatmap image (pixels)",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "numeric|min:800|same:height_p",
 				"type"=>'number'
 			],
@@ -249,7 +269,7 @@ return [
 				"default"=>"800",
 				"help_text"=>"Height of heatmap image (pixels)",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "numeric|min:800|same:width_p",
 				"type"=>'number'
 			],
@@ -257,15 +277,15 @@ return [
 				"default"=>"14",
 				"help_text"=>"Fontsize in heatmap image",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "numeric|min:1",
 				"type"=>'number'
 			],
 			"marginsize" => [
-				"default"=>"7",
+				"default"=>"10",
 				"help_text"=>"Size of margin in heatmap image (increase if sample names are clipped)",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
@@ -273,7 +293,7 @@ return [
 				"default"=>"False",
 				"help_text"=>"Annotate scatterplot with sgRNA IDs?",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "string|in:True,False",
 				"type" =>"select",
 				"options" => ["True"=>"True", "False"=>"False"]
@@ -296,13 +316,14 @@ return [
 				"options" => ["True"=>"True", "False"=>"False"]
 			],
 			"HitListFormat" => [
+				"display_name"=>"Spreadsheet Format",
 				"default"=>"xlsx",
 				"help_text"=>"Format of results spreadsheets (sgRNA hits and gene ranking)",
 				"in_quotes"=>true,
 				"hidden" =>true,
 				"rules" => "string|in:tsv,xlsx",
 				"type" =>"select",
-				"options" => ["tsv"=>"tsv", "xlsx"=>"xlsx"]
+				"options" => ["tsv"=>"tsv only", "xlsx"=>"xlsx"]
 			],
 		]
 	],
