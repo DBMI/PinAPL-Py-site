@@ -16,7 +16,7 @@
     @if (!empty($title))
       <div class="row collapse">
         <div class="column">
-          <h2>{{ $title }}</h2>
+          <h3>{{ $title }}</h3>
         </div>
       </div>
     @endif
