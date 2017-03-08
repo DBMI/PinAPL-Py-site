@@ -4,6 +4,11 @@
 	*/
 
 	$type = $parameter['type'] ?? 'text';
+	$step = "";
+	if($type == "float"){
+		$type = "number";
+		$step = 'step=0.01';
+	}
 	$label = $parameter['display_name'] ?? $name;
 	$placeholder = $parameter['default'];
 	$helpText = $parameter['help_text'];
@@ -31,6 +36,6 @@
 			@endforeach
 		</select>
 	@else
-		<input id="{{$name}}-input" type="{{$type}}" name="{{$name}}" placeholder="{{$placeholder}}" title="{{$helpText}}" {{ $requiredText }}>
+		<input id="{{$name}}-input" type="{{$type}}" name="{{$name}}" placeholder="{{$placeholder}}" title="{{$helpText}}" {{$requiredText}} {{$step}}>
 	@endif
 </div>

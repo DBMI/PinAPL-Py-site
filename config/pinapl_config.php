@@ -134,7 +134,7 @@ return [
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "between:0,1",
-				"type"=>'number'
+				"type"=>'float'
 			],
 			"padj" => [
 				"display_name"=>"p-value adjustment",
@@ -164,7 +164,7 @@ return [
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "between:0,1",
-				"type"=>'number'
+				"type"=>'float'
 			],
 		],
 		"Alignment" => [
