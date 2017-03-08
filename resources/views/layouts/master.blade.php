@@ -13,7 +13,7 @@
   </head>
   <body>
     @include('layouts.topbar')
-    <div class="row">
+    <div class="row collapse">
       <div class="columns small-12">
         @yield('content')
       </div>

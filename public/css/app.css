@@ -8,6 +8,16 @@
 #top-bar-name {
   font-size: 1.5em;
 }
+#top-bar-logo {
+  height: 2em;
+  width: 2em;
+  border-radius: 25%;
+  margin-right: .5em;
+}
+.top-bar-left {
+  display: flex;
+  align-items: center;
+}
 .top-bar a{
   color: white;
 }
@@ -60,4 +70,18 @@
 .tabs-title > a[aria-selected='true'] {
     background: #258faf;
     color: white;
+}
+
+.help-bubble {
+  font-weight: 900;
+  font-size: .9em;
+  height: 1.5em;
+  width: 1.5em;
+  display: inline-flex;
+  justify-content: center;
+  vertical-align: text-bottom;
+  cursor: help;
+  background: #767676;
+  color: #fefefe;
+  border-radius: 50%;
 }
