@@ -24,8 +24,8 @@
     </div>
     @endif 
     @if (!empty($title))
-      <div class="row collapse">
-        <div class="column">
+      <div class="row collapse align-center" id="title-row">
+        <div class="column shrink">
           <h3>{{ $title }}</h3>
         </div>
       </div>

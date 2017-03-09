@@ -87,8 +87,13 @@
   border-radius: 50%;
 }
 
+#title-row {
+  /*border-bottom-style: ridge;*/
+  margin-bottom: 1em;
+}
 #description-row {
-  border-bottom-style: ridge;
+  /*border-bottom-style: ridge;*/
+  margin-bottom: 1em;
 }
 
 pre {
