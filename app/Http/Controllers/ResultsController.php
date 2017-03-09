@@ -42,6 +42,10 @@ class ResultsController extends Controller
         $run = Run::findOrFail($id);
         return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$run->dir, 'result'=>'readcount_statistics']);
     }
+    public function getCutadapt($id) {
+        $run = Run::findOrFail($id);
+        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$run->dir, 'result'=>'cutadapt']);
+    }
     /*************************************
      *** Scatter Plots
      ************************************/

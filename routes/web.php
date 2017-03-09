@@ -193,6 +193,7 @@ Route::get('/results/control/{id}',           'ResultsController@getControl');
 /*** Statistics *********************/
 Route::get('/results/readcount_statistics/{id}',           'ResultsController@getReadCountStatistics');
 Route::get('/results/alignment_statistics/{id}',           'ResultsController@getAlignmentStatistics');
+Route::get('/results/cutadapt/{id}',        						   'ResultsController@getCutadapt');
 
 /*** Scatter Plots ******************/
 Route::get('/results/readcount_scatterplots/{id}',     'ResultsController@getReadCountScatterplots');

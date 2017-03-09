@@ -16,3 +16,9 @@
 		<img src='{{ $link }}'>
 	</div>
 </div>
+<hr>
+<div class="row align-center">
+	<div class="column shrink">
+		<pre>{{ \File::get(storage_path("runs/$runHash/workingDir/Analysis/ReadCount_Statistics/$prefix/$prefix"."_ReadCount_Statistics.txt")) }}</pre>
+	</div>
+</div>

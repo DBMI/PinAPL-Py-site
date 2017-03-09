@@ -90,3 +90,7 @@
 #description-row {
   border-bottom-style: ridge;
 }
+
+pre {
+  white-space: pre-wrap;
+}

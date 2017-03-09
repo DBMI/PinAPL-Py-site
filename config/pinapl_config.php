@@ -117,9 +117,9 @@ return [
 				"type"=>'number'
 			],
 			"thr_STARS" => [
-				"display_name"=>"% Genes Displayed (STARS only)",
+				"display_name"=>"% sgRNAs Included (STARS only)",
 				"default"=>"10",
-				"help_text"=>"Percentage of reported genes after ranking analysis. ONLY RELEVANT IF ‘STARS’ METHOD IS CHOSEN.",
+				"help_text"=>"Percentage of sgRNAs included in ranking analysis. ONLY RELEVANT IF ‘STARS’ METHOD IS CHOSEN.",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0",

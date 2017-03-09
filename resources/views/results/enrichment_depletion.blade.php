@@ -1,10 +1,9 @@
 <?php
 $sections = [
-	"p-values" => "p-Values",
-	"sgrna_efficiency" => "sgRNA Efficiency",
-	"sgrna_rankings" => "sgRNA Rankings",
 	"gene_rankings"  => "Gene Rankings",
-	"control" => "Control"
+	"sgrna_rankings" => "sgRNA Rankings",
+	"sgrna_efficiency" => "sgRNA Efficacy",
+	"p-values" => "p-Values",
 ];
 ?>
 @extends('layouts.results_section_tabs', ['sections' => $sections])

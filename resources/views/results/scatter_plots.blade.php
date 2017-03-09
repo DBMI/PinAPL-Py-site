@@ -1,6 +1,6 @@
 <?php
 $sections = [
-	"readcount_scatterplots"  => "Read Counts",
+	"readcount_scatterplots"  => "Treatment vs Control",
 	"replicate_correlation"	=> "Replicate Correlation",
 ];
 ?>

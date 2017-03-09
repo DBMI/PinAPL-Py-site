@@ -4,39 +4,10 @@
 	<div class="row">
 		<div class="twelve columns">
 			<h1>Contact Us</h1>
-
-			<hr> 
-			<h4>PinAPL-py</h4>
 			<p>
-			</p><ul>
-			<li>Olivier Harismendy</li>              
-			<li>Philip Spahn</li>              
-			<li>Tyler Bath </li>              
-			<li>Lucila Ohno-Machado</li>              
-		</ul> 
-		<p></p>
-
-		<hr>
-		<h4>Division of Biomedical Informatics</h4>
-		<p> 
-			The <a href="http://dbmi.ucsd.edu" target="_blank">Division of Biomedical Informatics (DBMI)</a>
-			at University of California-San Diego(UCSD)  was established in the summer of 2009. 
-			It is the first academic unit in biomedical informatics in the UC system. 
-			Our activities involve research, teaching, and multi-disciplinary collaboration. 
-			DBMI members have diverse backgrounds in medicine, biology, nursing, computer science,
-			mathematics, statistics, engineering, and business. Our division is based in La Jolla, California,
-			but is connected to collaborators all around the world. 
-		</p>
-
-
-		
-		<hr>
-		<h4>Questions and Comments</h4>
-		<p>
-			<a href="mailto:pspahn@eng.ucsd.edu">pspahn@eng.ucsd.edu</a>
-		</p>
-
-
+				PinAPL-Py is a collaborative efforts by the Lewis lab (School of Medicine), the Harismendy lab (Moores Cancer Center), the Division of Biomedical Informatics , and the Esko lab (Department of Cellular and Molecular Medicine) at the University of California, San Diego. </p>
+			<p>Please reports bugs and comments to <a href="mailto:pinapl-py@ucsd.edu" target="_blank">pinapl-py@ucsd.edu</a></p>
+			<p>For updates and discussions see our <a href="https://groups.google.com/forum/#!forum/pinapl-py" target="_blank">google group</a></p>
 	</div>
 </div>
 </div>
