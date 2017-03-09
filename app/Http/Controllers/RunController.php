@@ -23,6 +23,12 @@ class RunController extends Controller
 	// Create a run. 
 	public function postCreate(Request $request)
 	{
+		$this->validate($request, 
+			[ "email" => "required|email",
+				"name" => "required|string"
+			]
+		);
+
 		$email = $request->input('email');
 		$name = $request->input('name');
 
@@ -49,6 +55,13 @@ class RunController extends Controller
 	// Prevent lock recipe from further uploads, start the run. 
 	public function postStart(Request $req, $hash)
 	{
+		$rules = [];
+		foreach (config('pinapl_config.parameter_groups') as $groupname => $parameters) {
+			foreach ($parameters as $param_name => $param_properties) {
+				$rules = array_add($rules, $param_name, $param_properties['rules']."|nullable");
+			}
+		}
+		$this->validate($req, $rules);
 		try {
 			DB::beginTransaction();
 
@@ -76,6 +89,7 @@ class RunController extends Controller
 
 	    DB::commit();
 		} catch (Exception $e) {
+			DB::rollBack();
 			Log::error($e);
 		}
 

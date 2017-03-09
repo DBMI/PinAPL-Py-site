@@ -13,6 +13,16 @@
   </head>
   <body>
     @include('layouts.topbar')
+    @if (count($errors)) 
+    <div class="callout alert" id="error-messages">
+      <p><i class="fi-alert"></i> There are some errors in your form.</p>
+      <ul>
+          @foreach($errors->all() as $error) 
+            <li>{{ $error }}</li>
+          @endforeach 
+      </ul>
+    </div>
+    @endif 
     @if (!empty($title))
       <div class="row collapse">
         <div class="column">
