@@ -5,7 +5,7 @@
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
 @section('content')
-<form action="/run/start/{{$run->id}}" method="post" enctype="multipart/form-data">
+<form action="/run/start/{{$hash}}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 <fieldset>

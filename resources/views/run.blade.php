@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 	</div>
 	<div id="status-dependent">
 		@if ($run->status == "finished")
-			@include('results')
+			@include('results',['hash'=>$run->dir])
 		@elseif($run->status == "queued")
 			<div class="row align-center">
 				<div class="column shrink">
@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\File;
 		@else
 				<div class="columns shrink">Run Status {{ $run->status }}</div>
 				Output log: 
-				@if (File::exists($dir."/workingDir/output.log"))
-					<pre>{{ File::get($dir."/workingDir/output.log") }}</pre>
+				@if (File::exists($run->directory()."/workingDir/output.log"))
+					<pre>{{ File::get($run->directory()."/workingDir/output.log") }}</pre>
 				@else 
 					An error has occured
 				@endif

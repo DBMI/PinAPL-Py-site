@@ -13,9 +13,7 @@ $sections = [
 @section('customScripts')
 <script type="text/javascript" src="/js/run.js"></script>
 <script type="text/javascript">
-	var runStatus = '{{ $run->status }}';
-	var runId = '{{ $run->id }}';
-
+	var runHash = '{{ $hash}}';
 </script>
 @parent
 @stop

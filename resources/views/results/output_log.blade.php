@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\File;
 // 	$filePrefixes[$key] = basename($value);
 // }
 ?>
-<pre>{{  File::get($run->directory()."/workingDir/output.log") }}</pre>
+<pre>{{  File::get(storage_path("/runs/$hash/workingDir/output.log")) }}</pre>

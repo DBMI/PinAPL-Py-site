@@ -11,73 +11,60 @@ class ResultsController extends Controller
     /*************************************
      *** Enrichment / Depletion
      ************************************/
-    public function getP_Values($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'p-values']);
+    public function getP_Values($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values']);
     }
-    public function getGeneRankings($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'gene_rankings']);
+    public function getGeneRankings($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings']);
     }
-    public function getSgrnaRankings($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'sgrna_rankings']);
+    public function getSgrnaRankings($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings']);
     }
-    public function getSgrnaEfficiency($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'sgrna_efficiency']);
+    public function getSgrnaEfficiency($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency']);
     }
-    public function getControl($id) {
-        $run = Run::findOrFail($id);
-        return view('results.control_component', ['runHash'=>$run->dir]);
+    public function getControl($hash) {
+        return view('results.control_component', ['runHash'=>$hash]);
     }
     /*************************************
      *** Statistics
      ************************************/
-    public function getAlignmentStatistics($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$run->dir, 'result'=>'alignment_statistics']);
+    public function getAlignmentStatistics($hash) {
+        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'alignment_statistics']);
     }
-    public function getReadCountStatistics($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$run->dir, 'result'=>'readcount_statistics']);
+    public function getReadCountStatistics($hash) {
+        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'readcount_statistics']);
     }
-    public function getCutadapt($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$run->dir, 'result'=>'cutadapt']);
+    public function getCutadapt($hash) {
+        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'cutadapt']);
     }
     /*************************************
      *** Scatter Plots
      ************************************/
-    public function getReadCountScatterplots($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'readcount_scatterplots']);
+    public function getReadCountScatterplots($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'readcount_scatterplots']);
     }
-    public function getReplicateCorrelation($id) {
-        $run = Run::findOrFail($id);
-        return view('results.replicate_correlation_component', ['runHash'=>$run->dir]);
+    public function getReplicateCorrelation($hash) {
+        return view('results.replicate_correlation_component', ['runHash'=>$hash]);
     }
     /*************************************
      *** Heatmap
      ************************************/
-    public function getHeatmap($id) {
-        $run = Run::findOrFail($id);
-        $file = \File::glob($run->directory()."/workingDir/Analysis/Heatmap/*.png");
+    public function getHeatmap($hash) {
+        $file = \File::glob(storage_path("/runs/$hash/workingDir/Analysis/Heatmap/*.png"));
         $file = array_pop($file);
-        $link = "/run-images?path=".urlencode("/$run->dir/workingDir/Analysis/Heatmap/".basename($file));
+        $link = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/Heatmap/".basename($file));
         return view('results.heatmap_component', ["link"=>$link]);
     }
     /*************************************
      *** Output
      ************************************/
-    public function getOutputLog($id) {
-        $run = Run::findOrFail($id);
-        return view('results.output_log', ['run'=>$run]);
+    public function getOutputLog($hash) {
+        return view('results.output_log', ['dir'=>$hash]);
     }
 
 
-    public function getCandidateLists($id) {
-        $run = Run::findOrFail($id);
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$run->dir, 'result'=>'candidate_lists']);
+    public function getCandidateLists($hash) {
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'candidate_lists']);
     }
 }

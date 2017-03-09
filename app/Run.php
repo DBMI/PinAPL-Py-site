@@ -51,12 +51,12 @@ class Run extends Model
 
 	public function url()
 	{
-		return "http://pinapl-py.ucsd.edu/run/".$this->id;
+		return "http://pinapl-py.ucsd.edu/run/".$this->dir;
 	}
 
 	public function redirectFromStatus($status)
 	{
-		$id = $this->id;
+		$hash = $this->dir;
 		$runStatus = strtolower(trim($this->status));
 		if ($runStatus == "finished" || $runStatus == "error" || $runStatus == "queued") {
 			\Log::debug("Status: ".$runStatus." --- Set to running");
@@ -67,19 +67,19 @@ class Run extends Model
 		}
 		switch ($runStatus) {
 			case 'uploading':
-				return redirect("/upload/$id");
+				return redirect("/upload/$hash");
 				break;
 			case 'error':
 			case 'running':
 			case 'queued':
 			case 'finished':
-				return redirect("/run/$id");
+				return redirect("/run/$hash");
 				break;
 			case 'managing-files':
-				return redirect("/files/$id");
+				return redirect("/files/$hash");
 				break;
 			case 'setting-parameters':
-				return redirect("/parameters/$id");
+				return redirect("/parameters/$hash");
 				break;
 			default:
 				abort(404);

@@ -1,12 +1,12 @@
 {{-- 
 Provided 
-$id{}refix
+$idPrefix
 --}}
 <div class="loader"></div>
 @section('customScripts')
 @parent
 <script>
-	$.get('/results/{{ $idPrefix }}/'+runId, function(data) {	
+	$.get('/results/{{ $idPrefix }}/'+runHash, function(data) {	
 		$('#{{ $idPrefix }}_content').html(data);
 	});
 </script>

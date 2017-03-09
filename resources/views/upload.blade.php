@@ -39,7 +39,6 @@
 @parent
 <script>
 	var runDirectory = "{{$dir}}";
-	var runId = "{{ $id }}";
 	var userDoneUploading = false;
 	var koTransPort = "{{ config('kotrans.port') }}";
 	var appHost = "{{ config('kotrans.host') }}";
@@ -53,9 +52,9 @@
 	var uploadManager = new uploader('#drop-box',runDirectory, koTransPort, appHost, token);
 	uploadManager.setDoneUploadingCallBack (function (){
 			 $.post(
-			'/done-uploading/'+runId,{_token : token},
+			'/done-uploading/{{ $hash }}',{_token : token},
 			function (data) {
-				location.replace('/files/'+runId);
+				location.replace('/files/{{ $hash }}');
 			}
 		);
 	});

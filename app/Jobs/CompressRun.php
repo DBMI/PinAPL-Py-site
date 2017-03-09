@@ -64,7 +64,7 @@ class CompressRun implements ShouldQueue
             File::deleteDirectory($dir."/workingDir/Library");
             $run->status = 'finished';
             $run->save();
-            Mail::to($run->email)->send(new RunFinished($run));
+            Mail::to($run->email)->queue(new RunFinished($run));
 
         }
         catch (Exception $e) {

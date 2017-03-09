@@ -16,50 +16,64 @@ use Illuminate\Http\Response;
 Route::get('/', function () {
 	return view('welcome');
 });
+
+
+/**************************************************************************
+ *** TopBar
+**************************************************************************/
+
 Route::get('/contact', function () {
 	return view('contact');
 });
 
+// Return a download of the sample-data
+Route::get('/documentation', function ()  {
+	return view('documentation');
+});
+
+
 // The upload page for a run. If the run has a status of running, redirect to run page
-Route::get('/upload/{id}', ['as'=>'upload', function ($id) {
-	$run = \App\Run::findOrFail($id);
+Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
+	$run = \App\Run::where('dir',$hash)->firstOrFail();
 	if ($run->status == 'uploading') {
-		return view('upload', ['id'=>$id, 'dir'=>$run->directory().'/workingDir/Data']);
+		return view('upload', ['hash'=>$hash, 'dir'=>$run->directory().'/workingDir/Data']);
 	}
 	else {
-		return redirect("/run/$id");
+		return redirect("/run/$hash");
 	}
 }]);
 
 // Display the run results. Unless the run is still in the upload stage, then redirect to upload page
-Route::get('/run/{id}', function ($id)  {
-	// try {
-		$run = \App\Run::findOrFail($id);
+Route::get('/run/{hash}', function ($hash)  {
+	try {
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$redirect = $run->redirectFromStatus('running');
 		if ($redirect) {
 			return $redirect;
 		}
 		else {
-			return view('run', ['run'=>$run, 'dir'=>$run->directory()]);
+			return view('run', ['run'=>$run, 'hash'=>$hash]);
 		}
 		
-	// } 
-	// catch(Exception $e) {
-	// 	abort(404);
-	// }
+	} 
+	catch(Exception $e) {
+		\Log::error("Error accessing run page");
+		\Log::error($e);
+		abort(404);
+	}
 });
 
 // Manage the uploaded files
-Route::get('/files/{id}', function ($id)  {
+Route::get('/files/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::findOrFail($id);
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$redirect = $run->redirectFromStatus('managing-files');
 		if ($redirect) {
 			return $redirect;
 		}
 		else {
 			$files = Illuminate\Support\Facades\File::files($run->directory()."/workingDir/Data");
-			return view('files', ['run'=>$run, 'files'=>$files]);
+			return view('files', ['files'=>$files, 'hash'=>$hash]);
 		}
 		
 	} 
@@ -69,15 +83,15 @@ Route::get('/files/{id}', function ($id)  {
 });
 
 // Create the configuration.yaml
-Route::get('/parameters/{id}', function ($id)  {
+Route::get('/parameters/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::findOrFail($id);
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$redirect = $run->redirectFromStatus('setting-parameters');
 		if ($redirect) {
 			return $redirect;
 		}
 		else {
-			return view('parameters', ['run'=>$run]);
+			return view('parameters', ['hash'=>$hash]);
 		}
 		
 	} 
@@ -88,11 +102,11 @@ Route::get('/parameters/{id}', function ($id)  {
 
 // Return a download of the results archive for a finished run.
 // If it does not exist or is not finished, 404
-Route::get('/run/download/{id}', function ($id)  {
+Route::get('/run/download/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::findOrFail($id);
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		if ($run->status == "finished") {
-			return download($run->directory()."/archive.zip", sanitizeFileName($run->name) .'_'. $run->dir . ".zip");
+			return download($run->directory()."/archive.zip", sanitizeFileName($run->name) .'_'. $hash . ".zip");
 		}
 		else {
 			abort(404);
@@ -104,9 +118,9 @@ Route::get('/run/download/{id}', function ($id)  {
 });
 
 // Return the status of a run or a 404 if it does not exist
-Route::get('/run/status/{id}', function ($id)  {
+Route::get('/run/status/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::findOrFail($id);
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		return $run->status;
 	} 
 	catch(Exception $e) {
@@ -117,14 +131,14 @@ Route::get('/run/status/{id}', function ($id)  {
 Route::post('/createRun', [
 	'as' => 'create', 'uses' => 'RunController@postCreate'
 ]);
-Route::post('/run/start/{id}', [
+Route::post('/run/start/{hash}', [
 	'as' => 'start', 'uses' => 'RunController@postStart'
 ]);
-Route::post('/done-uploading/{id}', [
+Route::post('/done-uploading/{hash}', [
 	'as' => 'start', 'uses' => 'RunController@postDoneUploading'
 ]);
 
-Route::post('/configure-files/{id}', [
+Route::post('/configure-files/{hash}', [
 	'as' => 'start', 'uses' => 'RunController@postConfigureFiles'
 ]);
 
@@ -168,76 +182,30 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 });
 
 
-Route::get('/run/results/{id}', [
-	'as' => 'results', 'uses' => 'RunController@getResults'
-]);
-
-
-// Return a download of the sample-data
-Route::get('/documentation', function ()  {
-	return view('documentation');
-});
-
-
-
 /**************************************************************************
  *** Results requests
 **************************************************************************/
 /*** Enrichment / Depletion *********/
-Route::get('/results/p-values/{id}',           'ResultsController@getP_Values');
-Route::get('/results/gene_rankings/{id}',  'ResultsController@getGeneRankings');
-Route::get('/results/sgrna_rankings/{id}',  'ResultsController@getSgrnaRankings');
-Route::get('/results/sgrna_efficiency/{id}',  'ResultsController@getSgrnaEfficiency');
-Route::get('/results/control/{id}',           'ResultsController@getControl');
+Route::get('/results/p-values/{hash}',           'ResultsController@getP_Values');
+Route::get('/results/gene_rankings/{hash}',  'ResultsController@getGeneRankings');
+Route::get('/results/sgrna_rankings/{hash}',  'ResultsController@getSgrnaRankings');
+Route::get('/results/sgrna_efficiency/{hash}',  'ResultsController@getSgrnaEfficiency');
+Route::get('/results/control/{hash}',           'ResultsController@getControl');
 
 /*** Statistics *********************/
-Route::get('/results/readcount_statistics/{id}',           'ResultsController@getReadCountStatistics');
-Route::get('/results/alignment_statistics/{id}',           'ResultsController@getAlignmentStatistics');
-Route::get('/results/cutadapt/{id}',        						   'ResultsController@getCutadapt');
+Route::get('/results/readcount_statistics/{hash}',           'ResultsController@getReadCountStatistics');
+Route::get('/results/alignment_statistics/{hash}',           'ResultsController@getAlignmentStatistics');
+Route::get('/results/cutadapt/{hash}',        						   'ResultsController@getCutadapt');
 
 /*** Scatter Plots ******************/
-Route::get('/results/readcount_scatterplots/{id}',     'ResultsController@getReadCountScatterplots');
-Route::get('/results/replicate_correlation/{id}',     'ResultsController@getReplicateCorrelation');
+Route::get('/results/readcount_scatterplots/{hash}',     'ResultsController@getReadCountScatterplots');
+Route::get('/results/replicate_correlation/{hash}',     'ResultsController@getReplicateCorrelation');
 
 /*** Heatmap ************************/
-Route::get('/results/heatmap/{id}',           'ResultsController@getHeatmap');
+Route::get('/results/heatmap/{hash}',           'ResultsController@getHeatmap');
 
 /*** Output *************************/
-Route::get('/results/output_log/{id}',        'ResultsController@getOutputLog');
+Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog');
 
-Route::get('/results/candidate_lists/{id}',   'ResultsController@getCandidateLists');
-Route::get('/results/qc/{id}',                'ResultsController@getQc');
-
-
-// TEST ROUTES
-
-
-
-// Route::get('/test-excel', function ()
-// {
-// 	$rows=[
-// 		["FILENAME"=>"File1","TREATMENT"=>"Control"],
-// 		["FILENAME"=>"File2","TREATMENT"=>"Control"],
-// 		["FILENAME"=>"File3","TREATMENT"=>"ToxinA"],
-// 		["FILENAME"=>"File4","TREATMENT"=>"ToxinB"],
-// 		["FILENAME"=>"File5","TREATMENT"=>"ToxinB"],
-// 		["FILENAME"=>"File6","TREATMENT"=>"ToxinA"]
-// 	];
-// 	Excel::create('DataSheet', function($excel) use (&$rows){
-
-// 	    $excel->sheet('Sheet1', function($sheet) use (&$rows){
-
-//           $sheet->with($rows, null, 'A1', false, false);
-
-//       });
-
-// 	})->save('xlsx',storage_path('/runs/myrun/'));
-// });
-
-Route::get('/test', function ()
-{
-	$run = \App\Run::findOrFail(10);
-	return view('layouts.file_selector', ['withControl'=>false, 'runDir'=>$run->directory(), 'result'=>'sgrna_efficiency', 'runHash'=>$run->dir]);
-});
-
-
+Route::get('/results/candidate_lists/{hash}',   'ResultsController@getCandidateLists');
+Route::get('/results/qc/{hash}',                'ResultsController@getQc');

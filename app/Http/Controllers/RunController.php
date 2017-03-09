@@ -41,18 +41,18 @@ class RunController extends Controller
 		makeDir( $dir."/workingDir/Data", 0775 );
 		makeDir( $dir."/workingDir/Library", 0775 );
 
-		\Illuminate\Support\Facades\Mail::to($run->email)->send(new \App\Mail\RunCreated($run));
+		\Illuminate\Support\Facades\Mail::to($run->email)->queue(new \App\Mail\RunCreated($run));
 		
-		return redirect("/upload/$run->id");
+		return redirect("/upload/$run->dir");
 	}
 
 	// Prevent lock recipe from further uploads, start the run. 
-	public function postStart(Request $req, $id)
+	public function postStart(Request $req, $hash)
 	{
 		try {
 			DB::beginTransaction();
 
-			$run = Run::findOrFail($id);
+			$run = Run::where('dir',$hash)->firstOrFail();
 
 			$dir = $run->directory();
 			File::put("$dir/status.log", 'Queued');
@@ -80,23 +80,23 @@ class RunController extends Controller
 		}
 
 
-		return redirect("/run/$id");
+		return redirect("/run/$hash");
 	}
 
-	public function postDoneUploading($id)
+	public function postDoneUploading($hash)
 	{
-		$run = Run::findOrFail($id);
+		$run = Run::where('dir',$hash)->firstOrFail();
 		$run->status='managing-files';
 		$run->save();
-		return redirect("/files/$id");
+		return redirect("/files/$hash");
 	}
 
-	public function postConfigureFiles(Request $request, $id)
+	public function postConfigureFiles(Request $request, $hash)
 	{
 		$validator = \Validator::make($request->all(), [
 		    'group-*' => ['required', \Illuminate\Validation\Rule::in(['control','treatment'])]
 		]);
-		$run = Run::findOrFail($id);
+		$run = Run::where('dir',$hash)->firstOrFail();
 		$runDir = $run->directory();
 		$dataDir = $runDir."/workingDir/Data";
 		$files = File::files($dataDir);
@@ -143,7 +143,7 @@ class RunController extends Controller
 
 		$run->status = "setting-parameters";
 		$run->save();
-		return redirect("/parameters/$id");
+		return redirect("/parameters/$hash");
 	}
 
 	public function generateConfig($req, $dir)
@@ -210,12 +210,6 @@ class RunController extends Controller
 
 		File::put("$dir/workingDir/configuration.yaml", $config);
 		File::put("$dir/workingDir/output.log", "");
-	}
-
-	public function getResults($id)
-	{
-		$run = Run::findOrFail($id);
-		return view('results')->with('run',$run);
 	}
 
 	public function getRuns()

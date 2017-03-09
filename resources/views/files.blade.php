@@ -9,7 +9,7 @@
 	<div class="column medium-2"><strong title="Select a group for each file">Sample Type</strong></div>
 	<div class="column medium-5"><strong title="Rename the file to make it easier on yourself. Invalid characters will be replaced with underscores">Treatment Name</strong></div>
 </div>
-<form action="/configure-files/{{ $run->id }}" method="POST">
+<form action="/configure-files/{{ $hash }}" method="POST">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 @foreach ($files as $file)
 	<?php $file = basename($file); ?>
