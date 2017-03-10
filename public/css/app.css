@@ -103,3 +103,7 @@ pre {
 #error-messages {
   margin-top: -1em;
 }
+
+img {
+  max-height: 600px
+}

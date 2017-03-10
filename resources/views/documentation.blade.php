@@ -287,12 +287,10 @@
         </p>
         <ul class="c4 lst-kix_list_7-0 start">
             <li>
-                <span class="c19">fdr_bh: </span>
                 <span class="c3">Benjamini-Hochberg method.</span>
             </li>
             <li>
-                <span class="c19">fdr_tsbh:</span>
-                <span class="c3">&nbsp;Two-stage Benjamini-Hochberg method.</span>
+                <span class="c3">Two-stage Benjamini-Hochberg method.</span>
             </li>
         </ul>
         <p class="c14">
@@ -302,9 +300,9 @@
             <span class="c10">Minimal read length (default = 10): </span>
         </p>
         <p class="c7">
-            <span>Minimal read length allowed after cutting the 5 &#39;/3 &#39;adapters around the 20bp sgRNA target sequence. Reads with length shorter than this number will be discarded. Refer to the </span>
+            <span>Minimal read length allowed after cutting the 5&#39;/3&#39;adapters around the 20bp sgRNA target sequence. Reads with length shorter than this number will be discarded. Refer to the </span>
             <span class="c37">
-                <a class="c5" href="https://www.google.com/url?q=http://cutadapt.readthedocs.io/en/stable/guide.html%23the-alignment-algorithm&amp;sa=D&amp;ust=1489177904491000&amp;usg=AFQjCNGErFSxbnVXatDh4LA2ucqYZ0szig">cutadapt manual</a>
+                <a class="c5" target="_blank" href="http://cutadapt.readthedocs.io/en/stable/guide.html#filtering-reads">cutadapt manual</a>
             </span>
             <span class="c3">&nbsp;for more information.</span>
         </p>
@@ -314,7 +312,7 @@
         <p class="c7">
             <span class="c3">Error rate allowed for the identification of the 5 &rsquo;and 3 &rsquo;adapters. Refer to the </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://cutadapt.readthedocs.io/en/stable/guide.html%23error-tolerance&amp;sa=D&amp;ust=1489177904492000&amp;usg=AFQjCNE1EqesJQMCljiVGJ0e5OE1bb6Daw">cutadapt manual</a>
+                <a class="c5" target="_blank" href="http://cutadapt.readthedocs.io/en/stable/guide.html#error-tolerance">cutadapt manual</a>
             </span>
             <span class="c3">&nbsp;for more information.</span>
         </p>
@@ -333,7 +331,7 @@
         <p class="c7">
             <span class="c3">Seed length parameter for Bowtie2 alignment. Smaller values slow down alignment but increase sensitivity. Refer to the </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://computing.bio.cam.ac.uk/local/doc/bowtie2.html%23what-is-bowtie-2&amp;sa=D&amp;ust=1489177904495000&amp;usg=AFQjCNHQTVzxVecI9Ee-EwqusEAhyj5Xbw">Bowtie2 manual</a>
+                <a class="c5" target="_blank" href="http://computing.bio.cam.ac.uk/local/doc/bowtie2.html#bowtie2-options-L">Bowtie2 manual</a>
             </span>
             <span class="c3">&nbsp;for more information.</span>
         </p>
@@ -343,7 +341,7 @@
         <p class="c7">
             <span class="c3">Number of allowed mismatches for Bowtie2 seed alignment. Higher values slow down alignment but increase sensitivity. Refer to the </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://computing.bio.cam.ac.uk/local/doc/bowtie2.html%23what-is-bowtie-2&amp;sa=D&amp;ust=1489177904497000&amp;usg=AFQjCNHvtm29SjW3PZCfjuNfc2i22WCYBg">Bowtie2 manual</a>
+                <a class="c5" target="_blank" href="http://computing.bio.cam.ac.uk/local/doc/bowtie2.html#bowtie2-options-N">Bowtie2 manual</a>
             </span>
             <span class="c3">&nbsp;for more information.</span>
         </p>
@@ -353,7 +351,7 @@
         <p class="c7">
             <span class="c3">Bowtie2 seed interval function. Refer to the </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://computing.bio.cam.ac.uk/local/doc/bowtie2.html%23what-is-bowtie-2&amp;sa=D&amp;ust=1489177904499000&amp;usg=AFQjCNGgjdZJmRKz7CwOA_jyl7zvJe14gA">Bowtie2 manual</a>
+                <a class="c5" target="_blank" href="http://computing.bio.cam.ac.uk/local/doc/bowtie2.html#bowtie2-options-i">Bowtie2 manual</a>
             </span>
             <span class="c3">&nbsp;for more information.</span>
         </p>
@@ -564,7 +562,7 @@
             <span class="c19">20-25 bp</span>
             <span class="c3">&nbsp;are recommended. This sequence will depend on the cloning strategy of your library. Use a sequence mapping program like </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://www.snapgene.com/products/snapgene_viewer/&amp;sa=D&amp;ust=1489177904532000&amp;usg=AFQjCNE3d0iK7XqsfFyvGA6jjqzkfX9_-w">SnapGene Viewer</a>
+                <a class="c5" target="_blank" href="http://www.snapgene.com/products/snapgene_viewer/">SnapGene Viewer</a>
             </span>
             <span class="c3">&nbsp;to lay out the sequence of your sgRNA cassette as it will appear in your reads. </span>
         </p>
@@ -576,7 +574,7 @@
             <span class="c19">20-25 bp</span>
             <span class="c3">&nbsp;are recommended. This sequence will depend on the cloning strategy of your library. Use a sequence mapping program like </span>
             <span class="c6">
-                <a class="c5" href="https://www.google.com/url?q=http://www.snapgene.com/products/snapgene_viewer/&amp;sa=D&amp;ust=1489177904534000&amp;usg=AFQjCNFH6WwHfGmbP7KuEtPys2m0gK1aKQ">SnapGene Viewer</a>
+                <a class="c5" target="_blank" href="http://www.snapgene.com/products/snapgene_viewer/">SnapGene Viewer</a>
             </span>
             <span class="c47 c48">&nbsp;</span>
             <span class="c3">to lay out the sequence of your sgRNA cassette as it will appear in your reads. </span>
@@ -709,7 +707,7 @@
         <p class="c7">
             <span>NOTE for Windows users: It is recommended to use </span>
             <span class="c37 c40 c52">
-                <a class="c5" href="https://www.google.com/url?q=https://notepad-plus-plus.org/download/v7.2.1.html&amp;sa=D&amp;ust=1489177904554000&amp;usg=AFQjCNGtnWy7SJTG5_WtBa-vynBvN82Ktw">Notepad++</a>
+                <a class="c5" target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a>
             </span>
             <span>&nbsp;to view text files (.txt/.tsv/.csv)</span>
         </p>
@@ -877,7 +875,7 @@
                 <span class="c18">MappingQuality.png:</span>
                 <span class="c0">&nbsp;Histogram of the overall quality by which the reads map to the library. Reads that uniquely align to a single library sequence yield a high mapping quality score. Reads that ambiguously align to multiple library sequences or that do not align to any library sequence yield a low mapping quality score. For more detailed information about mapping quality, refer to the </span>
                 <span class="c6">
-                    <a class="c5" href="https://www.google.com/url?q=http://computing.bio.cam.ac.uk/local/doc/bowtie2.html%23mapping-quality-higher-more-unique&amp;sa=D&amp;ust=1489177904584000&amp;usg=AFQjCNG8RCxLEwBhEiMDqhQZQjzZQi3uag">Bowtie2 manual</a>
+                    <a class="c5" target="_blank" href="http://computing.bio.cam.ac.uk/local/doc/bowtie2.html#mapping-quality-higher-more-unique">Bowtie2 manual</a>
                 </span>
                 <span class="c0">.</span>
             </li>
@@ -885,7 +883,7 @@
                 <span class="c18">AlignmentScores.png:</span>
                 <span class="c0">&nbsp;Barplot showing the primary (best) and secondary (second-best) alignment scores achieved for each read. If a read uniquely aligns to only one library sequence, its primary alignment score will be high, and its secondary alignment score will be 0. If a read aligns ambiguously to multiple library sequences, its secondary alignment score will be close to its primary alignment score. If a read does not align to any library sequence, both its primary and secondary alignment scores will be 0. The fraction marked in red is discarded from the analysis. For more detailed information about alignment scores, refer to the </span>
                 <span class="c6">
-                    <a class="c5" href="https://www.google.com/url?q=http://computing.bio.cam.ac.uk/local/doc/bowtie2.html%23mapping-quality-higher-more-unique&amp;sa=D&amp;ust=1489177904585000&amp;usg=AFQjCNFxui5-_eRmWKLWBupr3EMwv9HN-Q">Bowtie2 manual</a>
+                    <a class="c5" target="_blank" href="http://computing.bio.cam.ac.uk/local/doc/bowtie2.html#scores-higher-more-similar">Bowtie2 manual</a>
                 </span>
                 <span class="c0">. </span>
             </li>
@@ -924,7 +922,7 @@
             <span class="c46">This tab shows the log of the adapter trimming process, giving</span>
             <span>&nbsp;statistics about the distribution of adapter sequence lengths and more. The output is explained in detail in the </span>
             <span class="c37">
-                <a class="c5" href="https://www.google.com/url?q=http://cutadapt.readthedocs.io/en/stable/guide.html%23cutadapt-s-output&amp;sa=D&amp;ust=1489177904589000&amp;usg=AFQjCNGmSztyHg8BoMvTbnKQVGLIuA1quA">cutadapt manual</a>
+                <a class="c5" target="_blank" href="http://cutadapt.readthedocs.io/en/stable/guide.html#cutadapt-s-output">cutadapt manual</a>
             </span>
             <span class="c3">.</span>
         </p>
@@ -1919,7 +1917,7 @@
 	                padding: 0
 	            }
 
-	            #content table td,table th {
+	            table td,table th {
 	                padding: 0
 	            }
 
@@ -2388,7 +2386,7 @@
 							    margin-bottom: .5em;
 	            }
 
-	            #content p {
+	            p {
 	                margin: 0;
 	                color: #000000;
 	                font-size: 11pt;
