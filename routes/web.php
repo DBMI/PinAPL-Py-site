@@ -196,6 +196,8 @@ Route::get('/results/control/{hash}',           'ResultsController@getControl');
 Route::get('/results/readcount_statistics/{hash}',           'ResultsController@getReadCountStatistics');
 Route::get('/results/alignment_statistics/{hash}',           'ResultsController@getAlignmentStatistics');
 Route::get('/results/cutadapt/{hash}',        						   'ResultsController@getCutadapt');
+Route::get('/results/sequence_quality/{hash}',        			 'ResultsController@getSequenceQuality');
+Route::get('/results/sequencing_depth/{hash}',        			 'ResultsController@getSequencingDepth');
 
 /*** Scatter Plots ******************/
 Route::get('/results/readcount_scatterplots/{hash}',     'ResultsController@getReadCountScatterplots');

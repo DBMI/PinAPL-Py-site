@@ -38,6 +38,12 @@ class ResultsController extends Controller
     public function getCutadapt($hash) {
         return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'cutadapt']);
     }
+    public function getSequenceQuality($hash) {
+        return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'sequence_quality']);
+    }
+    public function getSequencingDepth($hash) {
+        return view('results.sequencing_depth_component', ['runHash'=>$hash]);
+    }
     /*************************************
      *** Scatter Plots
      ************************************/

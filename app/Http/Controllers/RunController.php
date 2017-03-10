@@ -75,8 +75,7 @@ class RunController extends Controller
 	    $data = $req->all();
 	    $this->generateConfig($req, $run->directory());
 
-
-	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir > $dir/runStatus.log";
+	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir ".config("docker.num_cores")." > $dir/runStatus.log";
 	    File::put("$dir/runCmd.sh", $runCmd);
 	    $runsInQueue = Run::where('status','queued')->exists();
 	    if (! $runsInQueue) {

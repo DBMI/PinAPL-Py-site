@@ -328,43 +328,44 @@ return [
 		]
 	],
 	"directories"=> 
-		"WorkingDir: '/workingdir/' \n".
-		"DataDir: '/workingdir/Data/' \n".
-		"LibDir: '/workingdir/Library/' \n".
-		// If custom instead make point to /workingdir/Library
-		"IndexDir: '/workingdir/Library/Bowtie2_Index/' \n".
-		"ScriptsDir: '/opt/PinAPL-Py/Scripts/' \n".
-		"AlignDir: '/workingdir/Alignments/' \n".
-		"AnalysisDir: '/workingdir/Analysis/' \n".
-		"HitDir: '/workingdir/Analysis/sgRNA_Rankings' \n".
-		"GeneDir: '/workingdir/Analysis/Gene_Rankings' \n".
-		"ControlDir: '/workingdir/Analysis/Control/' \n".
-		"HeatDir: '/workingdir/Analysis/Heatmap/' \n".
-		"AlnQCDir: '/workingdir/Analysis/Alignment_Statistics/' \n".
-		"CountQCDir: '/workingdir/Analysis/ReadCount_Statistics/' \n".
-		"ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/' \n".
-		"CorrelDir: '/workingdir/Analysis/Replicate_Correlation/' \n".
-		"EffDir: '/workingdir/Analysis/sgRNA_Efficiency/' \n".
-		"DepthDir: '/workingdir/Analysis/Read_Depth/'  \n".
-		"pvalDir: '/workingdir/Analysis/p-values/'  \n".
-		"LogFileDir: '/workingdir/Analysis/Log_File/' \n".
-		"bw2Dir: '/usr/bin/' \n".
-		"CutAdaptDir: '/root/.local/bin/'    \n".
-		"STARSDir: '/opt/PinAPL-Py/Scripts/STARS_mod/' \n"
+		"WorkingDir: '/workingdir/'\n".
+		"DataDir: '/workingdir/Data/'\n".
+		"LibDir: '/workingdir/Library/'\n".
+		"IndexDir: '/workingdir/Library/Bowtie2_Index/'\n".
+		"ScriptsDir: '/opt/PinAPL-Py/Scripts/'\n".
+		"AlignDir: '/workingdir/Alignments/'\n".
+		"AnalysisDir: '/workingdir/Analysis/'\n".
+		"HitDir: '/workingdir/Analysis/sgRNA_Rankings'\n".
+		"GeneDir: '/workingdir/Analysis/Gene_Rankings'\n".
+		"ControlDir: '/workingdir/Analysis/Control/'\n".
+		"HeatDir: '/workingdir/Analysis/Heatmap/'\n".
+		"AlnQCDir: '/workingdir/Analysis/Alignment_Statistics/'\n".
+		"CountQCDir: '/workingdir/Analysis/ReadCount_Statistics/'\n".
+		"ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/'\n".
+		"CorrelDir: '/workingdir/Analysis/Replicate_Correlation/'\n".
+		"EffDir: '/workingdir/Analysis/sgRNA_Efficacy/'\n".
+		"DepthDir: '/workingdir/Analysis/Read_Depth/'\n".
+		"SeqQCDir: '/workingdir/Analysis/Sequence_Quality/'\n".
+		"pvalDir: '/workingdir/Analysis/p-values/' \n".
+		"LogFileDir: '/workingdir/Analysis/Log_File/'\n".
+		"bw2Dir: '/usr/bin/'\n".
+		"CutAdaptDir: '/root/.local/bin/'   \n".
+		"STARSDir: '/opt/PinAPL-Py/Scripts/STARS_mod/'\n"
 	,
 	"script_filenames" => 
-		"script00: 'BuildLibraryIndex' \n".
-		"script01: 'LoadDataSheet' \n".
-		"script02: 'PlotNumReads' \n".
-		"script03: 'AlignReads' \n".
-		"script04: 'NormalizeReadCounts' \n".
-		"script05: 'AnalyzeReadCounts' \n".
-		"script06: 'AnalyzeControl' \n".
-		"script07: 'FindHits' \n".
-		"script08: 'RankGenes' \n".
-		"script09: 'PlotCounts' \n".
-		"script10: 'PlotReplicates' \n".
-		"script11: 'PlotHeatmap' \n"
+		"IndexScript: 'BuildLibraryIndex'\n".
+		"LoaderScript: 'LoadDataSheet'\n".
+		"ReadDepthScript: 'PlotNumReads'\n".
+		"SeqQCScript: 'CheckSequenceQuality'\n".
+		"AlignScript: 'AlignReads'\n".
+		"NormalizeScript: 'NormalizeReadCounts'\n".
+		"StatsScript: 'AnalyzeReadCounts'\n".
+		"ControlScript: 'AnalyzeControl'\n".
+		"sgRNARankScript: 'FindHits'\n".
+		"GeneRankScript: 'RankGenes'\n".
+		"ScatterScript: 'PlotCounts'\n".
+		"ReplicateScript: 'PlotReplicates'\n".
+		"ClusterScript: 'PlotHeatmap'\n"
 	,
 	"libraries" => [
 		"Activity-optimized_human_genome-wide.tsv" => "Activity-optimized human genome-wide",

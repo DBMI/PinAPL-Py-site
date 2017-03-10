@@ -4,7 +4,8 @@ $sections = [
 	"control" => "Read Count Dispersion",
 	"alignment_statistics"  => "Alignment",
 	"cutadapt"	=> "Adapter Trimming",
-	"sequencing_qc"	=> "Sequence Quality",
+	"sequence_quality"	=> "Sequence Quality",
+	"sequencing_depth"	=> "Sequencing Depth",
 ];
 ?>
 @extends('layouts.results_section_tabs', ['sections' => $sections])

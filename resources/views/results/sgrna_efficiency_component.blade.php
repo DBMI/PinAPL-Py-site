@@ -1,1 +1,1 @@
-<img src='/run-images?path={{ urlencode("/$runHash/workingDir/Analysis/sgRNA_Efficiency/".$prefix."_sgRNA_Efficiency.png") }}'>
+<img src='/run-images?path={{ urlencode("/$runHash/workingDir/Analysis/sgRNA_Efficacy/".$prefix."_sgRNA_Efficacy.png") }}'>
