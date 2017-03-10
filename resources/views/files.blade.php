@@ -1,6 +1,6 @@
 @php
 	$title = "Step 2: Define your samples";
-	$description = "Indicate which of your files represent a <b>treatment</b> and which represent the <b>control</b>.<br>Give each <b>treatment</b> condition a <b>name</b>. Replicates of the same treatment condition need to have the same name!";
+	$description = "Indicate which of your files represent a <b>treatment</b> and which represent the <b>control</b>.<br>Give each <b>treatment</b> condition a <b>name</b>. Replicates of the same treatment condition need to have the same name.";
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
 @section('content')

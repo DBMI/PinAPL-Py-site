@@ -2,7 +2,7 @@
 @section('content')
 <div class="row align-middle">
 	<div class="medium-3 align-center columns">
-		<img id="welcome-logo" src="/img/logo.png">
+		<img id="welcome-logo" src="/img/logo_color.png">
 	</div>
 	<div class="medium-9 columns" id="welcome-text">
 		<div class="row">

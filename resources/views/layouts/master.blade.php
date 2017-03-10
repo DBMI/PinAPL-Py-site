@@ -38,7 +38,7 @@
       </div>
     @endif
     <div class="row collapse">
-      <div class="columns small-12">
+      <div class="columns small-12" id="content">
         @yield('content')
       </div>
     </div>
