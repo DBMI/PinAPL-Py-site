@@ -12,14 +12,17 @@ use Illuminate\Support\Facades\File;
 	<div id="status-dependent">
 		@if ($run->status == "finished")
 			@include('results',['hash'=>$run->dir])
-		@elseif($run->status == "queued")
-			<div class="row align-center">
-				<div class="column shrink">
-					<h2>In Queue - {{ \App\Run::where("status", "queued")->count() }} runs ahead of you. </h2>
-					<p>There are other runs ahead of you, your run is qurrently in queue. Please be patient. You will recieve an email when it has completed.</p>
-				</div>
-			</div>
 		@else
+			<span><b>Please refresh this page periodically to follow the program's progress!</b></span>
+			@if($run->status == "queued")
+				<?php $queueCount = \App\Run::where("status", "queued")->count(); ?>
+				<div class="row align-center">
+					<div class="column shrink">
+						<h2>In Queue - {{$queueCount}} run{{($queueCount>1)? 's':''}} ahead of you. </h2>
+						<p>There are other runs ahead of you, your run is qurrently in queue. Please be patient. You will recieve an email when it has completed.</p>
+					</div>
+				</div>
+			@else
 				<div class="columns shrink">Run Status {{ $run->status }}</div>
 				Output log: 
 				@if (File::exists($run->directory()."/workingDir/output.log"))
@@ -27,6 +30,7 @@ use Illuminate\Support\Facades\File;
 				@else 
 					An error has occured
 				@endif
+			@endif
 		@endif
 	</div>
 	

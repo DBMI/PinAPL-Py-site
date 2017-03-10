@@ -144,7 +144,7 @@ return [
 				"hidden" =>false,
 				"rules" => "string|in:fdr_bh,fdr_tsbh",
 				"type" =>"select",
-				"options" => ["fdr_bh"=>"fdr_bh", "fdr_tsbh"=>"fdr_tsbh"]
+				"options" => ["fdr_bh"=>"FDR (Benjamini/Hochberg)", "fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)"]
 			],
 		],
 		"Adapter Trimming" => [

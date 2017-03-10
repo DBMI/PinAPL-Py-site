@@ -61,7 +61,8 @@ class RunController extends Controller
 				$rules = array_add($rules, $param_name, $param_properties['rules']."|nullable");
 			}
 		}
-		$this->validate($req, $rules);
+		$errorMessages = ['between' => 'The :attribute must be between :min - :max.'];
+		$this->validate($req, $rules, $errorMessages);
 		try {
 			DB::beginTransaction();
 
