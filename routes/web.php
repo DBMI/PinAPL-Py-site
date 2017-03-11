@@ -31,6 +31,12 @@ Route::get('/documentation', function ()  {
 	return view('documentation');
 });
 
+//Return example output results page
+Route::get('/example-results', function ()
+{
+	return view('results',['runName'=>"Example Run", 'hash'=>"example-run"]);
+});
+
 
 // The upload page for a run. If the run has a status of running, redirect to run page
 Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
@@ -52,7 +58,12 @@ Route::get('/run/{hash}', function ($hash)  {
 			return $redirect;
 		}
 		else {
-			return view('run', ['run'=>$run, 'hash'=>$hash]);
+			if ($run->status == "finished") {
+				return view('results',['runName'=>$run->name, 'hash'=>$hash]);
+			}
+			else {
+				return view('run', ['run'=>$run, 'hash'=>$hash]);
+			}
 		}
 		
 	} 
@@ -96,6 +107,8 @@ Route::get('/parameters/{hash}', function ($hash)  {
 		
 	} 
 	catch(Exception $e) {
+		\Log::error("Exception thrown on /parameters/$hash");
+		\Log::error($e);
 		abort(404);
 	}
 });
@@ -104,15 +117,22 @@ Route::get('/parameters/{hash}', function ($hash)  {
 // If it does not exist or is not finished, 404
 Route::get('/run/download/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::where('dir',$hash)->firstOrFail();
-		if ($run->status == "finished") {
-			return download($run->directory()."/archive.zip", sanitizeFileName($run->name) .'_'. $hash . ".zip");
+		$path = storage_path("/runs/$hash/archive.zip");
+		$runName = $hash;
+		if ($hash != "example-run") {
+			$run = \App\Run::where('dir',$hash)->firstOrFail();
+			$runName = $run->name;
+		}
+		if (\File::exists($path)) {
+			return download($path, sanitizeFileName($runName) .'_'. $hash . ".zip");
 		}
 		else {
 			abort(404);
 		}
 	} 
 	catch(Exception $e) {
+		\Log::error("Exception thrown on /run/download/$hash");
+		\Log::error($e);
 		abort(404);
 	}
 });
@@ -124,6 +144,8 @@ Route::get('/run/status/{hash}', function ($hash)  {
 		return $run->status;
 	} 
 	catch(Exception $e) {
+		\Log::error("Exception thrown on /run/status/$hash");
+		\Log::error($e);
 		abort(404);
 	}
 });

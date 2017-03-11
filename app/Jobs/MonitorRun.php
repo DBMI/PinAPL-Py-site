@@ -76,6 +76,7 @@ class MonitorRun implements ShouldQueue
                     $delayTime = 30;
                     if ($this->attempts() >= 250) {
                         dispatch((new \App\Jobs\MonitorRun($run))->delay($delayTime))->onQueue("monitor");
+                        $this->delete();
                     } else {
                         $this->release($delayTime);
                     }

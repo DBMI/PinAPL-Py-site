@@ -1,0 +1,12 @@
+PASS	Basic Statistics	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Per base sequence quality	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+WARN	Per tile sequence quality	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Per sequence quality scores	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+FAIL	Per base sequence content	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Per sequence GC content	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Per base N content	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Sequence Length Distribution	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+FAIL	Sequence Duplication Levels	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+WARN	Overrepresented sequences	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+PASS	Adapter Content	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+FAIL	Kmer Content	ToxA_R1_98_S2_L008_R1_001_x.fastq.gz

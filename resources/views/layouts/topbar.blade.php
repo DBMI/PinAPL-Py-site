@@ -5,7 +5,7 @@
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      <li><a href="/run/1">Example Output</a></li>      
+      <li><a href="/example-results">Example Results</a></li>      
       <li><a href="/documentation">Documentation</a></li>
       <li><a href="/contact">Contact Us</a></li>
     </ul>

@@ -1,0 +1,834 @@
+**************************************************
+Launching PinAPL-Py ...
+P. Spahn et al., UC San Diego (10/2016)
+**************************************************
+**************************************************
+Reading data ...
+**************************************************
+Found sample Control_1
+Found sample Control_2
+Found sample ToxB_1
+Found sample ToxB_2
+Found sample ToxA_1
+Found sample ToxA_2
+
+Data input completed.
+
+
+
+**************************************************
+Running sequence quality control ...
+**************************************************
+Started analysis of Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 5% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 10% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 15% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 20% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 25% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 30% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 35% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 40% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 45% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 50% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 55% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 60% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 65% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 70% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 75% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 80% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 85% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 90% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 95% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Approx 100% complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Analysis complete for Control_R2_S15_L008_R1_001_x.fastq.gz
+Started analysis of ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 5% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 10% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 15% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 20% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 25% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 30% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 35% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 40% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 45% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 50% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 55% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 60% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 65% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 70% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 75% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 80% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 85% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 90% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 95% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Approx 100% complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Analysis complete for ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Started analysis of ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 5% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 10% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 15% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 20% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 25% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 30% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 35% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 40% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 45% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 50% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 55% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 60% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 65% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 70% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 75% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 80% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 85% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 90% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 95% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Approx 100% complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Analysis complete for ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Started analysis of ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 5% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 10% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 15% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 20% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 25% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 30% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 35% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 40% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 45% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 50% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 55% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 60% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 65% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 70% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 75% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 80% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 85% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 90% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 95% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Approx 100% complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Analysis complete for ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Started analysis of Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 5% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 10% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 15% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 20% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 25% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 30% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 35% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 40% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 45% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 50% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 55% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 60% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 65% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 70% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 75% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 80% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 85% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 90% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 95% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Approx 100% complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Analysis complete for Control_R1_S14_L008_R1_001_x.fastq.gz
+Started analysis of ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 5% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 10% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 15% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 20% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 25% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 30% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 35% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 40% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 45% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 50% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 55% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 60% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 65% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 70% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 75% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 80% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 85% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 90% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 95% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Approx 100% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Analysis complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
+**************************************************
+Aligning reads ...
+**************************************************
+
+Processing sample Control_1 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 9.519
+
+Alignment in progress ...
+498196 reads; of these:
+  498196 (100.00%) were unpaired; of these:
+    29366 (5.89%) aligned 0 times
+    397984 (79.89%) aligned exactly 1 time
+    70846 (14.22%) aligned >1 times
+94.11% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 5.225
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 5.389
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 25.669
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.050
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 45.860
+
+
+Processing sample Control_2 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 10.232
+
+Alignment in progress ...
+498297 reads; of these:
+  498297 (100.00%) were unpaired; of these:
+    31458 (6.31%) aligned 0 times
+    394463 (79.16%) aligned exactly 1 time
+    72376 (14.52%) aligned >1 times
+93.69% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 5.043
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 5.116
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 26.292
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.037
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 46.727
+
+
+Processing sample ToxA_1 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 10.078
+
+Alignment in progress ...
+498949 reads; of these:
+  498949 (100.00%) were unpaired; of these:
+    25652 (5.14%) aligned 0 times
+    398456 (79.86%) aligned exactly 1 time
+    74841 (15.00%) aligned >1 times
+94.86% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 5.263
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 5.893
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 26.009
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.050
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 47.301
+
+
+Processing sample ToxA_2 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 9.442
+
+Alignment in progress ...
+498821 reads; of these:
+  498821 (100.00%) were unpaired; of these:
+    32509 (6.52%) aligned 0 times
+    392507 (78.69%) aligned exactly 1 time
+    73805 (14.80%) aligned >1 times
+93.48% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 4.979
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 5.116
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 26.370
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.065
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 45.978
+
+
+Processing sample ToxB_1 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 10.764
+
+Alignment in progress ...
+499626 reads; of these:
+  499626 (100.00%) were unpaired; of these:
+    28120 (5.63%) aligned 0 times
+    404949 (81.05%) aligned exactly 1 time
+    66557 (13.32%) aligned >1 times
+94.37% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 4.789
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 4.818
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 26.410
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.033
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 46.822
+
+
+Processing sample ToxB_2 ... 
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Alignment & Read Counting
+++++++++++++++++++++++++++++++++++++
+Read clipping in progress ...
+Read clipping completed.
+Time elapsed (Read clipping) [secs]: 10.863
+
+Alignment in progress ...
+499656 reads; of these:
+  499656 (100.00%) were unpaired; of these:
+    30082 (6.02%) aligned 0 times
+    403379 (80.73%) aligned exactly 1 time
+    66195 (13.25%) aligned >1 times
+93.98% overall alignment rate
+Alignment completed.
+Time elapsed (Alignment) [secs]: 4.728
+
+Analyzing alignment ...
+Writing alignment logfile ...
+Plotting mapping quality ...
+Plotting alignment scores ...
+Alignment analysis completed.
+Time elapsed (Alignment analysis) [secs]: 4.883
+
+Read counting in progress ...
+Counting reads per sgRNA ...
+Counting reads per gene ...
+Read counting completed.
+Time elapsed (Read Counting) [secs]: 26.201
+
+Removing raw alignment output...
+Time elapsed (Clean-up) [secs]: 0.048
+
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 46.730
+
+Read alignments completed.
+
+
+
+**************************************************
+Normalizing read counts ...
+**************************************************
+++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Read Count Normalization
+++++++++++++++++++++++++++++++++++++
+Normalizing to counts per million reads ...
+Processing ToxB_2 ...
+Processing ToxA_1 ...
+Processing Control_1 ...
+Processing Control_2 ...
+Processing ToxA_2 ...
+Processing ToxB_1 ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 2.186
+
+Normalization completed.
+
+
+
+**************************************************
+Analyzing read counts ...
+**************************************************
+
+Processing sample Control_1 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.741
+Gini Index (genes): 0.444
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.507
+
+
+Processing sample Control_2 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.721
+Gini Index (genes): 0.426
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.509
+
+
+Processing sample ToxA_1 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.937
+Gini Index (genes): 0.763
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.611
+
+
+Processing sample ToxA_2 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.903
+Gini Index (genes): 0.684
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.560
+
+
+Processing sample ToxB_1 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.964
+Gini Index (genes): 0.88
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.407
+
+
+Processing sample ToxB_2 ... 
+++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Exploratory Counts Analysis
+++++++++++++++++++++++++++++++++++++++
+Computing Gini coefficients ... 
+Gini Index (sgRNAs): 0.966
+Gini Index (genes): 0.889
+Plotting Lorenz curves ...
+Generating boxplots...
+Generating histograms...
+Writing distribution file ... 
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.375
+
+Read count analysis completed.
+
+
+
+**************************************************
+Analyzing controls ...
+**************************************************
++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Control Count Estimation
++++++++++++++++++++++++++++++++++++
+Reading control counts ...
+Estimating mean and variance ...
+Writing dataframe ...
+Generating dispersion plot ...
+Generating log regression plot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 2.631
+
+Control analysis completed.
+
+
+
+**************************************************
+sgRNA enrichment analysis ...
+**************************************************
+
+Processing sample ToxA_1 ... 
+++++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: sgRNA Enrichment/Depletion Analysis
+++++++++++++++++++++++++++++++++++++++++++++++
+Loading read counts ...
+Computing fold changes ...
+Computing p-values ...
+p-value correction ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 53.731
+
+
+Processing sample ToxA_2 ... 
+++++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: sgRNA Enrichment/Depletion Analysis
+++++++++++++++++++++++++++++++++++++++++++++++
+Loading read counts ...
+Computing fold changes ...
+Computing p-values ...
+p-value correction ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 54.580
+
+
+Processing sample ToxB_1 ... 
+++++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: sgRNA Enrichment/Depletion Analysis
+++++++++++++++++++++++++++++++++++++++++++++++
+Loading read counts ...
+Computing fold changes ...
+Computing p-values ...
+p-value correction ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 54.186
+
+
+Processing sample ToxB_2 ... 
+++++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: sgRNA Enrichment/Depletion Analysis
+++++++++++++++++++++++++++++++++++++++++++++++
+Loading read counts ...
+Computing fold changes ...
+Computing p-values ...
+p-value correction ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 54.216
+
+sgRNA enrichment analysis completed.
+
+
+
+**************************************************
+Read count scatterplots ...
+**************************************************
+
+Processing sample ToxA_1 ... 
++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Read Counts Scatterplot
++++++++++++++++++++++++++++++++++++++++++++
+Reading counts ...
+Log10 transformation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.699
+
+
+Processing sample ToxA_2 ... 
++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Read Counts Scatterplot
++++++++++++++++++++++++++++++++++++++++++++
+Reading counts ...
+Log10 transformation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.668
+
+
+Processing sample ToxB_1 ... 
++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Read Counts Scatterplot
++++++++++++++++++++++++++++++++++++++++++++
+Reading counts ...
+Log10 transformation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.644
+
+
+Processing sample ToxB_2 ... 
++++++++++++++++++++++++++++++++++++++++++++
+PinAPL-Py: Read Counts Scatterplot
++++++++++++++++++++++++++++++++++++++++++++
+Reading counts ...
+Log10 transformation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.672
+
+Read count scatterplots completed.
+
+
+
+**************************************************
+Replicate correlation ...
+**************************************************
+
+Processing sample Control ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Replicate Scatterplot
+++++++++++++++++++++++++++++++++
+Sample 1: Control_1 | Sample 2: Control_2
+Reading counts ...
+Log10 transformation ...
+Computing correlation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.717
+
+
+Processing sample ToxB ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Replicate Scatterplot
+++++++++++++++++++++++++++++++++
+Sample 1: ToxB_1 | Sample 2: ToxB_2
+Reading counts ...
+Log10 transformation ...
+Computing correlation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.697
+
+
+Processing sample ToxA ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Replicate Scatterplot
+++++++++++++++++++++++++++++++++
+Sample 1: ToxA_1 | Sample 2: ToxA_2
+Reading counts ...
+Log10 transformation ...
+Computing correlation ...
+Generating scatterplot ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 1.689
+
+
+Replicate correlation analysis completed.
+
+
+
+**************************************************
+Clustering analysis ...
+**************************************************
+++++++++++++++++++++++++++++++++++
+PinAPL-Py: Sample Cluster Analysis
+++++++++++++++++++++++++++++++++++
+Loading read counts ...
+Computing variance ...
+Extracting top 25 most variable sgRNAs ...
+Writing dataframe ...
+Plotting heatmap ...
+--------------------------------------------
+KernSmooth 2.23 loaded
+Copyright M. P. Wand 1997-2009
+
+Attaching package: 'gplots'
+
+The following object is masked from 'package:stats':
+
+    lowess
+
+--------------------------------------------
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [secs]: 2.460
+
+Clustering analysis completed.
+
+
+
+**************************************************
+Gene ranking analysis ...
+**************************************************
+
+Processing sample ToxA_1 ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Gene Ranking Analysis
+++++++++++++++++++++++++++++++++
+Loading sgRNA enrichment/depletion table ...
+Looking for sgRNAs with significant fold change ...
+Computing a-RRA scores ...
+Time elapsed (a-RRA Computation) [secs]: 45.300
+Estimating a-RRA null distribution (1000 Permutations)...
+Time elapsed (a-RRA Permutation) [secs]: 26.160
+Computing a-RRA p-values ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [mins]: 1.326
+
+
+
+Processing sample ToxA_2 ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Gene Ranking Analysis
+++++++++++++++++++++++++++++++++
+Loading sgRNA enrichment/depletion table ...
+Looking for sgRNAs with significant fold change ...
+Computing a-RRA scores ...
+Time elapsed (a-RRA Computation) [secs]: 45.034
+Estimating a-RRA null distribution (1000 Permutations)...
+Time elapsed (a-RRA Permutation) [secs]: 26.445
+Computing a-RRA p-values ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [mins]: 1.334
+
+
+
+Processing sample ToxB_1 ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Gene Ranking Analysis
+++++++++++++++++++++++++++++++++
+Loading sgRNA enrichment/depletion table ...
+Looking for sgRNAs with significant fold change ...
+Computing a-RRA scores ...
+Time elapsed (a-RRA Computation) [secs]: 45.039
+Estimating a-RRA null distribution (1000 Permutations)...
+Time elapsed (a-RRA Permutation) [secs]: 25.695
+Computing a-RRA p-values ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [mins]: 1.300
+
+
+
+Processing sample ToxB_2 ... 
+++++++++++++++++++++++++++++++++
+PinAPL-Py: Gene Ranking Analysis
+++++++++++++++++++++++++++++++++
+Loading sgRNA enrichment/depletion table ...
+Looking for sgRNAs with significant fold change ...
+Computing a-RRA scores ...
+Time elapsed (a-RRA Computation) [secs]: 46.114
+Estimating a-RRA null distribution (1000 Permutations)...
+Time elapsed (a-RRA Permutation) [secs]: 25.976
+Computing a-RRA p-values ...
+Plotting p-values ...
+Writing results dataframe ...
+Converting to xlsx ...
+------------------------------------------------
+Script completed.
+Time elapsed (Total) [mins]: 1.322
+
+
+Gene ranking analysis completed.
+
+
+
+**************************************************
+PinAPL-Py completed.
+Time elapsed [mins]: 14.818
+

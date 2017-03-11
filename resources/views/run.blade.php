@@ -5,14 +5,8 @@ use Illuminate\Support\Facades\File;
 @section('content')
 	<div class="row align-justify">
 		<div class="columns shrink"><h4>{{ $run->name }}</h4></div>
-		@if ($run->status == "finished")
-			<div class="columns shrink"><a id="download-archive" class="button success bold" href="/run/download/{{ $run->id }}">Download Results Archive</a></div>
-		@endif
 	</div>
 	<div id="status-dependent">
-		@if ($run->status == "finished")
-			@include('results',['hash'=>$run->dir])
-		@else
 			<span><b>Please refresh this page periodically to follow the program's progress!</b></span>
 			@if($run->status == "queued")
 				<?php $queueCount = \App\Run::where("status", "queued")->count(); ?>
@@ -31,7 +25,6 @@ use Illuminate\Support\Facades\File;
 					An error has occured
 				@endif
 			@endif
-		@endif
 	</div>
 	
 
