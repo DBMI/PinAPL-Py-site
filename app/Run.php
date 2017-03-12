@@ -45,8 +45,8 @@ class Run extends Model
 
 	public function delete()
 	{
-		File::deleteDirectory($this->directory);
-		parent::delete();
+		\File::deleteDirectory($this->directory());
+		return parent::delete();
 	}
 
 	public function url()
@@ -59,7 +59,6 @@ class Run extends Model
 		$hash = $this->dir;
 		$runStatus = strtolower(trim($this->status));
 		if ($runStatus == "finished" || $runStatus == "error" || $runStatus == "queued") {
-			\Log::debug("Status: ".$runStatus." --- Set to running");
 			$runStatus = "running";
 		}
 		if ($runStatus == $status) {

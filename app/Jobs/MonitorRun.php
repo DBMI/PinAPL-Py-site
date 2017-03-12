@@ -14,7 +14,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 use App\Run;
 use Illuminate\Support\Facades\File;
-
+use Carbon\Carbon;
 
 class MonitorRun implements ShouldQueue
 {
@@ -63,10 +63,13 @@ class MonitorRun implements ShouldQueue
                     dispatch(new \App\Jobs\CompressRun($run));
                     $nextRun = Run::where('status','queued')->first();
                     if (!empty($nextRun)) {
-                        $job = (new \App\Jobs\StartRun($nextRun))
+                        $nnextRunJob = (new \App\Jobs\StartRun($nextRun))
                                 ->onQueue("start_run");       
-                        dispatch($job);
+                        dispatch($nnextRunJob);
                     }
+                    $deleteThisRunJob = (new \App\Jobs\DeleteRun($run))
+                                        ->delay(Carbon::now()->addDays(5));
+                    dispatch($deleteThisRunJob);
                     break;
                 case 'errored':
                 case 'error':
@@ -89,7 +92,6 @@ class MonitorRun implements ShouldQueue
             }
         }
         catch (\Exception $e) {
-            \Log::error("Exception thrown");
             $this->delete();
             $run->status = "error";
             $run->save();
