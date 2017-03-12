@@ -63,7 +63,9 @@ class MonitorRun implements ShouldQueue
                     dispatch(new \App\Jobs\CompressRun($run));
                     $nextRun = Run::where('status','queued')->first();
                     if (!empty($nextRun)) {
-                        dispatch(new \App\Jobs\StartRun($nextRun))->onQueue("start_run");
+                        $job = (new \App\Jobs\StartRun($nextRun))
+                                ->onQueue("start_run");       
+                        dispatch($job);
                     }
                     break;
                 case 'errored':
@@ -75,7 +77,10 @@ class MonitorRun implements ShouldQueue
                 default:
                     $delayTime = 30;
                     if ($this->attempts() >= 250) {
-                        dispatch((new \App\Jobs\MonitorRun($run))->delay($delayTime))->onQueue("monitor");
+                        $job = (new \App\Jobs\MonitorRun($run))
+                                ->onQueue("monitor")
+                                ->delay($delayTime);
+                        dispatch($job);
                         $this->delete();
                     } else {
                         $this->release($delayTime);
