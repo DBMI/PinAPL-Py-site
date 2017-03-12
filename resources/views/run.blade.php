@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 	<div id="status-dependent">
 			<span><b>Please refresh this page periodically to follow the program's progress!</b></span>
 			@if($run->status == "queued")
-				<?php $queueCount = \App\Run::where("status", "queued")->count(); ?>
+				<?php $queueCount = \App\Run::where("status", "queued")->where('id','<=',$run->id)->count(); ?>
 				<div class="row align-center">
 					<div class="column shrink">
 						<h2>In Queue - {{$queueCount}} run{{($queueCount>1)? 's':''}} ahead of you. </h2>
