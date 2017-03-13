@@ -6,4 +6,4 @@ $sections = [
 	"p-values" => "p-Values",
 ];
 ?>
-@extends('layouts.results_section_tabs', ['sections' => $sections])
+@extends('layouts.results_section_tabs', ['sections' => $sections, "selfName"=>"enrichment-depletion"])

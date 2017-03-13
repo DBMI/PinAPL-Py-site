@@ -8,4 +8,4 @@ $sections = [
 	"sequencing_depth"	=> "Sequencing Depth",
 ];
 ?>
-@extends('layouts.results_section_tabs', ['sections' => $sections])
+@extends('layouts.results_section_tabs', ['sections' => $sections, "selfName"=>"statistics"])

@@ -1,7 +1,8 @@
 {{-- Provided variables
 $sections 	=>	Array of "section_key" => "Section Display Name"
+$selfName
 --}}
-<ul class="tabs" data-tabs id="result-sections-tabs">
+<ul class="tabs" data-tabs id="{{ $selfName }}-sections-tabs">
 	@foreach ($sections as $key=>$value)
 		@if ($loop->first)
 			<li class="tabs-title is-active"><a href="#{{ $key }}_tab" aria-selected="true">{{ $value }}</a></li>
@@ -10,14 +11,10 @@ $sections 	=>	Array of "section_key" => "Section Display Name"
 		@endif
 	@endforeach
 </ul>
-<div class="tabs-content" data-tabs-content="result-sections-tabs">
+<div class="tabs-content" data-tabs-content="{{ $selfName }}-sections-tabs">
 	@foreach ($sections as $key=>$value)
 		<div class="tabs-panel @if($loop->first) is-active @endif" id="{{ $key }}_tab">
-			<div class="row align-center">
-				<div class="column" id="{{ $key }}_content">
-					@include("results.$key")
-				</div>
-			</div>
+			@include("results.$key")
 		</div>
 	@endforeach
 </div>

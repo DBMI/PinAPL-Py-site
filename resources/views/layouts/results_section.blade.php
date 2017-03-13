@@ -7,7 +7,7 @@ $idPrefix
 @parent
 <script>
 	$.get('/results/{{ $idPrefix }}/'+runHash, function(data) {	
-		$('#{{ $idPrefix }}_content').html(data);
+		$('#{{ $idPrefix }}_tab').html(data);
 	});
 </script>
 @stop

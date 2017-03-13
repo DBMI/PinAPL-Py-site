@@ -29,7 +29,3 @@ use Illuminate\Support\Facades\File;
 	
 
 @stop
-@section('customCSS')
-	@parent
-	<link rel="stylesheet" type="text/css" href="/css/run.css">
-@stop
