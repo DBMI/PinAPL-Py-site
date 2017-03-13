@@ -1,0 +1,6 @@
+th {
+	text-align: left;
+}
+#results-tabs-holder > .tabs-content > .tabs-panel {
+    padding: 0;
+}
