@@ -185,17 +185,50 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 	try {
 		
 		$path = storage_path().'/runs/'.$request->input('path');
-		
+	        $filename = basename($path);	
 
 		if(!\Illuminate\Support\Facades\File::exists($path)) abort(404);
+		$handler = new \Symfony\Component\HttpFoundation\File\File($path);
 
-		$file = Illuminate\Support\Facades\File::get($path);
-		$type = Illuminate\Support\Facades\File::mimeType($path);
+    $lifetime = 31556926; // One year in seconds
 
-		$response = new Response($file, 200);
-		$response->header("Content-Type", $type);
+    /**
+    * Prepare some header variables
+    */
+    $file_time = $handler->getMTime(); // Get the last modified time for the file (Unix timestamp)
 
-		return $response;
+    $header_content_type = $handler->getMimeType();
+    $header_content_length = $handler->getSize();
+    $header_etag = md5($file_time . $path);
+    $header_last_modified = gmdate('r', $file_time);
+    $header_expires = gmdate('r', $file_time + $lifetime);
+
+    $headers = array(
+        'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        'Last-Modified' => $header_last_modified,
+        'Cache-Control' => 'must-revalidate',
+        'Expires' => $header_expires,
+        'Pragma' => 'public',
+        'Etag' => $header_etag
+    );
+
+    /**
+    * Is the resource cached?
+    */
+    $h1 = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $header_last_modified;
+    $h2 = isset($_SERVER['HTTP_IF_NONE_MATCH']) && str_replace('"', '', stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == $header_etag;
+
+    if ($h1 || $h2) {
+        return Response::make('', 304, $headers); // File (image) is cached by the browser, so we don't have to send it again
+    }
+
+    $headers = array_merge($headers, array(
+        'Content-Type' => $header_content_type,
+        'Content-Length' => $header_content_length
+    ));
+
+    return \Illuminate\Support\Facades\Response::make(file_get_contents($path), 200, $headers);
+
 	} 
 	catch(ModelNotFoundException $e) {
 		abort(404);
