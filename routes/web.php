@@ -219,7 +219,7 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
     $h2 = isset($_SERVER['HTTP_IF_NONE_MATCH']) && str_replace('"', '', stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == $header_etag;
 
     if ($h1 || $h2) {
-        return Response::make('', 304, $headers); // File (image) is cached by the browser, so we don't have to send it again
+        return \Illuminate\Support\Facades\Response::make('', 304, $headers); // File (image) is cached by the browser, so we don't have to send it again
     }
 
     $headers = array_merge($headers, array(
