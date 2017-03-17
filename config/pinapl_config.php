@@ -133,7 +133,7 @@ return [
 				"help_text"=>"Significance threshold.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "between:0,1",
+				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
 			"padj" => [
@@ -163,7 +163,7 @@ return [
 				"help_text"=>"Allowed error rate for Identification of the 5’ and 3’ read adapters. Refer to the cutadapt manual for more information.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "between:0,1",
+				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
 		],
@@ -225,7 +225,7 @@ return [
 				"help_text"=>"Shift in read counts to avoid errors with zero counts during log transformation, fold change calculation etc.",
 				"in_quotes"=>false,
 				"hidden" =>true,
-				"rules" => "min:0",
+				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
 		],
@@ -303,7 +303,7 @@ return [
 				"help_text"=>"Maximum quantile to be plotted in read count distribution histograms.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|between:0,100",
+				"rules" => "numeric|numeric|min:0|max:100",
 				"type"=>'number'
 			],
 			"svg" => [
