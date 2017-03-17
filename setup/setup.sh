@@ -9,6 +9,9 @@ sitePath=$(pwd)
 sudo apt -qq install npm
 sudo apt -qq install zip
 sudo apt -qq install php-zip
+sudo apt -qq install php-xml
+sudo apt -qq install php-dom
+sudo apt -qq install php-mbstring
 sudo phpenmod zip
 sudo npm install -g forever
 

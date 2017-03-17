@@ -17,6 +17,21 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::get('/test', function () {
+	$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
+	$base = 1024;
+
+	$bytes = disk_free_space(storage_path()); 
+	$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
+	echo $bytes . '<br />';
+	echo sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
+	echo "<hr>";
+	$bytes = disk_total_space(storage_path()); 
+	$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
+	echo $bytes . '<br />';
+	echo sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
+});
+
 
 /**************************************************************************
  *** TopBar
@@ -119,12 +134,25 @@ Route::get('/run/download/{hash}', function ($hash)  {
 	try {
 		$path = storage_path("/runs/$hash/archive.zip");
 		$runName = $hash;
+		$filename = sanitizeFileName($runName) .'_'. $hash . ".zip";
 		if ($hash != "example-run") {
 			$run = \App\Run::where('dir',$hash)->firstOrFail();
-			$runName = $run->name;
+			$filename = sanitizeFileName("PinAPL-py_example_run.zip");
 		}
 		if (\File::exists($path)) {
-			return download($path, sanitizeFileName($runName) .'_'. $hash . ".zip");
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: public");
+			header("Content-Description: File Transfer");
+			header("Content-type: application/octet-stream");
+			header("Content-Disposition: attachment; filename=\"".$filename."\"");
+			header("Content-Transfer-Encoding: binary");
+			header("Content-Length: ".filesize($path));
+
+			// @readfile($filepath.$filename);
+			return download($path, $filename);
+			// return $filename;
 		}
 		else {
 			abort(404);
@@ -185,49 +213,49 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 	try {
 		
 		$path = storage_path().'/runs/'.$request->input('path');
-	        $filename = basename($path);	
+					$filename = basename($path);	
 
 		if(!\Illuminate\Support\Facades\File::exists($path)) abort(404);
 		$handler = new \Symfony\Component\HttpFoundation\File\File($path);
 
-    $lifetime = 31556926; // One year in seconds
+		$lifetime = 31556926; // One year in seconds
 
-    /**
-    * Prepare some header variables
-    */
-    $file_time = $handler->getMTime(); // Get the last modified time for the file (Unix timestamp)
+		/**
+		* Prepare some header variables
+		*/
+		$file_time = $handler->getMTime(); // Get the last modified time for the file (Unix timestamp)
 
-    $header_content_type = $handler->getMimeType();
-    $header_content_length = $handler->getSize();
-    $header_etag = md5($file_time . $path);
-    $header_last_modified = gmdate('r', $file_time);
-    $header_expires = gmdate('r', $file_time + $lifetime);
+		$header_content_type = $handler->getMimeType();
+		$header_content_length = $handler->getSize();
+		$header_etag = md5($file_time . $path);
+		$header_last_modified = gmdate('r', $file_time);
+		$header_expires = gmdate('r', $file_time + $lifetime);
 
-    $headers = array(
-        'Content-Disposition' => 'inline; filename="' . $filename . '"',
-        'Last-Modified' => $header_last_modified,
-        'Cache-Control' => 'must-revalidate',
-        'Expires' => $header_expires,
-        'Pragma' => 'public',
-        'Etag' => $header_etag
-    );
+		$headers = array(
+				'Content-Disposition' => 'inline; filename="' . $filename . '"',
+				'Last-Modified' => $header_last_modified,
+				'Cache-Control' => 'must-revalidate',
+				'Expires' => $header_expires,
+				'Pragma' => 'public',
+				'Etag' => $header_etag
+		);
 
-    /**
-    * Is the resource cached?
-    */
-    $h1 = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $header_last_modified;
-    $h2 = isset($_SERVER['HTTP_IF_NONE_MATCH']) && str_replace('"', '', stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == $header_etag;
+		/**
+		* Is the resource cached?
+		*/
+		$h1 = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $header_last_modified;
+		$h2 = isset($_SERVER['HTTP_IF_NONE_MATCH']) && str_replace('"', '', stripslashes($_SERVER['HTTP_IF_NONE_MATCH'])) == $header_etag;
 
-    if ($h1 || $h2) {
-        return \Illuminate\Support\Facades\Response::make('', 304, $headers); // File (image) is cached by the browser, so we don't have to send it again
-    }
+		if ($h1 || $h2) {
+				return \Illuminate\Support\Facades\Response::make('', 304, $headers); // File (image) is cached by the browser, so we don't have to send it again
+		}
 
-    $headers = array_merge($headers, array(
-        'Content-Type' => $header_content_type,
-        'Content-Length' => $header_content_length
-    ));
+		$headers = array_merge($headers, array(
+				'Content-Type' => $header_content_type,
+				'Content-Length' => $header_content_length
+		));
 
-    return \Illuminate\Support\Facades\Response::make(file_get_contents($path), 200, $headers);
+		return \Illuminate\Support\Facades\Response::make(file_get_contents($path), 200, $headers);
 
 	} 
 	catch(ModelNotFoundException $e) {
