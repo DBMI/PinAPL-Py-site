@@ -159,7 +159,7 @@
             <span class="c8">Step 5: RUNNING AND COMPLETION</span>
         </p>
         <p class="c7">
-            <span class="c3">After starting the run, it will be placed in the queue or start immediately. At start, the output log will be displayed. Please keep refreshing the page to see the progress. The run time depends on the number of reads and the number of files. A typical run (20M reads per sample, 2 Controls, 2 Treatment replicates), analyzed with default parameters will take ~2hrs with the current version. Upon completion, you will receive an Email with a URL to the results page. You can browse the results on the web-application or download a ZIP archive. The results will remain on the server for 30 days. &nbsp;</span>
+            <span class="c3">After starting the run, it will be placed in the queue or start immediately. At start, the output log will be displayed. Please keep refreshing the page to see the progress. The run time depends on the number of reads and the number of files. A typical run (20M reads per sample, 2 Controls, 2 Treatment replicates), analyzed with default parameters will take ~2hrs with the current version. Upon completion, you will receive an Email with a URL to the results page. You can browse the results on the web-application or download a ZIP archive. The results will remain on the server for 5 days. &nbsp;</span>
         </p>
         <h2 class="c33" id="h.4d34og8">
             <span>ADVANCED </span>
