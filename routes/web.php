@@ -134,24 +134,27 @@ Route::get('/run/download/{hash}', function ($hash)  {
 	try {
 		$path = storage_path("/runs/$hash/archive.zip");
 		$runName = $hash;
-		$filename = sanitizeFileName($runName) .'_'. $hash . ".zip";
+		$filename = sanitizeFileName("PinAPL-py_example_run.zip");
 		if ($hash != "example-run") {
 			$run = \App\Run::where('dir',$hash)->firstOrFail();
-			$filename = sanitizeFileName("PinAPL-py_example_run.zip");
+			$filename = sanitizeFileName($runName) .'_'. $hash . ".zip";
 		}
 		if (\File::exists($path)) {
-			header("Pragma: public");
-			header("Expires: 0");
-			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			header("Cache-Control: public");
-			header("Content-Description: File Transfer");
+			//header("Pragma: public");
+			//header("Expires: 0");
+			//header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			//header("Cache-Control: public");
+			//header("Content-Description: File Transfer");
+			//header("Content-type: application/octet-stream");
+			//header("Content-Disposition: attachment; filename=\"".$filename."\"");
+			//header("Content-Transfer-Encoding: binary");
+			//header("Content-Length: ".filesize($path));
+			header("X-Sendfile: $path");
 			header("Content-type: application/octet-stream");
-			header("Content-Disposition: attachment; filename=\"".$filename."\"");
-			header("Content-Transfer-Encoding: binary");
-			header("Content-Length: ".filesize($path));
-
-			// @readfile($filepath.$filename);
-			return download($path, $filename);
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
+			exit;
+			//return readfile($path);
+			//return download($path, $filename);
 			// return $filename;
 		}
 		else {
