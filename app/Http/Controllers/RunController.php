@@ -48,6 +48,9 @@ class RunController extends Controller
 		makeDir( $dir."/workingDir/Library", 0775 );
 
 		\Illuminate\Support\Facades\Mail::to($run->email)->queue(new \App\Mail\RunCreated($run));
+		$CleanupRunJob = (new \App\Jobs\CleanupRun($run))
+		                    ->delay(Carbon\Carbon::now()->addDays(2));
+		dispatch($CleanupRunJob);
 		
 		return redirect("/upload/$run->dir");
 	}

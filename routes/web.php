@@ -14,7 +14,14 @@ use Illuminate\Http\Response;
 
 
 Route::get('/', function () {
-	return view('welcome');
+	$bytes = disk_free_space(storage_path()); 
+	if ($bytes < 30*1024*1024*1024) {
+	// if ($bytes < 30*1024*1024*1024) {
+		return view('no_space');
+	}
+	else{
+		return view('welcome');
+	}
 });
 
 Route::get('/test', function () {
@@ -57,6 +64,7 @@ Route::get('/example-results', function ()
 Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
 	$run = \App\Run::where('dir',$hash)->firstOrFail();
 	if ($run->status == 'uploading') {
+		File::cleanDirectory($run->directory().'/workingDir/Data');
 		return view('upload', ['hash'=>$hash, 'dir'=>$run->directory().'/workingDir/Data']);
 	}
 	else {

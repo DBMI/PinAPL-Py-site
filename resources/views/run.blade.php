@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 		<div class="columns shrink"><h4>{{ $run->name }}</h4></div>
 	</div>
 	<div id="status-dependent">
-			<span><b>Please refresh this page periodically to follow the program's progress!</b></span>
+			<span><b>You may need to refresh this page to follow the run's progress</b></span>
 			@if($run->status == "queued")
 				<?php $queueCount = \App\Run::where("status", "queued")->where('id','<=',$run->id)->count(); ?>
 				<div class="row align-center">
