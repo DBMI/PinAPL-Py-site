@@ -11,7 +11,7 @@ $sections = [
 @section('content')
 	<div class="row align-justify collapse">
 		<div class="columns shrink"><h4>{{ $runName }}</h4></div>
-		<div class="columns shrink"><a id="download-archive" class="button success bold" href="/run/download/{{ $hash }}">Download Results Archive</a></div>
+		<div class="columns shrink"><a id="download-archive" class="button success bold" href="/run/download/{{ $hash }}" download>Download Results Archive</a></div>
 	</div>
 	<div class="row collapse">
 		<div class="column" id="results-tabs-holder">
