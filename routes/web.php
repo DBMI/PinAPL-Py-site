@@ -305,3 +305,13 @@ Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog'
 
 Route::get('/results/candidate_lists/{hash}',   'ResultsController@getCandidateLists');
 Route::get('/results/qc/{hash}',                'ResultsController@getQc');
+
+
+Route::get('/download_test', function ()
+{
+	return view('download_test');
+});
+
+foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {
+		Route::get("/download_test/$method", "DownloadController@$method");
+}
