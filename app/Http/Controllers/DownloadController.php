@@ -37,7 +37,10 @@ public function laravel_zip_header()
 function can_haz_xsendfile()
 {
   // This will return false if PHP is not loaded as a module (i.e. uses cgi)
-  return in_array('mod_xsendfile', apache_get_modules());
+  if (in_array('mod_xsendfile', apache_get_modules())) {
+  	return "has it";
+  }
+  return "does not ";
 }
 
 function send_download_package_file()
@@ -88,11 +91,10 @@ function send_download_package_file()
         readfile($realpath);
       }
     }
-    return true;
   } else {
-    // File not found! Throw error here...
+  	return "File not Found";
   }
-  return false;
+  return "Last error";
 }
 
 
