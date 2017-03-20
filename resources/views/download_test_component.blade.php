@@ -9,7 +9,7 @@
 		<ul class="accordion" data-accordion data-allow-all-closed="true">
 			<li class="accordion-item" data-accordion-item>
 				<a class="accordion-title" href="#">Display Code</a>
-				<div id="{{ $method }}-panel" class="accordion-content" data-tab-content style="padding: 0">
+				<div id="{{ $method }}-panel" class="accordion-content" data-tab-content style="padding: 0; margin-left: -33.5%;">
 				@php
 					$func = new ReflectionMethod("\App\Http\Controllers\DownloadController",$method);
 					$filename = $func->getFileName();

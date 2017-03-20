@@ -15,6 +15,21 @@ public function xsendfile()
 	header('Content-Disposition: attachment; filename="' . $this->filename . '"');
 	exit;
 }
+public function readfileDefault()
+{
+	$file = "/var/www/pinapl-py/storage/runs/example-run/archive.zip";
+	if (file_exists($file)) {
+	    header('Content-Description: File Transfer');
+	    header('Content-Type: application/octet-stream');
+	    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+	    header('Expires: 0');
+	    header('Cache-Control: must-revalidate');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($file));
+	    readfile($file);
+	    exit;
+	}
+}
 public function laravel_default()
 {
 	return response()->download($this->filepath, $this->filename);
@@ -33,14 +48,6 @@ public function laravel_zip_header()
 	           );
 
 	return response()->download($this->filepath, $this->filename, $headers);
-}
-function can_haz_xsendfile()
-{
-  // This will return false if PHP is not loaded as a module (i.e. uses cgi)
-  if (in_array('mod_xsendfile', apache_get_modules())) {
-  	return "has it";
-  }
-  return "does not ";
 }
 
 function send_download_package_file()
@@ -145,8 +152,133 @@ function send_download_package_file_noXsend()
   return "Last error";
 }
 
+public function readfile_chunked_array () { 
+	$filename = $this->filename;
+	$filepath = $this->filepath;
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate');
+	header('Pragma: public');
+	header('Content-Length: ' . filesize($filepath));
+  $chunk_array=array(); 
+  $chunksize = 1*(1024*1024); // how many bytes per chunk 
+  $buffer = ''; 
+  $handle = fopen($filepath, 'rb'); 
+  if ($handle === false) { 
+   return "false"; 
+  } 
+  while (!feof($handle)) { 
+    $lines[] = fgets($handle, $chunksize); 
+  } 
+   fclose($handle); 
+   return $lines; 
+} 
+public function readfile_chunked_string () { 
+	$filename = $this->filename;
+	$filepath = $this->filepath;
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate');
+	header('Pragma: public');
+	header('Content-Length: ' . filesize($filepath));
+  $chunk_array=array(); 
+  $chunksize = 1*(1024*1024); // how many bytes per chunk 
+  $buffer = ''; 
+  $handle = fopen($filepath, 'rb'); 
+  if ($handle === false) { 
+   return "false"; 
+  } 
+  while (!feof($handle)) { 
+    $lines = fread($handle, $chunksize); 
+  } 
+   fclose($handle); 
+   return $lines; 
+} 
 
+function obclean_flush_readfile() { // $file = include path 
+	$file = $this->filepath;
+  if(file_exists($file)) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename='.basename($file));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    ob_clean();
+    flush();
+    readfile($file);
+    exit;
+  }
 
+}
+function readfile_chunked_retbytes() {
+		$filename = $this->filepath;
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($filename));
+		$retbytes=true;
+    $chunksize = 1*(1024*1024); // how many bytes per chunk
+    $buffer = '';
+    $cnt =0;
+    // $handle = fopen($filename, 'rb');
+    $handle = fopen($filename, 'rb');
+    if ($handle === false) {
+        return false;
+    }
+    while (!feof($handle)) {
+        $buffer = fread($handle, $chunksize);
+        echo $buffer;
+        if ($retbytes) {
+            $cnt += strlen($buffer);
+        }
+    }
+        $status = fclose($handle);
+    if ($retbytes && $status) {
+        return $cnt; // return num. bytes delivered like readfile() does.
+    } 
+    return $status;
+}
+function readfile_chunked_no_retbytes() {
+		$filename = $this->filepath;
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($filename));
+		$retbytes=false;
+    $chunksize = 1*(1024*1024); // how many bytes per chunk
+    $buffer = '';
+    $cnt =0;
+    // $handle = fopen($filename, 'rb');
+    $handle = fopen($filename, 'rb');
+    if ($handle === false) {
+        return false;
+    }
+    while (!feof($handle)) {
+        $buffer = fread($handle, $chunksize);
+        echo $buffer;
+        if ($retbytes) {
+            $cnt += strlen($buffer);
+        }
+    }
+        $status = fclose($handle);
+    if ($retbytes && $status) {
+        return $cnt; // return num. bytes delivered like readfile() does.
+    } 
+    return $status;
+}
 
 
 
