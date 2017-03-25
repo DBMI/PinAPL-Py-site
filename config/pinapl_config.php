@@ -107,6 +107,15 @@ return [
 				"type" =>"select",
 				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS","ES"=>"ES"]
 			],
+			"P_0" => [
+				"display_name"=>"Number of permutations",
+				"default"=>"0.005",
+				"help_text"=>"maximum p-value for sgRNA to be taken into account for aRRA analysis",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
 			"Np" => [
 				"display_name"=>"Number of permutations",
 				"default"=>"1000",

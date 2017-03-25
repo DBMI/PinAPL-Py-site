@@ -152,52 +152,52 @@ function send_download_package_file_noXsend()
   return "Last error";
 }
 
-public function readfile_chunked_array () { 
-	$filename = $this->filename;
-	$filepath = $this->filepath;
-	header('Content-Description: File Transfer');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate');
-	header('Pragma: public');
-	header('Content-Length: ' . filesize($filepath));
-  $chunk_array=array(); 
-  $chunksize = 1*(1024*1024); // how many bytes per chunk 
-  $buffer = ''; 
-  $handle = fopen($filepath, 'rb'); 
-  if ($handle === false) { 
-   return "false"; 
-  } 
-  while (!feof($handle)) { 
-    $lines[] = fgets($handle, $chunksize); 
-  } 
-   fclose($handle); 
-   return $lines; 
-} 
-public function readfile_chunked_string () { 
-	$filename = $this->filename;
-	$filepath = $this->filepath;
-	header('Content-Description: File Transfer');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate');
-	header('Pragma: public');
-	header('Content-Length: ' . filesize($filepath));
-  $chunk_array=array(); 
-  $chunksize = 1*(1024*1024); // how many bytes per chunk 
-  $buffer = ''; 
-  $handle = fopen($filepath, 'rb'); 
-  if ($handle === false) { 
-   return "false"; 
-  } 
-  while (!feof($handle)) { 
-    $lines = fread($handle, $chunksize); 
-  } 
-   fclose($handle); 
-   return $lines; 
-} 
+// public function readfile_chunked_array () { 
+// 	$filename = $this->filename;
+// 	$filepath = $this->filepath;
+// 	header('Content-Description: File Transfer');
+// 	header('Content-Type: application/octet-stream');
+// 	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+// 	header('Expires: 0');
+// 	header('Cache-Control: must-revalidate');
+// 	header('Pragma: public');
+// 	header('Content-Length: ' . filesize($filepath));
+//   $chunk_array=array(); 
+//   $chunksize = 1*(1024*1024); // how many bytes per chunk 
+//   $buffer = ''; 
+//   $handle = fopen($filepath, 'rb'); 
+//   if ($handle === false) { 
+//    return "false"; 
+//   } 
+//   while (!feof($handle)) { 
+//     $lines[] = fgets($handle, $chunksize); 
+//   } 
+//    fclose($handle); 
+//    return $lines; 
+// } 
+// public function readfile_chunked_string () { 
+// 	$filename = $this->filename;
+// 	$filepath = $this->filepath;
+// 	header('Content-Description: File Transfer');
+// 	header('Content-Type: application/octet-stream');
+// 	header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+// 	header('Expires: 0');
+// 	header('Cache-Control: must-revalidate');
+// 	header('Pragma: public');
+// 	header('Content-Length: ' . filesize($filepath));
+//   $chunk_array=array(); 
+//   $chunksize = 1*(1024*1024); // how many bytes per chunk 
+//   $buffer = ''; 
+//   $handle = fopen($filepath, 'rb'); 
+//   if ($handle === false) { 
+//    return "false"; 
+//   } 
+//   while (!feof($handle)) { 
+//     $lines = fread($handle, $chunksize); 
+//   } 
+//    fclose($handle); 
+//    return $lines; 
+// } 
 
 function obclean_flush_readfile() { // $file = include path 
 	$file = $this->filepath;
@@ -238,6 +238,8 @@ function readfile_chunked_retbytes() {
     while (!feof($handle)) {
         $buffer = fread($handle, $chunksize);
         echo $buffer;
+				ob_flush(); 
+				flush(); 
         if ($retbytes) {
             $cnt += strlen($buffer);
         }
@@ -268,7 +270,9 @@ function readfile_chunked_no_retbytes() {
     }
     while (!feof($handle)) {
         $buffer = fread($handle, $chunksize);
-        echo $buffer;
+        echo $buffer; 
+				ob_flush(); 
+				flush(); 
         if ($retbytes) {
             $cnt += strlen($buffer);
         }
@@ -280,6 +284,48 @@ function readfile_chunked_no_retbytes() {
     return $status;
 }
 
+public function readfile_comment_11483()
+{
+	// http://php.net/manual/en/function.readfile.php#114483
+	
+	$filename = $this->filename;
+	$filepath = $this->filepath;
+
+	// Close sessions to prevent user from waiting until 
+	// download will finish (uncomment if needed)
+	//session_write_close();
+
+	set_time_limit(0);
+	ignore_user_abort(false);
+	ini_set('output_buffering', 0);
+	ini_set('zlib.output_compression', 0);
+
+	$chunk = 10 * 1024 * 1024; // bytes per chunk (10 MB)
+
+	$fh = fopen($filepath, "rb");
+
+	if ($fh === false) { 
+	    echo "Unable open file"; 
+	}
+
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename="' . $filename . '"'); 
+	header('Expires: 0');
+	header('Cache-Control: must-revalidate');
+	header('Pragma: public');
+	header('Content-Length: ' . filesize($filepath));
+
+	// Repeat reading until EOF
+	while (!feof($fh)) { 
+	    echo fread($fh, $chunk);
+	    
+	    ob_flush();  // flush output
+	    flush();
+	}
+
+	exit;
+}
 
 
 }
