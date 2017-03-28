@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\File;
+
 
 
 class DownloadController
@@ -327,5 +329,52 @@ public function readfile_comment_11483()
 	exit;
 }
 
+public function big_download() {
+  $path = $this->filepath;
+  $name = $this->filename;
+  $headers = [];
+  // From http://stackoverflow.com/a/18339356/4946913
+  if (is_null($name))
+      $name = basename($path);
+  $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
+  $pathParts = pathinfo($path);
+  // Prepare the headers
+  $headers = array_merge(array(
+      'Content-Description' => 'File Transfer',
+      'Content-Type' => finfo_file($finfo, $path),
+      'Content-Transfer-Encoding' => 'binary',
+      'Expires' => 0,
+      'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+      'Pragma' => 'public',
+      'Content-Length' => File::size($path),
+      'Content-Disposition' => 'inline; filename="' . $name . '.' . $pathParts['extension'] . '"'
+          ), $headers);
+  finfo_close($finfo);
+
+  $response = new \Symfony\Component\HttpFoundation\Response('', 200, $headers);
+
+  // If there's a session we should save it now
+  if (\Config::get('session.driver') !== '') {
+      \Session::save();
+  }
+
+  // Below is from http://uk1.php.net/manual/en/function.fpassthru.php comments
+  session_write_close();
+  ob_end_clean();
+  $response->sendHeaders();
+  if ($file = fopen($path, 'rb')) {
+      while (!feof($file) and (connection_status() == 0)) {
+          print(fread($file, 1024 * 8));
+          flush();
+      }
+      fclose($file);
+  }
+
+  // Finish off, like Laravel would
+  Event::fire('laravel.done', array($response));
+  $response->foundation->finish();
+
+  exit;
+}
 }
