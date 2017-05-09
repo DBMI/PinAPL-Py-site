@@ -13,7 +13,7 @@
   </head>
   <body>
     @include('layouts.topbar')
-    @if (count($errors)) 
+    @if (!empty($errors) && count($errors)) 
     <div class="callout alert" id="error-messages">
       <p><i class="fi-alert"></i> There are some errors in your form.</p>
       <ul>
