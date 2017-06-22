@@ -20,7 +20,7 @@
 						<div class="row">
 							<div class="medium-6 columns">
 								<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address</span></label>
-								<input id="email" name="email" type="text" required />
+								<input id="email" name="email" type="text"/>
 							</div>
 							<div class="medium-6 columns">
 								<label for="name"><span class="has-tip tip-top whiteTxt" title="Please give this data a name">Analysis Run Name</span></label>

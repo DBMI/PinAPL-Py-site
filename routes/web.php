@@ -189,18 +189,24 @@ Route::get('/run/status/{hash}', function ($hash)  {
 	}
 });
 
+// The upload page for a run. If the run has a status of running, redirect to run page
+Route::get('/rerun/{hash}', [function ($hash) {
+	$run = \App\Run::where('dir',$hash)->firstOrFail();
+	return view('rerun', ['hash'=>$hash]);
+}]);
+
 Route::post('/createRun', [
 	'as' => 'create', 'uses' => 'RunController@postCreate'
 ]);
 Route::post('/run/start/{hash}', [
 	'as' => 'start', 'uses' => 'RunController@postStart'
 ]);
-Route::post('/done-uploading/{hash}', [
-	'as' => 'start', 'uses' => 'RunController@postDoneUploading'
-]);
+Route::post('/done-uploading/{hash}', [ 'uses' => 'RunController@postDoneUploading']);
 
-Route::post('/configure-files/{hash}', [
-	'as' => 'start', 'uses' => 'RunController@postConfigureFiles'
+Route::post('/configure-files/{hash}', [ 'uses' => 'RunController@postConfigureFiles']);
+
+Route::post('/rerun/{hash}', [
+	'as' => 'rerun', 'uses' => 'RunController@postRestart'
 ]);
 
 Route::get('/getRuns', [

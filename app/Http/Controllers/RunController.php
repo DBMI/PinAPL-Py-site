@@ -24,7 +24,7 @@ class RunController extends Controller
 	public function postCreate(Request $request)
 	{
 		$this->validate($request, 
-			[ "email" => "required|email",
+			[ "email" => "email|nullable",
 				"name" => "required|string"
 			]
 		);
@@ -36,23 +36,75 @@ class RunController extends Controller
 			'email'=>$email,
 			'name'=>$name,
 			'status'=> 'uploading',
-			'dir' => time()
+			'dir' => time(),
+			'data_dir' => time()
 		]);
 		$run->dir=$run->dir.'_'.$run->id;
+		$dataDir = storage_path("data/$run->dir");
+		$run->data_dir=$run->dir;
 		$run->save();
 
 		$dir = $run->directory();
 		makeDir( $dir, 0775 );
 		makeDir( $dir."/workingDir", 0775 );
-		makeDir( $dir."/workingDir/Data", 0775 );
+		makeDir( $dataDir, 0775 );
+		// makeDir( $dir."/workingDir/Data", 0775 );
+		`ln -s $dataDir $dir/workingDir/Data`;
 		makeDir( $dir."/workingDir/Library", 0775 );
 
-		\Illuminate\Support\Facades\Mail::to($run->email)->queue(new \App\Mail\RunCreated($run));
+		if (!empty($run->email)) {
+			\Illuminate\Support\Facades\Mail::to($run->email)->queue(new \App\Mail\RunCreated($run));
+		}
 		$CleanupRunJob = (new \App\Jobs\CleanupRun($run))
 		                    ->delay(\Carbon\Carbon::now()->addDays(2));
 		dispatch($CleanupRunJob);
 		
 		return redirect("/upload/$run->dir");
+	}
+
+	/**
+	 * Restart a run and redirect to parameters page
+	 * @param  [type] $hash [description]
+	 * @return redirect 		/parameters/$hash
+	 */
+	public function postRestart(Request $request, $hash)
+	{
+		$oldRun = Run::where('dir',$hash)->firstOrFail();
+		$name = $request->input('name');
+		if (empty($name)) {
+			$name = $oldRun->name;
+			if (preg_match('/(.* rerun_)([1-9]+)$/', $name, $matches)){
+				$name = $matches[1] . ($matches[2]+1);
+			}
+			else {
+				$name = $name . ' rerun_1';
+			}
+		}
+		$newRun = Run::create( [
+			'email'=>$oldRun->email,
+			'name'=>$name,
+			'status'=> 'setting-parameters',
+			'dir' => time(),
+			'data_dir'=>$oldRun->data_dir
+		]);
+
+		$newRun->dir=$newRun->dir.'_'.$newRun->id;
+		$newRun->save();
+
+		$oldPath = $oldRun->directory();
+		$newPath = $newRun->directory();
+
+		makeDir( $newPath, 0775 );
+		makeDir( $newPath."/workingDir", 0775 );
+		makeDir( $newPath."/workingDir/Library", 0775 );
+
+		
+		$newDataPath = $newPath.'/workingDir/Data';
+		$oldDataPath = storage_path("/data/$oldRun->data_dir");
+		`ln -s $oldDataPath $newDataPath`;
+		`cp $oldPath/fileMap.json $newPath/fileMap.json`;
+		`cp $oldPath/workingDir/DataSheet.xlsx $newPath/workingDir/DataSheet.xlsx`;
+		return redirect('/parameters/'.$newRun->dir);
 	}
 
 	// Prevent lock recipe from further uploads, start the run. 
@@ -78,7 +130,7 @@ class RunController extends Controller
 	    $data = $req->all();
 	    $this->generateConfig($req, $run->directory());
 
-	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir ".config("docker.num_cores")." > $dir/runStatus.log";
+	    $runCmd = "bash ".app()->basePath()."/app/Scripts/startRun.sh $dir ".storage_path("data/$run->data_dir").' '.config("docker.num_cores")." > $dir/runStatus.log";
 	    File::put("$dir/runCmd.sh", $runCmd);
 	    $runsInQueue = Run::where('status','queued')->exists() || Run::where('status','running')->exists();
 	    if (! $runsInQueue) {

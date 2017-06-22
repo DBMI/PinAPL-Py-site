@@ -26,7 +26,7 @@ class Run extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'status', 'dir'
+		'name', 'email', 'status', 'dir', 'data_dir'
 	];
 
 	/**
@@ -46,6 +46,9 @@ class Run extends Model
 	public function delete()
 	{
 		\File::deleteDirectory($this->directory());
+		if (Run::where('data_dir',$this->data_dir)->count() == 1){
+			\File::deleteDirectory(storage_path("/data/$this->data_dir"));
+		}
 		return parent::delete();
 	}
 

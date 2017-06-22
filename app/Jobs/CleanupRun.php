@@ -41,7 +41,7 @@ class CleanupRun implements ShouldQueue
     {
         if ((empty($this->run)) || (!$this->run->exists)) {
             $this->delete();
-            \Log::info("MonitorRun job cancled because it's run does not exist");
+            \Log::info("CleanupRun job cancled because it's run does not exist");
             return;
         }
         try{
@@ -61,7 +61,7 @@ class CleanupRun implements ShouldQueue
             $this->delete();
             $run->status = "error";
             $run->save();
-            \Log::error("ERROR: An error occured in the CleanupJob Job", ['run' => $this->run]);
+            \Log::error("ERROR: An error occured in the CleanupRun Job", ['run' => $this->run]);
             throw $e;
         }
     }

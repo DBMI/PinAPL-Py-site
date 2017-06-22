@@ -3,6 +3,7 @@ class uploader {
 		this.dropId = dropBoxId;
 		this.directory = directory;
 		this.koTransPort = koTransPort;
+		this.no_streams = 8;
 		this.host = host;
 		this.token = token;
 		this.fileQueue = [];
@@ -34,10 +35,10 @@ class uploader {
 
 	initilize(){
 		if (window.location.hostname == '172.21.51.26') {
-			this.client = kotrans.client.createClient({host: '172.21.51.26', port:this.koTransPort});
+			this.client = kotrans.client.createClient({host: '172.21.51.26', port:this.koTransPort, streams:this.no_streams});
 		}
 		else {
-			this.client = kotrans.client.createClient({host:this.host, port:this.koTransPort });
+			this.client = kotrans.client.createClient({host:this.host, port:this.koTransPort , no_streams:this.no_streams});
 		}	
 
 
