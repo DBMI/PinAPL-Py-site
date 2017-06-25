@@ -46,8 +46,10 @@ class Run extends Model
 	public function delete()
 	{
 		\File::deleteDirectory($this->directory());
-		if (Run::where('data_dir',$this->data_dir)->count() == 1){
-			\File::deleteDirectory(storage_path("/data/$this->data_dir"));
+		$dataDir = $this->data_dir;
+		// If this is the only run using it's data AND it's data is not the example data
+		if (Run::where('data_dir',$dataDir)->count() == 1 && $dataDir != 'example-run'){
+			\File::deleteDirectory(storage_path("/data/$dataDir"));
 		}
 		return parent::delete();
 	}

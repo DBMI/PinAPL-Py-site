@@ -69,7 +69,20 @@ class RunController extends Controller
 	 */
 	public function postRestart(Request $request, $hash)
 	{
-		$oldRun = Run::where('dir',$hash)->firstOrFail();
+		// If they are rerunning the example run, create a dummy oldRun
+		if ($hash == 'example-run') {
+			$oldRun = (object)[
+				'name'=>'example-run',
+				'email'=>null,
+				'data_dir'=>'example-run',
+			];
+			$oldPath = storage_path('runs/example-run');
+		}
+		else {
+			$oldRun = Run::where('dir',$hash)->firstOrFail();
+			$oldPath = $oldRun->directory();
+			
+		}
 		$name = $request->input('name');
 		if (empty($name)) {
 			$name = $oldRun->name;
@@ -91,7 +104,6 @@ class RunController extends Controller
 		$newRun->dir=$newRun->dir.'_'.$newRun->id;
 		$newRun->save();
 
-		$oldPath = $oldRun->directory();
 		$newPath = $newRun->directory();
 
 		makeDir( $newPath, 0775 );

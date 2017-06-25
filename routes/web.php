@@ -191,7 +191,6 @@ Route::get('/run/status/{hash}', function ($hash)  {
 
 // The upload page for a run. If the run has a status of running, redirect to run page
 Route::get('/rerun/{hash}', [function ($hash) {
-	$run = \App\Run::where('dir',$hash)->firstOrFail();
 	return view('rerun', ['hash'=>$hash]);
 }]);
 
