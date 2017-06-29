@@ -116,6 +116,11 @@ class RunController extends Controller
 		`ln -s $oldDataPath $newDataPath`;
 		`cp $oldPath/fileMap.json $newPath/fileMap.json`;
 		`cp $oldPath/workingDir/DataSheet.xlsx $newPath/workingDir/DataSheet.xlsx`;
+
+		$CleanupRunJob = (new \App\Jobs\CleanupRun($newRun))
+		                    ->delay(\Carbon\Carbon::now()->addDays(2));
+		dispatch($CleanupRunJob);
+
 		return redirect('/parameters/'.$newRun->dir);
 	}
 
