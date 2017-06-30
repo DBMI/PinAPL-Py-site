@@ -29,6 +29,20 @@ class Run extends Model
 		'name', 'email', 'status', 'dir', 'data_dir'
 	];
 
+
+  // Get gene rankings belonging to this run
+  public function geneRankings()
+  {
+    return $this->hasMany('App\GeneRanking', 'dir', 'dir');
+  }
+
+  // Get sgrna rankings belonging to this run
+  public function sgrnaRankings()
+  {
+    return $this->hasMany('App\SgrnaRanking', 'dir', 'dir');
+  }
+
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -51,6 +65,8 @@ class Run extends Model
 		if (Run::where('data_dir',$dataDir)->count() == 1 && $dataDir != 'example-run'){
 			\File::deleteDirectory(storage_path("/data/$dataDir"));
 		}
+		$this->geneRankings()->delete();
+		$this->sgrnaRankings()->delete();
 		return parent::delete();
 	}
 
@@ -88,5 +104,28 @@ class Run extends Model
 			default:
 				abort(404);
 		}
+	}
+
+	public function importRankings(){
+		$dir = $this->dir;
+		$runHash = $dir;
+		$mapping = json_decode(\File::get($this->directory().'/fileMap.json'),true);
+		$files = $mapping['treatment'];
+		$geneTable = 'gene_rankings';
+		$sgrnaTable= 'sgrna_rankings';
+		$geneColumns = ['gene','arra','arra_p_value','arra_fdr','significant','num_sig_sgrna'];
+		$sgrnaColumns = ['sgrna', 'gene', 'counts', 'control_mean', 'control_stdev', 'fold_change', 'p_value', 'fdr', 'significant'];
+
+		foreach ($files as $fileName => $fileProperties){
+			$prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
+			$extra = ['dir'=>$dir, 'file'=>$prefix];
+			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.tsv"));
+			$geneFile = array_shift($geneFile);
+			$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/sgRNA_Rankings/$prefix*.tsv"));
+			$sgrnaFile = array_shift($sgrnaFile);
+			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
+			csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
+		}
+		
 	}
 }

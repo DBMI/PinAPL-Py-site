@@ -24,19 +24,51 @@ Route::get('/', function () {
 	}
 });
 
-Route::get('/test', function () {
-	$si_prefix = array( 'B', 'KB', 'MB', 'GB', 'TB', 'EB', 'ZB', 'YB' );
-	$base = 1024;
+Route::get('/test', function ()
+{
+	$runs = \App\Run::where('status','finished')->get();
+	echo "<pre>";
+	echo count($runs)."\n";
+	print_r($runs);
+	echo "</pre>";
+});
 
-	$bytes = disk_free_space(storage_path()); 
-	$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
-	echo $bytes . '<br />';
-	echo sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
-	echo "<hr>";
-	$bytes = disk_total_space(storage_path()); 
-	$class = min((int)log($bytes , $base) , count($si_prefix) - 1);
-	echo $bytes . '<br />';
-	echo sprintf('%1.2f' , $bytes / pow($base,$class)) . ' ' . $si_prefix[$class] . '<br />';
+Route::get('/test/one-at-time', function () {
+	$filename = storage_path('runs/example-run/workingDir/Analysis/Gene_Rankings/ToxA_1_0.1_fdr_bh_aRRA_P1000_GeneList.tsv');
+	$rankings = csvToArray($filename,"\t");
+	$mapping = [
+		'gene' => 'gene',
+		'aRRA' => 'arra',
+		'aRRA p_value' => 'arra_p_value',
+		'aRRA FDR' => 'arra_fdr',
+		'significant' => 'significant',
+		'# signif. sgRNAs' => 'num_sig_sgrna'
+	];
+	foreach ($rankings as $ranking) {
+		$remapped = array_combine(array_merge($ranking, $mapping), $ranking);
+		$remapped['dir'] = 'test_dir';
+		$row = \App\GeneRanking::create($remapped);
+	}
+	echo "<pre>";
+	echo 'ok';
+	echo "</pre>";
+});
+
+Route::get('/test/data-infile', function () {
+	$filename = storage_path('runs/example-run/workingDir/Analysis/Gene_Rankings/ToxA_1_0.1_fdr_bh_aRRA_P1000_GeneList.tsv');
+	$dir = 'example-run';
+	return csvToMysql($filename, 'gene_rankings',['gene','arra','arra_p_value','arra_fdr','significant','num_sig_sgrna'], '\t', 1, ['dir'=>$dir]);
+	// $query = 
+	// 	"LOAD DATA LOCAL INFILE '$filename'
+	// 	INTO TABLE gene_rankings
+	// 	FIELDS TERMINATED BY '\t'
+	// 	LINES TERMINATED BY '\n'
+	// 	IGNORE 1 LINES
+	// 	(gene,arra,arra_p_value,arra_fdr,significant,num_sig_sgrna)
+	// 	SET dir='$dir'";
+
+	// return	\DB::connection()->getpdo()->exec($query);
+
 });
 
 
@@ -308,8 +340,9 @@ Route::get('/results/heatmap/{hash}',           'ResultsController@getHeatmap');
 /*** Output *************************/
 Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog');
 
-Route::get('/results/candidate_lists/{hash}',   'ResultsController@getCandidateLists');
-Route::get('/results/qc/{hash}',                'ResultsController@getQc');
+Route::get('/results/candidate_lists/{hash}', 'ResultsController@getCandidateLists');
+Route::get('/results/qc/{hash}', 'ResultsController@getQc');
+Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}', 'ResultsController@getNewScatterPlot');
 
 
 Route::get('/download_test', function ()

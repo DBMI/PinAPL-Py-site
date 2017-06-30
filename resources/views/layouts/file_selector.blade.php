@@ -14,19 +14,26 @@
 		$files = $files + $mapping['control'];
 	}
 	$files = $files + $mapping['treatment'];
+
+	$beforeSelectorRow = $beforeSelectorRow ?? "";
+	$afterSelectorRow = $afterSelectorRow ?? "";
+	$afterSelectorColumn = $afterSelectorColumn ?? "";
 ?>
+{!! $beforeSelectorRow !!}
 <div class="row">
 	<div class="column">
 		<select id="{{ $result }}_selector">
 			@foreach ($files as $fileName => $fileProperties)
-				<option value="{{ $fileName }}">
-					{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }} ({{ $fileName }})
+				@php $prefix = $fileProperties['condition'].'_'.$fileProperties['index']; @endphp
+				<option value="{{ $fileName }}" data-prefix="{{ $prefix }}">
+					{{ $prefix }} ({{ $fileName }})
 				</option>
 			@endforeach
 		</select>
 	</div>
+	{!!$afterSelectorColumn !!}
 </div>
-
+{!! $afterSelectorRow !!}
 @foreach ($files as $fileName => $fileProperties)
 	<div class="row align-center" id="{{ $fileName }}_{{ $result }}" @if (!$loop->first) style="display:none;" @endif>
 		<div class="column shrink">

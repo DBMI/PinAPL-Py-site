@@ -63,6 +63,7 @@ class CompressRun implements ShouldQueue
             File::deleteDirectory($dir."/workingDir/Library");
             $run->status = 'finished';
             $run->save();
+            $run->importRankings();
             if (!empty($run->email)) {
                 Mail::to($run->email)->queue(new RunFinished($run));
             }

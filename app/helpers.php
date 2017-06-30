@@ -3,6 +3,48 @@ set_include_path(getcwd());
 // include '/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php';
 restore_include_path();
 
+function csvToMysql ($file, $table, $columns, $seperator=',', $skipLines=0, $extraData=[]){
+	$query = 
+		"LOAD DATA LOCAL INFILE '$file'
+		INTO TABLE $table
+		FIELDS TERMINATED BY '$seperator'
+		LINES TERMINATED BY '\n' ";
+	if ($skipLines) {
+		$query .= " IGNORE $skipLines LINES ";
+	}
+	$query .= ' ('.implode($columns,',').')';
+	if ($extraData) {
+		$query .= ' SET';
+		foreach ($extraData as $key => $value) {
+			$query .= " $key='$value',";
+		}
+		$query = rtrim($query,',');
+	}
+	return \DB::connection()->getpdo()->exec($query);
+}
+
+function csvToArray($filename = '', $delimiter = ',')
+{
+	if (!file_exists($filename) || !is_readable($filename))
+		return false;
+
+	$header = null;
+	$data = array();
+	if (($handle = fopen($filename, 'r')) !== false)
+	{
+		while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+		{
+			if (!$header)
+				$header = $row;
+			else
+				$data[] = array_combine($header, $row);
+		}
+		fclose($handle);
+	}
+
+	return $data;
+}
+
 function download($file, $name = null, array $headers = array(), $disposition = 'attachment')
 {
 	$response = response()->download($file, $name, $headers, $disposition);
@@ -185,7 +227,29 @@ function assetGen ($url){
 		return asset($url);
 	}
 }
-
+function drawTable($id,$columns, $hiddenWheres=[], $attributes="", $rows=null){
+	$html = "<table id=$id $attributes>";
+	$html.= "<thead><tr>";
+	foreach ($columns as $key => $value) {
+		$html.="<th id=$key data-sort=string>$value</th>";
+	}
+	$html.= "</tr></thead>";
+	$html.="<tbody id=$id-tbody >";
+	if (!empty($rows)) {
+		// if (is_array($rows)) {
+			foreach ($rows as $row) {
+				$html.="<tr>";
+					foreach ($columns as $key => $value) {
+						$html.="<td>".$row->$key."</td>";
+					}
+				$html.="</tr>";
+			}
+		// }
+	}
+	$html.="</tbody>";
+	$html .= "</table>";
+	return $html;
+}
 function svToHTML($csv, $seperator = ',', $attributes = "")
 {
 	$html = "<table $attributes>";
