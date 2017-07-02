@@ -26,7 +26,6 @@ $sections = [
 
 @section('customScripts')
 <script type="text/javascript" src="/js/run.js"></script>
-<script type="text/javascript" src="/js/stupidtable.min.js"></script>
 <script type="text/javascript">
 	var runHash = '{{ $hash}}';
 </script>

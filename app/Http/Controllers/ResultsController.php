@@ -54,7 +54,9 @@ class ResultsController extends Controller
                 ->distinct()->pluck('gene');
         $afterSelectorColumn = 
             "<div class=column>
-                <select id=readcount_scatterplots_gene_selector>";
+                <select id=readcount_scatterplots_gene_selector>
+                <option value=null hidden>Select A Gene</option>";
+
         foreach ($genes as $gene) {
             $afterSelectorColumn.="<option value=$gene>$gene</option>";
         }
