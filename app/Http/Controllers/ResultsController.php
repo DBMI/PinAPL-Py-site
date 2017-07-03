@@ -145,7 +145,7 @@ class ResultsController extends Controller
         $sord = $req->input('sord');
 
         // calculate the starting position of the rows 
-        $start = $limit*$page;
+        $start = $limit*$page -$limit;
         // if for some reasons start position is negative set it to 0 
         // typical case is that the user type 0 for the requested page 
         if($start <0) $start = 0; 
