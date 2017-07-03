@@ -31,7 +31,7 @@ class SgrnaRanking extends Model
 	  'gene'=>'Gene',
 	  'counts'=>'Counts',
 	  'control_mean'=>'Control Mean',
-	  'control_stdev'=>'Conterol StDev',
+	  'control_stdev'=>'Control StDev',
 	  'fold_change'=>"Fold Change",
 	  'p_value'=>"p_value",
 	  'fdr'=>"FDR",
