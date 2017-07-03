@@ -24,15 +24,6 @@ Route::get('/', function () {
 	}
 });
 
-Route::get('/test', function ()
-{
-	$runs = \App\Run::where('status','finished')->get();
-	echo "<pre>";
-	echo count($runs)."\n";
-	print_r($runs);
-	echo "</pre>";
-});
-
 Route::get('/test/one-at-time', function () {
 	$filename = storage_path('runs/example-run/workingDir/Analysis/Gene_Rankings/ToxA_1_0.1_fdr_bh_aRRA_P1000_GeneList.tsv');
 	$rankings = csvToArray($filename,"\t");
@@ -97,7 +88,8 @@ Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
 	$run = \App\Run::where('dir',$hash)->firstOrFail();
 	if ($run->status == 'uploading') {
 		File::cleanDirectory($run->directory().'/workingDir/Data');
-		return view('upload', ['hash'=>$hash, 'dir'=>$run->directory().'/workingDir/Data']);
+		$noEmail = empty($run->email);
+		return view('upload', ['hash'=>$hash, 'dir'=>$run->directory().'/workingDir/Data','noEmail'=>$noEmail]);
 	}
 	else {
 		return redirect("/run/$hash");

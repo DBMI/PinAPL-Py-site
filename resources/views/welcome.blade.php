@@ -19,7 +19,7 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="row">
 							<div class="medium-6 columns">
-								<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address</span></label>
+								<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address (optional)</span></label>
 								<input id="email" name="email" type="text"/>
 							</div>
 							<div class="medium-6 columns">

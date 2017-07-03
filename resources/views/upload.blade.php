@@ -3,7 +3,7 @@
 	$description = 
 			"<ol>
 				<li>Drag and drop your sequencing data files (*.fastq.gz)</li>
-			  <li>Click \"Enter Sample Information\" when finished.</li>  
+				<li>Click \"Enter Sample Information\" when finished.</li>  
 			</ol>";
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
@@ -29,6 +29,9 @@
 	<div class="row align-right">
 		<div class="columns shrink"><a id="done-uploading-button" class="button">Enter Sample Information</a></div>
 	</div>
+
+		
+	
 @stop
 @section('customCSS')
 @parent
@@ -72,6 +75,17 @@
 		$(document).ready(function() {	
 		uploadManager.initilize();
 	});
+
+	@if ($noEmail)
+		$('document').ready(function(){$('#no-email').foundation('open');});
+		function copyUrl() {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($('#run-url').text()).select();
+			document.execCommand("copy");
+			$temp.remove();
+		}
+	@endif
 </script>
 @stop
 
@@ -79,3 +93,23 @@
 @parent
 <link rel="stylesheet" type="text/css" href="/css/upload.css">
 @stop
+
+
+{{-- No Email Modal --}}
+<div class="reveal large" id="no-email" data-reveal>
+	<h1>You have not provided an email address</h1>
+	<p class="lead">
+		Please save this url
+	</p>
+	<div class="input-group">
+		<a class="input-group-label" id='run-url'href="{{ url("/run/$hash") }}">{{ url("/run/$hash") }}</a>
+		<div class="input-group-button">
+			<button type="button" class="button" onclick="copyUrl()">Copy</button>
+		</div>
+	</div>
+	<p>If you close this page, and lose the url, you will have no way to get back to your run.</p>
+	<button class="button float-right" data-close aria-label="Close modal" type="button">Ok</button>
+	<button class="close-button" data-close aria-label="Close modal" type="button">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
