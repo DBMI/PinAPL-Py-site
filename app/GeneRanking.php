@@ -37,8 +37,8 @@ class GeneRanking extends Model
 	  'arra'=>'aRRA',
 	  'arra_p_value'=>'aRRA p_value',
 	  'arra_fdr'=>'aRRA FDR',
-	  'significant'=>'significant',
-	  'num_sig_sgrna'=>"# signif. sgRNAs"
+	  'significant'=>'Significant',
+	  'num_sig_sgrna'=>"# Signif. sgRNAs"
 	];
   
 }

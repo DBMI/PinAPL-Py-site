@@ -25,4 +25,16 @@ class SgrnaRanking extends Model
   {
     return $this->hasOne('App\Run', 'dir', 'dir');
   }
+
+  public static $columns = [
+	  'sgrna'=>'sgRNA',
+	  'gene'=>'Gene',
+	  'counts'=>'Counts',
+	  'control_mean'=>'Control Mean',
+	  'control_stdev'=>'Conterol StDev',
+	  'fold_change'=>"Fold Change",
+	  'p_value'=>"p_value",
+	  'fdr'=>"FDR",
+	  'significant'=>'Significant'
+	];
  }

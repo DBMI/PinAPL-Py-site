@@ -2,5 +2,36 @@ th {
 	text-align: left;
 }
 #results-tabs-holder > .tabs-content > .tabs-panel {
-    padding: 0;
+	padding: 0;
 }
+
+
+/*Override jqGrid*/
+.ui-widget table {
+	border: none;
+}
+
+.ui-widget table tbody tr:nth-child(even),
+.ui-widget table thead, 
+.ui-widget table tfoot {
+	background-color: transparent;
+}
+.ui-jqgrid .ui-jqgrid-toppager .ui-pager-control, .ui-jqgrid .ui-jqgrid-pager .ui-pager-control {
+	height: auto !important;
+}
+.ui-jqgrid .ui-pg-input, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-input{
+	display: inline;
+}
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-jqgrid-toppager .ui-pg-selbox{
+	padding-right: 1em !important;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='32' height='24' viewBox='0 0 32 24'><polygon points='0,0 32,0 16,24' style='fill: rgb%28138, 138, 138%29'></polygon></svg>");
+  background-origin: content-box;
+  background-position: right 0rem center;
+  background-repeat: no-repeat;
+  background-size: 9px 6px;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv{
+	overflow: auto;
+}
+
