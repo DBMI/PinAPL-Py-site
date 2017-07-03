@@ -101,13 +101,80 @@ class ResultsController extends Controller
         return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'candidate_lists']);
     }
 
+
+
+
+    /*************************************
+     *** Extra
+     ************************************/
+
+    // Generate new scatter plots with gene selection
     public function getNewScatterPlot($hash, $prefix, $gene) {
         $dir = storage_path("/runs/$hash/workingDir");
         if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png')){
-            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.4.1 PlotCounts.py $prefix $gene`;
+            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.5 PlotCounts.py $prefix $gene`;
         }
 
         $imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png');
         return $imgPath;
+    }
+
+    public function getGeneRankingsQuery(Request $req, $hash,$prefix)
+    {
+        $columns = ['gene', "arra", "arra_p_value", "arra_fdr", "significant", "num_sig_sgrna"];
+        return self::jqQuery($req, 'gene_rankings', $columns, $hash, $prefix);
+    }
+
+    public function getSGRNARankingsQuery(Request $req, $hash,$prefix)
+    {
+        $columns = array_keys(\App\SgrnaRanking::$columns);
+        return self::jqQuery($req, 'sgrna_rankings', $columns, $hash, $prefix);
+    }
+
+
+    private function jqQuery($req, $table, $columns, $hash, $prefix){
+        // Current page # of results 
+        $page = $req->input('page');
+        // Number of rows per table page
+        $limit = $req->input('rows');
+        // get index row - i.e. user click to sort. At first time sortname parameter -
+        // after that the index from colModel
+        // If not provided, use 1st column 
+        $sidx = $req->input('sidx') ?? 'gene';
+        // sorting order - at first time sortorder
+        $sord = $req->input('sord');
+
+        // calculate the starting position of the rows 
+        $start = $limit*$page;
+        // if for some reasons start position is negative set it to 0 
+        // typical case is that the user type 0 for the requested page 
+        if($start <0) $start = 0; 
+        
+
+        $query = \DB::table($table)->select($columns)
+            ->where('dir',$hash)
+            ->where('file',$prefix)
+        ;
+        // Number of rows for query
+        $count = $query->count();
+
+        // calculate the total pages for the query 
+        if( $count > 0 && $limit > 0) { 
+                      $total_pages = ceil($count/$limit); 
+        } else { 
+                      $total_pages = 0; 
+        } 
+
+        $query = $query
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($sidx, $sord)
+        ;
+
+
+        // header("Content-type: text/xml;charset=utf-8");re
+        $response  = (object)['page' => $page, 'total' => $total_pages, 'records' =>$count];
+        $response->rows = $query->get();
+        return json_encode($response);
     }
 }

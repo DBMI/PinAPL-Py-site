@@ -311,6 +311,8 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 /*** Enrichment / Depletion *********/
 Route::get('/results/p-values/{hash}',           'ResultsController@getP_Values');
 Route::get('/results/gene_rankings/{hash}',  'ResultsController@getGeneRankings');
+Route::get('/results/gene_rankings_query/{hash}/{prefix}',  'ResultsController@getGeneRankingsQuery');
+Route::get('/results/sgrna_rankings_query/{hash}/{prefix}',  'ResultsController@getSGRNARankingsQuery');
 Route::get('/results/sgrna_rankings/{hash}',  'ResultsController@getSgrnaRankings');
 Route::get('/results/sgrna_efficiency/{hash}',  'ResultsController@getSgrnaEfficiency');
 Route::get('/results/control/{hash}',           'ResultsController@getControl');
