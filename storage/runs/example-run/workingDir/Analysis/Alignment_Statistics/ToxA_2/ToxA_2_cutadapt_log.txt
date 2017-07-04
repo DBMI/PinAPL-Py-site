@@ -1,7 +1,7 @@
 This is cutadapt 1.14 with Python 2.7.6
 Command line parameters: -g TCTTGTGGAAAGGACGAAACACCN ToxA_R2_S2_L005_R1_001_x.fastq.gz -o Trim5_ToxA_R2_S2_L005_R1_001_x.fastq.gz -e 0.25 --minimum-length 10
 Trimming 1 adapter with at most 25.0% errors in single-end mode ...
-Finished in 6.97 s (14 us/read; 4.30 M reads/minute).
+Finished in 6.64 s (13 us/read; 4.52 M reads/minute).
 
 === Summary ===
 

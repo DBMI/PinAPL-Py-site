@@ -16,7 +16,7 @@ Total Number of Reads discarded: 		170150 (34.0%)
 
 
 
----- Alignment completed in 3.81 [secs] ----
+---- Alignment completed in 3.92 [secs] ----
 
 
 Parameter settings
