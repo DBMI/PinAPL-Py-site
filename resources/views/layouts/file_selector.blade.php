@@ -15,6 +15,7 @@
 	}
 	$files = $files + $mapping['treatment'];
 
+	$shrink = empty($fullSize) ? 'shrink' : '';
 	$beforeSelectorRow = $beforeSelectorRow ?? "";
 	$afterSelectorRow = $afterSelectorRow ?? "";
 	$afterSelectorColumn = $afterSelectorColumn ?? "";
@@ -36,7 +37,7 @@
 {!! $afterSelectorRow !!}
 @foreach ($files as $fileName => $fileProperties)
 	<div class="row align-center" id="{{ $fileName }}_{{ $result }}" @if (!$loop->first) style="display:none;" @endif>
-		<div class="column shrink">
+		<div class="column {{ $shrink }}">
 			@include("results.".$result."_component", 
 				[ 'prefix'=>$fileProperties['condition'].'_'.$fileProperties['index'],
 					'fileName'=>$fileName, 'fileProperties'=>$fileProperties,

@@ -113,8 +113,8 @@ class Run extends Model
 		$files = $mapping['treatment'];
 		$geneTable = 'gene_rankings';
 		$sgrnaTable= 'sgrna_rankings';
-		$geneColumns = ['gene','arra','arra_p_value','arra_fdr','significant','num_sig_sgrna'];
-		$sgrnaColumns = ['sgrna', 'gene', 'counts', 'control_mean', 'control_stdev', 'fold_change', 'p_value', 'fdr', 'significant'];
+		$geneColumns = array_keys(\App\GeneRanking::$columns);
+		$sgrnaColumns = array_keys(\App\SgrnaRanking::$columns);
 
 		foreach ($files as $fileName => $fileProperties){
 			$prefix = $fileProperties['condition'].'_'.$fileProperties['index'];

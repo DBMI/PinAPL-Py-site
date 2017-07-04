@@ -1,64 +1,52 @@
-This is cutadapt 1.12 with Python 2.7.6
-Command line parameters: -a TCTTGTGGAAAGGACGAAACACCG...GTTTTAGAGCTAGAAATAGCAAGTT ToxB_R2_S4_L005_R1_001_x.fastq.gz -o ToxB_R2_S4_L005_R1_001_x_cut.fastq.gz -e 0.25 --minimum-length 10
+This is cutadapt 1.14 with Python 2.7.6
+Command line parameters: -g TCTTGTGGAAAGGACGAAACACCN ToxB_R2_S4_L005_R1_001_x.fastq.gz -o Trim5_ToxB_R2_S4_L005_R1_001_x.fastq.gz -e 0.25 --minimum-length 10
 Trimming 1 adapter with at most 25.0% errors in single-end mode ...
-Finished in 10.62 s (21 us/read; 2.83 M reads/minute).
+Finished in 7.11 s (14 us/read; 4.22 M reads/minute).
 
 === Summary ===
 
 Total reads processed:                 500,000
-Reads with adapters:                   499,295 (99.9%)
-Reads that were too short:                 344 (0.1%)
-Reads written (passing filters):       499,656 (99.9%)
+Reads with adapters:                   499,517 (99.9%)
+Reads that were too short:                   0 (0.0%)
+Reads written (passing filters):       500,000 (100.0%)
 
 Total basepairs processed:    25,000,000 bp
-Total written (filtered):      9,902,216 bp (39.6%)
+Total written (filtered):     11,516,563 bp (46.1%)
 
 === Adapter 1 ===
 
-Sequence: TCTTGTGGAAAGGACGAAACACCG...GTTTTAGAGCTAGAAATAGCAAGTT; Type: linked; Length: 24+25; Trimmed: 499295 times; Half matches: 479431
+Sequence: TCTTGTGGAAAGGACGAAACACCN; Type: regular 5'; Length: 24; Trimmed: 499517 times.
 
 No. of allowed errors:
 0-3 bp: 0; 4-7 bp: 1; 8-11 bp: 2; 12-15 bp: 3; 16-19 bp: 4; 20-23 bp: 5; 24 bp: 6
 
-No. of allowed errors:
-0-3 bp: 0; 4-7 bp: 1; 8-11 bp: 2; 12-15 bp: 3; 16-19 bp: 4; 20-23 bp: 5; 24-25 bp: 6
-
-Overview of removed sequences at 5' end
+Overview of removed sequences
 length	count	expect	max.err	error counts
-21	2	0.0	5	0 0 0 1 0 0 1
-22	10	0.0	5	0 0 1 1 2 3 3
-23	23	0.0	5	0 6 0 1 6 8 2
-24	110	0.0	6	5 1 13 9 24 8 50
-25	1101	0.0	6	0 21 38 270 109 653 10
-26	23016	0.0	6	0 0 5193 992 16528 286 17
-27	454146	0.0	6	0 0 0 447463 6328 348 7
-28	9890	0.0	6	0 0 0 0 9427 151 312
-29	7345	0.0	6	0 0 0 0 0 7209 136
-30	3652	0.0	6	0 0 0 0 0 0 3652
-
-
-Overview of removed sequences at 3' end
-length	count	expect	max.err	error counts
-3	381037	7812.5	0	381037
-4	49124	1953.1	1	47296 1828
-5	37440	488.3	1	4764 32676
-6	10281	122.1	1	1100 9181
-7	282	30.5	1	232 35 15
-8	399	7.6	2	327 37 35
-9	248	1.9	2	212 14 22
-10	62	0.5	2	46 6 9 1
-11	56	0.1	2	44 4 5 3
-12	109	0.0	3	101 3 2 3
-13	46	0.0	3	29 15 0 2
-14	34	0.0	3	20 9 2 1 2
-15	27	0.0	3	22 2 2 1
-16	43	0.0	4	38 0 1 3 1
-17	41	0.0	4	30 2 1 7 1
-18	28	0.0	4	22 1 2 1 2
-19	37	0.0	4	21 2 7 0 7
-20	48	0.0	5	42 4 0 0 1 1
-21	18	0.0	5	14 3 0 1
-22	6	0.0	5	5 1
-23	58	0.0	5	1 38 3 10 4 0 2
-24	7	0.0	6	0 6 0 0 0 1
+3	27	7812.5	0	27
+4	68	1953.1	1	5 63
+5	40	488.3	1	0 40
+6	14	122.1	1	0 14
+7	8	30.5	1	0 5 3
+8	9	7.6	2	0 2 7
+9	4	1.9	2	0 0 4
+10	4	0.5	2	0 2 2
+11	3	0.1	2	0 0 2 1
+12	3	0.0	3	0 1 0 2
+13	1	0.0	3	0 0 0 1
+17	1	0.0	4	0 1
+20	1	0.0	5	0 0 0 1
+21	8	0.0	5	1 0 1 0 2 0 4
+22	18	0.0	5	0 1 4 4 1 8
+23	29	0.0	5	6 0 1 10 12
+24	97	0.0	6	5 5 31 56
+25	831	0.0	6	25 227 569 10
+26	15487	0.0	6	5456 9902 127 2
+27	471454	0.0	6	465157 6205 90 2
+28	5841	0.0	6	4800 1020 12 8 0 0 1
+29	5080	0.0	6	4859 93 108 12 8
+30	126	0.0	6	2 8 1 99 11 4 1
+31	139	0.0	6	0 0 1 2 123 6 7
+32	127	0.0	6	0 0 0 1 0 121 5
+33	96	0.0	6	0 0 0 0 1 0 95
+34	1	0.0	6	0 0 0 0 0 1
 

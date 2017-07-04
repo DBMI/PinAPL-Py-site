@@ -30,14 +30,6 @@ return [
 				"hidden" =>true,
 				"rules" => "string|min:20|regex:/[TCGA]+/"
 			],
-			"seq_3_end" => [
-				"display_name"=>"3'-adapter",
-				"default"=>"GTTTTAGAGCTAGAAATAGCAAGTT",
-				"help_text"=>"sequence 3' of sgRNA in read",
-				"in_quotes"=>true,
-				"hidden" =>true,
-				"rules" => "string|min:20|regex:/[TCGA]+/"
-			],
 			"NonTargetPrefix" => [
 				"display_name"=>"Prefix for non-targeting controls",
 				"default"=>"NonTargeting",
@@ -46,8 +38,8 @@ return [
 				"hidden" =>true,
 				"rules" => "string"
 			],
-			"sgRNAsPerGene" => [
-				"display_name"=>"#sgRNAs per Gene",
+			"NumGuidesPerGene" => [
+				"display_name"=>"Number of sgRNAs per gene",
 				"default"=>"6",
 				"help_text"=>"number of sgRNAs targeting each gene (excluding non-targeting controls and miRNAs). ONLY IMPORTANT IF 'ES' is chosen for gene ranking method !",
 				"in_quotes"=>false,
@@ -74,6 +66,16 @@ return [
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
+			"RoundCount" => [
+				"display_name"=>"Round Counts",
+				"default"=>"False",
+				"help_text"=>"Round counts to avoid fractions?",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				"options" => ["True"=>"True", "False"=>"False"]
+			]
 		],
 		"Heatmap" => [
 			"ClusterBy" => [
@@ -112,7 +114,7 @@ return [
 				"default"=>"0.005",
 				"help_text"=>"maximum p-value for sgRNA to be taken into account for aRRA analysis",
 				"in_quotes"=>false,
-				"hidden" =>true,
+				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
@@ -237,6 +239,15 @@ return [
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
+			"AS_min" => [
+				"display_name"=>"Matching Threshhold",
+				"default"=>"40",
+				"help_text"=>"Minimal alignment score required for accepting read (40 = perfect match",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:40",
+				"type"=>'number'
+			]
 		],
 		"Output Formatting" => [
 			"dpi" => [
@@ -326,7 +337,7 @@ return [
 			],
 			"HitListFormat" => [
 				"display_name"=>"Spreadsheet Format",
-				"default"=>"xlsx",
+				"default"=>"tsv",
 				"help_text"=>"Format of results spreadsheets (sgRNA hits and gene ranking)",
 				"in_quotes"=>true,
 				"hidden" =>true,
@@ -334,6 +345,25 @@ return [
 				"type" =>"select",
 				"options" => ["tsv"=>"tsv only", "xlsx"=>"xlsx"]
 			],
+			"TransparencyLevel" => [
+				"display_name"=> "Transparency Level",
+				"default"=>"0.1",
+				"help_text"=>"Transparency of points in scatterplots",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"ShowNonTargets" => [
+				"display_name"=> "Highlight non-targeting controls",
+				"default"=>"False",
+				"help_text"=>"Highlight non-targeting control sgRNAs in scatterplots",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				"options" => ["True"=>"True", "False"=>"False"]
+			]
 		]
 	],
 	"directories"=> 
@@ -351,6 +381,7 @@ return [
 		"AlnQCDir: '/workingdir/Analysis/Alignment_Statistics/'\n".
 		"CountQCDir: '/workingdir/Analysis/ReadCount_Statistics/'\n".
 		"ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/'\n".
+		"HiLiteDir: '/workingdir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/'\n".
 		"CorrelDir: '/workingdir/Analysis/Replicate_Correlation/'\n".
 		"EffDir: '/workingdir/Analysis/sgRNA_Efficacy/'\n".
 		"DepthDir: '/workingdir/Analysis/Read_Depth/'\n".
@@ -396,7 +427,7 @@ return [
 		"Toronto_KnockOut_genome-wide_base.tsv" => "Toronto KnockOut (Base Library)",
 		"Toronto_KnockOut_genome-wide_base&supplemental.csv" => "Toronto KnockOut (Base & Supplemental Library)",
 		"Toronto_KnockOut_genome-wide_supplemental.tsv" => "Toronto KnockOut (Supplemental Library)",
-	],
+	]
 ];
 
 

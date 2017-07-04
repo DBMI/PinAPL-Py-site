@@ -4,21 +4,21 @@ ToxB_1 Read Counts Distribution:
 Read Counts per sgRNA [norm.]
 ------------------------------------
 Median:			0
-Standard Deviation:	170
+Standard Deviation:	192
 25% Quantile:		0
-75% Quantile:		2
+75% Quantile:		0
 Minimum:		0
-Maximum:		28354
-sgRNA Representation:	32139 (26.0%)
-Gini coefficient:	0.964
+Maximum:		35437
+sgRNA Representation:	25438 (20.6%)
+Gini coefficient:	0.971
 
 Read Counts per Gene [norm.]
 ------------------------------------
-Median:			7
-Standard Deviation:	403
-25% Quantile:		2
-75% Quantile:		18
+Median:			5
+Standard Deviation:	457
+25% Quantile:		0
+75% Quantile:		17
 Minimum:		0
-Maximum:		28361
-Gene Representation:	16904 (77.1%)
-Gini coefficient:	0.88
+Maximum:		35446
+Gene Representation:	15163 (69.2%)
+Gini coefficient:	0.898

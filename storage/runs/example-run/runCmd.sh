@@ -1,1 +1,1 @@
-bash /var/www/pinaplepy-site/app/Scripts/startRun.sh /var/www/pinaplepy-site/storage/runs/1489212317_1 7 > /var/www/pinaplepy-site/storage/runs/1489212317_1/runStatus.log
+bash /var/www/pinaplepy-site/app/Scripts/startRun.sh /var/www/pinaplepy-site/storage/runs/1499125319_45 /var/www/pinaplepy-site/storage/data/example-run 8 > /var/www/pinaplepy-site/storage/runs/1499125319_45/runStatus.log

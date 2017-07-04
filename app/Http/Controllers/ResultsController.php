@@ -15,7 +15,7 @@ class ResultsController extends Controller
         return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values']);
     }
     public function getGeneRankings($hash) {
-        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings']);
+        return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true]);
     }
     public function getSgrnaRankings($hash) {
         return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings']);
@@ -112,16 +112,16 @@ class ResultsController extends Controller
     public function getNewScatterPlot($hash, $prefix, $gene) {
         $dir = storage_path("/runs/$hash/workingDir");
         if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png')){
-            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.4.1 PlotCounts.py $prefix $gene`;
+            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.5.0 PlotCounts.py $prefix $gene`;
         }
 
-        $imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png');
+        $imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/".$prefix.'_'.$gene.'_counts.png');
         return $imgPath;
     }
 
     public function getGeneRankingsQuery(Request $req, $hash,$prefix)
     {
-        $columns = ['gene', "arra", "arra_p_value", "arra_fdr", "significant", "num_sig_sgrna"];
+        $columns = array_keys(\App\GeneRanking::$columns);
         return self::jqQuery($req, 'gene_rankings', $columns, $hash, $prefix);
     }
 

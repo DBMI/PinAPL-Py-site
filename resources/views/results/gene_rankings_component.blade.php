@@ -18,12 +18,14 @@ $(function () {
 		pager: "#{{ $prefix }}-gene-rankings-pager",
 		rowNum: 10,
 		rowList: [10, 20, 30],
-		sortname: "gene",
-		sortorder: "asc",
+		sortname: "num_sig_sgrna",
+		sortorder: "desc",
 		viewrecords: true,
 		gridview: true,
 		autoencode: true,
 		height: "100%",
+    autowidth:true,
+    shrinkToFit:true
 	}); 
 }); 
 </script>

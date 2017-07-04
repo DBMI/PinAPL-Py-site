@@ -5,15 +5,15 @@ LibFilename: 'GeCKOv2_Human.tsv'
 # Library Parameters 
 
 LibFilename: 'GeCKOv2_Human.tsv'            # filename of library spreadsheet  
-seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       # sequence 5' of sgRNA in read
-seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       # sequence 3' of sgRNA in read
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       # sequence 5' of sgRNA in read       # sequence 3' of sgRNA in read
 NonTargetPrefix: 'NonTargeting'        # prefix for non-targeting sgRNAs in library (keep at default if none present)
-sgRNAsPerGene: 6                       # number of sgRNAs targeting each gene (excluding non-targeting controls and miRNAs). 
+NumGuidesPerGene: 6                       # number of sgRNAs targeting each gene (excluding non-targeting controls and miRNAs). 
                                        #    ONLY IMPORTANT IF 'ES' is chosen for gene ranking method !
 
 # Read Counting 
 Normalization: 'cpm' 
 Cutoff: 0 
+RoundCount: False 
 
 # Heatmap 
 ClusterBy: 'variance' 
@@ -21,6 +21,7 @@ TopN: 25
 
 # Gene Ranking 
 GeneMetric: 'aRRA' 
+P_0: 0.005 
 Np: 1000 
 thr_STARS: 10 
 
@@ -40,6 +41,7 @@ L_bw: 11
 N_bw: 1 
 i_bw: 'S,1,0.75' 
 delta: 1 
+AS_min: 40 
 
 # Output Formatting 
 dpi: 300 
@@ -52,7 +54,9 @@ marginsize: 10
 scatter_annotate: False 
 max_q: 95 
 svg: True 
-HitListFormat: 'xlsx' 
+HitListFormat: 'tsv' 
+TransparencyLevel: 0.1 
+ShowNonTargets: False 
 
 WorkingDir: '/workingdir/'
 DataDir: '/workingdir/Data/'
@@ -68,6 +72,7 @@ HeatDir: '/workingdir/Analysis/Heatmap/'
 AlnQCDir: '/workingdir/Analysis/Alignment_Statistics/'
 CountQCDir: '/workingdir/Analysis/ReadCount_Statistics/'
 ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/'
+HiLiteDir: '/workingdir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/'
 CorrelDir: '/workingdir/Analysis/Replicate_Correlation/'
 EffDir: '/workingdir/Analysis/sgRNA_Efficacy/'
 DepthDir: '/workingdir/Analysis/Read_Depth/'

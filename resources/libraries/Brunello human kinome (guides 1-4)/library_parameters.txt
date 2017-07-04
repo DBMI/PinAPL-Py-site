@@ -1,5 +1,4 @@
 LibFilename: 'Brunello_kinome_guides1-4.tsv'
-seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       
-seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       
 NonTargetPrefix: 'Non-Targeting'
-sgRNAsPerGene: 4         
+NumGuidesPerGene: 4         

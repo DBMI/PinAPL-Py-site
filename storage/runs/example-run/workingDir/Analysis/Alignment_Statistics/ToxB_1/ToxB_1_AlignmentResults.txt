@@ -1,26 +1,27 @@
 ToxB_1 Alignment Results
 **************************************
 
-Total Number of Reads: 	499626
+Total Number of Reads: 	500000
 
-Number of Reads with unique Alignments: 	404949 (81.1%)
-Number of Reads above Ambiguity Tolerance: 	42251 (8.5%)
+Number of Reads with unique Alignments: 	310905 (62.2%)
+Number of Reads above Ambiguity Tolerance: 	38581 (7.7%)
 ---------------------------------------------------------------
-Total Number of Reads matched: 			447200 (89.6%)
+Total Number of Reads matched: 			349486 (69.9%)
 
 
-Number of Reads below Ambiguity Tolerance: 	24306 (4.9%)
-Number of Reads with failed Alignment: 		28120 (5.6%)
+Number of Reads below Ambiguity Tolerance: 	17777 (3.6%)
+Number of Reads with failed Alignment: 		132737 (26.5%)
 ---------------------------------------------------------------
-Total Number of Reads discarded: 		52426 (10.5%)
+Total Number of Reads discarded: 		150514 (30.1%)
 
 
 
----- Alignment completed in 4.79 [secs] ----
+---- Alignment completed in 4.02 [secs] ----
 
 
 Parameter settings
 L_bw (Seed Length): 11
 N_bw (Seed Mismatch): 1
 i_bw (Interval Function): S,1,0.75
-Theta (Ambiguity Cutoff): 2
+Theta (Ambiguity Threshold): 2
+AS_min (Matching Threshold): 40

@@ -1,5 +1,4 @@
 LibFilename: 'Toronto_KnockOut_genome-wide_base&supplemental.tsv'
-seq_5_end: 'GTGGAAAGGACGAGGTACCG'       
-seq_3_end: 'GTTTTAGAGCTAGAAATAGC'
+seq_5_end: 'GTGGAAAGGACGAGGTACCN'       
 NonTargetPrefix: 'Promiscuous'
-sgRNAsPerGene: 12         
+NumGuidesPerGene: 12         

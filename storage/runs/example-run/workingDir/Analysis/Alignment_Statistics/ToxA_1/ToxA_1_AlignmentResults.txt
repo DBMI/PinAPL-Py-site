@@ -1,26 +1,27 @@
 ToxA_1 Alignment Results
 **************************************
 
-Total Number of Reads: 	498949
+Total Number of Reads: 	500000
 
-Number of Reads with unique Alignments: 	398456 (79.9%)
-Number of Reads above Ambiguity Tolerance: 	42656 (8.5%)
+Number of Reads with unique Alignments: 	297833 (59.6%)
+Number of Reads above Ambiguity Tolerance: 	36166 (7.2%)
 ---------------------------------------------------------------
-Total Number of Reads matched: 			441112 (88.4%)
+Total Number of Reads matched: 			333999 (66.8%)
 
 
-Number of Reads below Ambiguity Tolerance: 	32185 (6.5%)
-Number of Reads with failed Alignment: 		25652 (5.1%)
+Number of Reads below Ambiguity Tolerance: 	22649 (4.5%)
+Number of Reads with failed Alignment: 		143352 (28.7%)
 ---------------------------------------------------------------
-Total Number of Reads discarded: 		57837 (11.6%)
+Total Number of Reads discarded: 		166001 (33.2%)
 
 
 
----- Alignment completed in 5.26 [secs] ----
+---- Alignment completed in 4.19 [secs] ----
 
 
 Parameter settings
 L_bw (Seed Length): 11
 N_bw (Seed Mismatch): 1
 i_bw (Interval Function): S,1,0.75
-Theta (Ambiguity Cutoff): 2
+Theta (Ambiguity Threshold): 2
+AS_min (Matching Threshold): 40

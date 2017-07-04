@@ -1,6 +1,5 @@
 LibFilename: 'Brunello_genome-wide.tsv'
-seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       
-seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'              
 NonTargetPrefix: 'Non-Targeting'
-sgRNAsPerGene: 4        
+NumGuidesPerGene: 4        
 
