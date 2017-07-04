@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row align-middle">
 	<div class="column medium-6">
 		<img src='{{"/run-images?path=".urlencode("/$runHash/workingDir/Analysis/Alignment_Statistics/$prefix/$prefix"."_MappingQuality.png")}}'>
 	</div>
