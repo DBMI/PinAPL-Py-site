@@ -110,9 +110,9 @@ return [
 				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS","ES"=>"ES"]
 			],
 			"P_0" => [
-				"display_name"=>"Number of permutations",
+				"display_name"=>"Maximum p-value",
 				"default"=>"0.005",
-				"help_text"=>"maximum p-value for sgRNA to be taken into account for aRRA analysis",
+				"help_text"=>"Maximum p-value for sgRNA to be taken into account for aRRA analysis",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",

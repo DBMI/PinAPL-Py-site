@@ -107,7 +107,7 @@
 			<button type="button" class="button" onclick="copyUrl()">Copy</button>
 		</div>
 	</div>
-	<p>If you close this page, and lose the url, you will have no way to get back to your run.</p>
+	<p>If you close this page, and lose the url, you will have no way to get back to your run. After completion we will keep your run for 5 days before deleting it.</p>
 	<button class="button float-right" data-close aria-label="Close modal" type="button">Ok</button>
 	<button class="close-button" data-close aria-label="Close modal" type="button">
 		<span aria-hidden="true">&times;</span>
