@@ -1,4 +1,5 @@
 #!/bin/bash
 git pull
-composer dumpautoload -o
+php artisan migrate
 php artisan config:cache
+composer dumpautoload -o
