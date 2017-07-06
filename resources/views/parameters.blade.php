@@ -1,9 +1,16 @@
 @php
-	$title = "Step 3: Configure your analysis run";
-	$description = "Please choose your screen type and the library used in your screen.<br>
-	For advanced options, click “Advanced” (optional)";
+	$title = "Configure your analysis run";
+	$description = "Please choose your <b>screen type</b> and the <b>library</b> used in your screen.<br>
+	If you wish to edit the default parameter settings, click <b>“Advanced Options”</b>";
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
+@section('before_title')
+<div class="row collapse">
+  <div class="columns small-12">
+		<img src="/img/StatusBar_4.png">
+	</div>
+</div>
+@stop
 @section('content')
 <form action="/run/start/{{$hash}}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">

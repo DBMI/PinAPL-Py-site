@@ -107,3 +107,4 @@ pre {
 img {
   max-height: 600px;
 }
+select:invalid { color: gray; }

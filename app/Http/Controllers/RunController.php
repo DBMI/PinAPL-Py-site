@@ -196,20 +196,15 @@ class RunController extends Controller
 			$basename = basename($file);
 			$groupInputName = "group-".str_replace(".", "_", $basename);
 			$renameInputName = "rename-".str_replace(".", "_", $basename);
-			$group = $request->input($groupInputName);
-			switch ($group) {
-				case 'control':
-					$prefix = "Control";
-					break;
-				case 'treatment':
-					$prefix = $request->input($renameInputName,"Treatment");
-					if (empty($prefix)) {
-						$prefix = "Treatment";
-					}
-					break;
-				default:
-					$prefix="ERROR";
-					break;
+			$group = $request->input($groupInputName) ?? 'treatment';
+			if ($group == 'control') {
+				$prefix = "Control";
+			}
+			else{
+				$prefix = $request->input($renameInputName,"Treatment");
+				if (empty($prefix)) {
+					$prefix = "Treatment";
+				}
 			}
 			$conditionCounts[$prefix] = ($conditionCounts[$prefix] ?? 0) + 1;
 			array_push($excelRows, ['FILENAME'=>$basename, 'TREATMENT' => $prefix]);

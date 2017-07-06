@@ -10,7 +10,7 @@
 		$step = 'step=0.01';
 	}
 	$label = $parameter['display_name'] ?? $name;
-	$placeholder = $parameter['default'];
+	$placeholder = $parameter['placeholder'] ?? $parameter['default'];
 	$helpText = $parameter['help_text'];
 	$rules = $parameter['rules'];
 	$options = $parameter['options'] ?? [];
@@ -30,7 +30,7 @@
 	<label for="#{{$name}}-input">{{ $label }}</label>
 	@if ($type == 'select')
 		<select name="{{$name}}" id="{{$name}}-input" {{$requiredText}} title="{{$helpText}}">
-			<option value="" hidden></option>
+			<option value="" hidden disabled selected>{{ $placeholder }}</option>
 			@foreach ($options as $value => $displayName)
 				<option value="{{ $value }}">{{ $displayName }}</option>
 			@endforeach

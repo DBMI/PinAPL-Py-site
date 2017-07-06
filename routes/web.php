@@ -72,6 +72,17 @@ Route::get('/contact', function () {
 });
 
 // Return a download of the sample-data
+
+Route::get('/example-data', function ()
+{
+		$path = resource_path('exampleFiles/PinAPL-py_demo_data.zip');
+		$filename = 'PinAPL-py_demo_data.zip';
+		header("X-Sendfile: $path");
+		header("Content-type: application/octet-stream");
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+		exit;
+});
+
 Route::get('/documentation', function ()  {
 	return view('documentation');
 });
@@ -342,6 +353,10 @@ Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}',
 Route::get('/download_test', function ()
 {
 	return view('download_test');
+});
+Route::get('/test/{hash}', function ($hash) {
+	$run = \App\Run::where('dir',$hash)->firstOrFail();
+	return view('run', ['run'=>$run, 'hash'=>$hash]);
 });
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {

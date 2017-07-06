@@ -1,0 +1,6 @@
+LibFilename: 'GeCKOv2_Human.tsv'       
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'  
+seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT' 
+NonTargetPrefix: 'NonTargeting'        
+sgRNAsPerGene: 6                       
+                                       

@@ -48,6 +48,101 @@ return [
 				"type"=>'number'
 			]
 		],
+		"Alignment" => [
+			"CutErrorTol" => [
+				"display_name"=>"Adapter Error Rate",
+				"default"=>"0.1",
+				"help_text"=>"Allowed error rate for Identification of the 5’ adapters. Refer to the cutadapt manual for more information.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"AS_min" => [
+				"display_name"=>"Matching Threshold",
+				"default"=>"40",
+				"help_text"=>"Minimal alignment score required for accepting read (40 = perfect match)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:40",
+				"type"=>'number'
+			],
+			"Theta" => [
+				"default"=>"2",
+				'display_name'=>'Ambiguity Threshold',
+				"help_text"=>"Minimum required difference between best and second best match for accepting read (0 = allow ambiguous reads)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"L_bw" => [
+				'display_name'=>'Seed Length',
+				"default"=>"11",
+				"help_text"=>"Bowtie2 seed length parameter. Refer to the Bowtie2 manual for more information.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"N_bw" => [
+				'display_name'=>'Seed Number',
+				"default"=>"1",
+				"help_text"=>"Bowtie2 seed number parameter. Refer to the Bowtie2 manual for more information.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|in:0,1,2",
+				"type"=>'select',
+				"options" => ["0"=>"0", "1"=>"1", "2"=>"2"]
+			],
+			"i_bw" => [
+				'display_name'=>'Interval Function',
+				"default"=>"S,1,0.75",
+				"help_text"=>"Bowtie2 seed interval parameter. Refer to the Bowtie2 manual for more information.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string"
+			],
+			"AlnOutput" => [
+				"display_name"=>"Alignment Output",
+				"default"=>"Delete",
+				"help_text"=>"Keep raw alignment output?",
+				"in_quotes"=>true,
+				"hidden" =>true,
+				"rules" => "string|in:Keep,Compress,Delete",
+				"type" =>"select",
+				"options" => ["Keep"=>"Keep", "Compress"=>"Compress", "Delete"=>"Delete"]
+			],
+			"keepCutReads" => [
+				"display_name"=>"Keep Trimmed Reads",
+				"default"=>"False",
+				"help_text"=>"Keep files containing trimmed reads?",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "string|in:True,False",
+				'placeholder'=>'No',
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["True"=>"Yes", "False"=>"No"]
+			],
+			"delta" => [
+				"default"=>"1",
+				"help_text"=>"Shift in read counts to avoid errors with zero counts during log transformation, fold change calculation etc.",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"R_min" => [
+				"display_name"=>"Minimal Read Length",
+				"default"=>"20",
+				"help_text"=>"Minimal allowed read length after cutting the 5' adapter. Reads with length shorter than R_min after cutting the adaptor will be discarded. Refer to the cutadapt manual for more information.",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+		],
 		"Read Counting" => [
 			"Normalization" => [
 				"default"=>"cpm",
@@ -74,12 +169,73 @@ return [
 				"hidden" =>false,
 				"rules" => "string|in:True,False",
 				"type" =>"select",
-				"options" => ["True"=>"True", "False"=>"False"]
+				'placeholder'=>'No',
+				"options" => ["True"=>"Yes", "False"=>"No"]
 			]
 		],
-		"Heatmap" => [
+		"Gene Ranking" => [
+			"GeneMetric" => [
+				"display_name"=>"Gene Ranking Metric",
+				"default"=>"aRRA",
+				"help_text"=>"Metric for gene ranking analysis.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:aRRA,STARS",
+				"type" =>"select",
+				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS"]
+			],
+			"Np" => [
+				"display_name"=>"Number of permutations",
+				"default"=>"1000",
+				"help_text"=>"Number of permutations to run to estimate p-values in gene ranking analysis (recommended 1000 for aRRA, 10 for STARS.)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"P_0" => [
+				"display_name"=>"sgRNA p-value Threshold (aRRA only)",
+				"default"=>"0.00005",
+				"help_text"=>"Maximum allowed p-value for sgRNA to be taken into account for aRRA score",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"thr_STARS" => [
+				"display_name"=>"% sgRNAs Included (STARS only)",
+				"default"=>"10",
+				"help_text"=>"Percentage of sgRNAs included in ranking analysis (STARS only)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+		],
+		"Statistical Significance" => [
+			"alpha" => [
+				"default"=>"0.1",
+				"display_name"=>"Significance Threshold",
+				"help_text"=>"Significance threshold (false discovery rate) for enrichment/depletion analysis of sgRNAs and genes",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"padj" => [
+				"display_name"=>"p-value Adjustment",
+				"default"=>"fdr_bh",
+				"help_text"=>"Method for p-value adjustment for multiple tests.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:fdr_bh,fdr_tsbh",
+				"type" =>"select",
+				"options" => ["fdr_bh"=>"FDR (Benjamini/Hochberg)", "fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)"]
+			],
+		],
+		"Sample Clustering" => [
 			"ClusterBy" => [
-				"display_name"=>"Cluster by",
+				"display_name"=>"Cluster by...",
 				"default"=>"variance",
 				"help_text"=>"Clustering of samples either based on most variable sgRNAs or most enriched/depleted sgRNAs.",
 				"in_quotes"=>true,
@@ -91,182 +247,52 @@ return [
 			"TopN" => [
 				"display_name"=>"#sgRNAs for clustering",
 				"default"=>"25",
-				"help_text"=>"Number of sgRNAs to be taken into account for clustering. If ClusterBy is set to ‘counts’ the union of the TopN enriched/depleted sgRNAs over all samples is taken.",
+				"help_text"=>"Number of sgRNAs to be taken into account for clustering.",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
 		],
-		"Gene Ranking" => [
-			"GeneMetric" => [
-				"display_name"=>"Gene Ranking Metric",
-				"default"=>"aRRA",
-				"help_text"=>"Metric for gene ranking analysis.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:aRRA,STARS,ES",
-				"type" =>"select",
-				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS","ES"=>"ES"]
-			],
-			"P_0" => [
-				"display_name"=>"Maximum p-value",
-				"default"=>"0.005",
-				"help_text"=>"Maximum p-value for sgRNA to be taken into account for aRRA analysis",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-			"Np" => [
-				"display_name"=>"Number of permutations",
-				"default"=>"1000",
-				"help_text"=>"Number of permutations to run to estimate p-values in gene ranking analysis. CAUTION: Different ranking methods take more computation time than others, so adjust according to method!",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"thr_STARS" => [
-				"display_name"=>"% sgRNAs Included (STARS only)",
-				"default"=>"10",
-				"help_text"=>"Percentage of sgRNAs included in ranking analysis. ONLY RELEVANT IF ‘STARS’ METHOD IS CHOSEN.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-		],
-		"Statistical Significance" => [
-			"alpha" => [
-				"default"=>"0.1",
-				"display_name"=>"FDR",
-				"help_text"=>"Significance threshold.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-			"padj" => [
-				"display_name"=>"p-value adjustment",
-				"default"=>"fdr_bh",
-				"help_text"=>"Method for p-value adjustment for multiple tests.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:fdr_bh,fdr_tsbh",
-				"type" =>"select",
-				"options" => ["fdr_bh"=>"FDR (Benjamini/Hochberg)", "fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)"]
-			],
-		],
-		"Adapter Trimming" => [
-			"R_min" => [
-				"display_name"=>"Minimal Read Length",
-				"default"=>"10",
-				"help_text"=>"Minimal allowed read length after cutting the 5' adapter. Reads with length shorter than R_min after cutting the adaptor will be discarded. Refer to the cutadapt manual for more information.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"CutErrorTol" => [
-				"display_name"=>"Error Tolerance",
-				"default"=>"0.25",
-				"help_text"=>"Allowed error rate for Identification of the 5’ and 3’ read adapters. Refer to the cutadapt manual for more information.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-		],
-		"Alignment" => [
-			"AlnOutput" => [
-				"display_name"=>"Alignment Output",
-				"default"=>"Delete",
-				"help_text"=>"Keep raw alignment output?",
-				"in_quotes"=>true,
-				"hidden" =>true,
-				"rules" => "string|in:Keep,Compress,Delete",
-				"type" =>"select",
-				"options" => ["Keep"=>"Keep", "Compress"=>"Compress", "Delete"=>"Delete"]
-			],
-			"keepCutReads" => [
-				"display_name"=>"Keep Trimmed Reads",
-				"default"=>"False",
-				"help_text"=>"Keep files containing trimmed reads?",
-				"in_quotes"=>false,
-				"hidden" =>true,
-				"rules" => "string|in:True,False",
-				"type" =>"select",
-				"options" => ["True"=>"True", "False"=>"False"]
-			],
-			"Theta" => [
-				"default"=>"2",
-				"help_text"=>"Minimum required difference between primary and secondary alignment score in order to consider the read successfully matched. Reads with lower difference between primary and secondary alignment will be discarded. Increase Theta to increase the stringency of the alignment. Decrease Theta to increase sensitivity.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"L_bw" => [
-				"default"=>"11",
-				"help_text"=>"Bowtie2 seed length parameter. Refer to the Bowtie2 manual for more information.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"N_bw" => [
-				"default"=>"1",
-				"help_text"=>"Bowtie2 seed number parameter. Refer to the Bowtie2 manual for more information.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|in:0,1,2",
-				"type"=>'select',
-				"options" => ["0"=>"0", "1"=>"1", "2"=>"2"]
-			],
-			"i_bw" => [
-				"default"=>"S,1,0.75",
-				"help_text"=>"Bowtie2 seed interval parameter. Refer to the Bowtie2 manual for more information.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string"
-			],
-			"delta" => [
-				"default"=>"1",
-				"help_text"=>"Shift in read counts to avoid errors with zero counts during log transformation, fold change calculation etc.",
-				"in_quotes"=>false,
-				"hidden" =>true,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"AS_min" => [
-				"display_name"=>"Matching Threshhold",
-				"default"=>"40",
-				"help_text"=>"Minimal alignment score required for accepting read (40 = perfect match",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:40",
-				"type"=>'number'
-			]
-		],
-		"Output Formatting" => [
-			"dpi" => [
-				"display_name"=>"PNG Resolution",
-				"default"=>"300",
-				"help_text"=>"Resolution of PNG graphics.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|in:150,300,600",
-				"type"=>'select',
-				"options" => ["150"=>"150", "300"=>"300", "600"=>"600"]
-			],
+		"Visualization" => [
 			"dotsize" => [
 				"default"=>"10",
 				"help_text"=>"Dot size in scatterplots.",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|min:1",
+				"rules" => "numeric|max:20|min:1",
 				"type"=>'number'
+			],
+			"TransparencyLevel" => [
+				"display_name"=> "Transparency Level",
+				"default"=>"0.1",
+				"help_text"=>"Transparency of points in scatterplots",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"scatter_annotate" => [
+				"display_name"=>"sgRNA Annotation",
+				"default"=>"False",
+				"help_text"=>"Annotate sgRNAs when highlighting a gene in scatterplots",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["True"=>"Yes", "False"=>"No"]
+			],
+			"ShowNonTargets" => [
+				"display_name"=> "Highlight non-targeting controls",
+				"default"=>"False",
+				"help_text"=>"Highlight non-targeting control sgRNAs in scatterplots",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["True"=>"Yes", "False"=>"No"]
 			],
 			"logbase" => [
 				"default"=>"10",
@@ -309,20 +335,11 @@ return [
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
-			"scatter_annotate" => [
-				"default"=>"False",
-				"help_text"=>"Annotate scatterplot with sgRNA IDs?",
-				"in_quotes"=>false,
-				"hidden" =>true,
-				"rules" => "string|in:True,False",
-				"type" =>"select",
-				"options" => ["True"=>"True", "False"=>"False"]
-			],
 			"max_q" => [
 				"default"=>"95",
 				"help_text"=>"Maximum quantile to be plotted in read count distribution histograms.",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>True,
 				"rules" => "numeric|numeric|min:0|max:100",
 				"type"=>'number'
 			],
@@ -333,37 +350,30 @@ return [
 				"hidden" =>true,
 				"rules" => "string|in:True,False",
 				"type" =>"select",
-				"options" => ["True"=>"True", "False"=>"False"]
+				'placeholder'=>'Yes',
+				"options" => ["True"=>"Yes", "False"=>"No"]
+			],
+			"dpi" => [
+				"display_name"=>"PNG Resolution",
+				"default"=>"300",
+				"help_text"=>"Resolution of PNG graphics.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|in:150,300,600",
+				"type"=>'select',
+				"options" => ["150"=>"150", "300"=>"300", "600"=>"600"]
 			],
 			"HitListFormat" => [
 				"display_name"=>"Spreadsheet Format",
 				"default"=>"tsv",
-				"help_text"=>"Format of results spreadsheets (sgRNA hits and gene ranking)",
+				"help_text"=>"Set to Excel to have tables automatically converted to Excel xlsx files",
 				"in_quotes"=>true,
-				"hidden" =>true,
+				"hidden" =>false,
 				"rules" => "string|in:tsv,xlsx",
 				"type" =>"select",
-				"options" => ["tsv"=>"tsv only", "xlsx"=>"xlsx"]
+				'placeholder'=>'Text Only (tsv)',
+				"options" => ["tsv"=>"Text Only (tsv)", "xlsx"=>"Excel"]
 			],
-			"TransparencyLevel" => [
-				"display_name"=> "Transparency Level",
-				"default"=>"0.1",
-				"help_text"=>"Transparency of points in scatterplots",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-			"ShowNonTargets" => [
-				"display_name"=> "Highlight non-targeting controls",
-				"default"=>"False",
-				"help_text"=>"Highlight non-targeting control sgRNAs in scatterplots",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "string|in:True,False",
-				"type" =>"select",
-				"options" => ["True"=>"True", "False"=>"False"]
-			]
 		]
 	],
 	"directories"=> 
@@ -418,6 +428,7 @@ return [
 		"GeCKOv2_Human.tsv" => "Human GeCKO v2 (Full)",
 		"Human_GeCKOv2_Library_A.csv" => "Human GeCKO v2 (Half_A)",
 		"Human_GeCKOv2_Library_B.csv" => "Human GeCKO v2 (Half_B)",
+		"GeCKOv21_Human.tsv" => "Human GeCKO v2.1 (Full, NonTargeting duplicates removed)",
 		"Human_improved_genome-wide_KnockOut_v1.tsv" => "Human improved genome-wide Knockout v1",
 		"GeCKOv2_Mouse.csv" => "Mouse GeCKO v2 (Full)",
 		"Mouse_GeCKOv2_Library_A.csv" => "Mouse GeCKO v2 (Half_A)",

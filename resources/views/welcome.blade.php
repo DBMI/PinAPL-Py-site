@@ -1,16 +1,18 @@
 @extends('layouts.master')
 @section('content')
+<img src="/img/StatusBar_1.png">
 <div class="row align-middle">
 	<div class="medium-3 align-center columns">
-		<img id="welcome-logo" src="/img/logo_color.png">
+		<img id="welcome-logo" src="/img/logo_with_name.png">
 	</div>
 	<div class="medium-9 columns" id="welcome-text">
 		<div class="row">
-			<h4>Platform-independent Analysis of PooLed screens using Python</h4>
+			<h4><b>P</b>latform-<b>in</b>dependent <b>A</b>nalysis of <b>P</b>oo<b>L</b>ed screens using <b>Py</b>thon</h4>
 			<b>A comprehensive web application for quality control, read alignment and enrichment/depletion analysis of CRISPR/Cas9 screens.</b>
 		</div>
 		<div class="row">
-			Please enter a valid e-mail address and a name for your analysis run below
+			Please enter a name for your run below.<br>
+			Please enter an email address if you would like to recieve a notification email after completion (optional).
 		</div>
 		<div class="row collapse">
 			<div class="small-12 columns">
@@ -19,12 +21,12 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<div class="row">
 							<div class="medium-6 columns">
-								<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address (optional)</span></label>
-								<input id="email" name="email" type="text"/>
+								<label for="name"><span class="has-tip tip-top whiteTxt" title="Please give this data a name">Name this Run</span></label>
+								<input id="name" name="name" type="text"/>
 							</div>
 							<div class="medium-6 columns">
-								<label for="name"><span class="has-tip tip-top whiteTxt" title="Please give this data a name">Analysis Run Name</span></label>
-								<input id="name" name="name" type="text"/>
+								<label for="email"><span class="has-tip tip-top whiteTxt" title="The e-mail address we should send your results to">E-mail Address (optional)</span></label>
+								<input id="email" name="email" type="text"/>
 							</div>
 						</div>
 
@@ -39,23 +41,19 @@
 		</div>
 	</div>
 </div>
-<img id="how-to-img" src="/img/howTo.png" >
-
-<div class="row footer align-center">
-	<div class="shrink columns">
-		<p>&copy 2017 <a href="http://dbmi.ucsd.edu/" target="_blank">DBMI @ UCSD</a></p>
-	</div>
-</div>
 @stop
 @section('customCSS')
 	<style type="text/css">
 		#welcome-text{
-			height: 326px;
+			height: 340px;
 			justify-content: space-between;
 	    flex-direction: column;
 	    display: flex;
 	    padding-top: 1em;
 	    padding-bottom: 1em;
+		}
+		#welcome-logo{
+			height: 340px;
 		}
 		#how-to-img {
 			margin-left: 2em;

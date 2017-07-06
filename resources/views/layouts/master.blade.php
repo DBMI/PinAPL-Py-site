@@ -23,6 +23,7 @@
       </ul>
     </div>
     @endif 
+    @yield('before_title')
     @if (!empty($title))
       <div class="row collapse align-center" id="title-row">
         <div class="column shrink">

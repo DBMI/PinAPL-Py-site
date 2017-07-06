@@ -1,34 +1,43 @@
 @php
-	$title = "Step1: Upload your sequence files (fastq.gz)";
+	$title = "Upload your sequence files (fastq/fastq.gz)";
 	$description = 
-			"<ol>
-				<li>Drag and drop your sequencing data files (*.fastq.gz)</li>
-				<li>Click \"Enter Sample Information\" when finished.</li>  
-			</ol>";
+			"<ul>
+				<li>Drag and drop your sequence files</li>
+				<li>Click \"Enter Sample Information\" when finished uploading.</li>  
+				<li>Please do not close this window. Your data will be deleted if you refresh the page.</li>  
+				<li>Upload speed is dependent on your internet connection and file size (we recommend using <b>fastq.gz</b> for optimal speed)</li>  
+			</ul>";
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
 
 
-@section('content')
-	<div class="row align-justify">
-		<div class="columns ">
-			
-		</div>
+@section('before_title')
+<div class="row collapse">
+  <div class="columns small-12">
+		<img src="/img/StatusBar_2.png">
 	</div>
-	<div id="drop-box" class="callout">
-		<div class="row">
-				<div class="columns medium-12">
-					<div id="file-list">
-					</div>
-					<div id="drop-box-tips" class="center">
-						<h4>Drag & drop FASTQ files here</h4>
-					</div>
+</div>
+@stop
+@section('content')
+<div class="row align-justify">
+	<div class="columns ">
+		
+	</div>
+</div>
+<div id="drop-box" class="callout">
+	<div class="row">
+			<div class="columns medium-12">
+				<div id="file-list">
+				</div>
+				<div id="drop-box-tips" class="center">
+					<h4>Drag & drop sequence files here</h4>
 				</div>
 			</div>
-	</div>
-	<div class="row align-right">
-		<div class="columns shrink"><a id="done-uploading-button" class="button">Enter Sample Information</a></div>
-	</div>
+		</div>
+</div>
+<div class="row align-right">
+	<div class="columns shrink"><a id="done-uploading-button" class="button">Enter Sample Information</a></div>
+</div>
 
 		
 	
