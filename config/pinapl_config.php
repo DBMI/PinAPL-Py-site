@@ -6,6 +6,7 @@ return [
 			"ScreenType" => [
 				"display_name"=>"Screen Type",
 				"default"=>"enrichment",
+				"placeholder"=>"Please select",
 				"help_text"=>"Specifies the type of screen.",
 				"in_quotes"=>true,
 				"rules" => "string|required|in:enrichment,depletion",
@@ -15,6 +16,7 @@ return [
 			"LibFilename" => [ 
 				"display_name"=>"Library",
 				"default"=> "GeCKOv2_library.tsv",
+				"placeholder"=> "Please select",
 				"help_text"=>"filename of library spreadsheet",
 				"in_quotes"=>true,
 				"rules" => "",

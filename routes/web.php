@@ -354,9 +354,15 @@ Route::get('/download_test', function ()
 {
 	return view('download_test');
 });
-Route::get('/test/{hash}', function ($hash) {
-	$run = \App\Run::where('dir',$hash)->firstOrFail();
-	return view('run', ['run'=>$run, 'hash'=>$hash]);
+Route::get('/test/{view}/{hash}', function ($view, $hash) {
+	if ($hash) {
+		$run = \App\Run::where('dir',$hash)->firstOrFail();
+	}
+	else {
+		$run = null;
+		$hash = null;
+	}
+	return view($view, ['hash'=>$hash,'run'=>$run]);
 });
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {
