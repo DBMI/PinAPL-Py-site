@@ -60,7 +60,7 @@
 <script type="text/javascript" src="/js/binary.min.js"></script>
 <script type="text/javascript" src="/js/upload.js"></script>
 <script>
-	
+
 	var uploadManager = new uploader('#drop-box',runDirectory, koTransPort, appHost, token);
 	uploadManager.setDoneUploadingCallBack (function (){
 			 $.post(
@@ -84,6 +84,15 @@
 		$(document).ready(function() {	
 		uploadManager.initilize();
 	});
+
+	// Warn user about leaving page. 
+	window.onbeforeunload = function() {
+		if (uploadManager.doneUploading) {
+			return;
+		} else {
+		  return "Leaving this page will cancel your upload and may cause errors.";
+		}
+	}
 
 	@if ($noEmail)
 		$('document').ready(function(){$('#no-email').foundation('open');});
