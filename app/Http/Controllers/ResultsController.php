@@ -112,7 +112,7 @@ class ResultsController extends Controller
     public function getNewScatterPlot($hash, $prefix, $gene) {
         $dir = storage_path("/runs/$hash/workingDir");
         if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png')){
-            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.5.0 PlotCounts.py $prefix $gene`;
+            `docker run -v $dir:/workingdir oncogx/pinaplpy_docker:beta_v2.7 PlotCounts.py $prefix $gene`;
         }
 
         $imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/".$prefix.'_'.$gene.'_counts.png');

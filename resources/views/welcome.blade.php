@@ -12,7 +12,7 @@
 		</div>
 		<div class="row">
 			Please enter a name for your run below.<br>
-			Please enter an email address if you would like to recieve a notification email after completion (optional).
+			Please enter an email address if you would like to receive a notification email after completion (optional).
 		</div>
 		<div class="row collapse">
 			<div class="small-12 columns">
@@ -45,7 +45,7 @@
 @section('customCSS')
 	<style type="text/css">
 		#welcome-text{
-			height: 340px;
+			min-height: 340px;
 			justify-content: space-between;
 	    flex-direction: column;
 	    display: flex;

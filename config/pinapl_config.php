@@ -381,11 +381,13 @@ return [
 	"directories"=> 
 		"WorkingDir: '/workingdir/'\n".
 		"DataDir: '/workingdir/Data/'\n".
+		"TempDataDir: '/workingdir/TempData/'\n".
 		"LibDir: '/workingdir/Library/'\n".
 		"IndexDir: '/workingdir/Library/Bowtie2_Index/'\n".
 		"ScriptsDir: '/opt/PinAPL-Py/Scripts/'\n".
 		"AlignDir: '/workingdir/Alignments/'\n".
 		"AnalysisDir: '/workingdir/Analysis/'\n".
+		"TrimLogDir: '/workingdir/Analysis/Read_Trimming'\n".
 		"HitDir: '/workingdir/Analysis/sgRNA_Rankings'\n".
 		"GeneDir: '/workingdir/Analysis/Gene_Rankings'\n".
 		"ControlDir: '/workingdir/Analysis/Control/'\n".
@@ -395,6 +397,7 @@ return [
 		"ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/'\n".
 		"HiLiteDir: '/workingdir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/'\n".
 		"CorrelDir: '/workingdir/Analysis/Replicate_Correlation/'\n".
+		"HiLiteDir2: '/workingdir/Analysis/Replicate_Correlation/Highlighted_Genes'\n".
 		"EffDir: '/workingdir/Analysis/sgRNA_Efficacy/'\n".
 		"DepthDir: '/workingdir/Analysis/Read_Depth/'\n".
 		"SeqQCDir: '/workingdir/Analysis/Sequence_Quality/'\n".
@@ -409,6 +412,7 @@ return [
 		"LoaderScript: 'LoadDataSheet'\n".
 		"ReadDepthScript: 'PlotNumReads'\n".
 		"SeqQCScript: 'CheckSequenceQuality'\n".
+		"TrimScript: 'TrimReads'\n".
 		"AlignScript: 'AlignReads'\n".
 		"NormalizeScript: 'NormalizeReadCounts'\n".
 		"StatsScript: 'AnalyzeReadCounts'\n".
@@ -430,7 +434,7 @@ return [
 		"GeCKOv2_Human.tsv" => "Human GeCKO v2 (Full)",
 		"Human_GeCKOv2_Library_A.csv" => "Human GeCKO v2 (Half_A)",
 		"Human_GeCKOv2_Library_B.csv" => "Human GeCKO v2 (Half_B)",
-		"GeCKOv21_Human.tsv" => "Human GeCKO v2.1 (Full, NonTargeting duplicates removed)",
+		"GeCKOv21_Human.tsv" => "Human GeCKO v2 (Full, NonTargeting duplicates removed)",
 		"Human_improved_genome-wide_KnockOut_v1.tsv" => "Human improved genome-wide Knockout v1",
 		"GeCKOv2_Mouse.csv" => "Mouse GeCKO v2 (Full)",
 		"Mouse_GeCKOv2_Library_A.csv" => "Mouse GeCKO v2 (Half_A)",

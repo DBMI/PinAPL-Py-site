@@ -73,12 +73,6 @@
 	function doneUploadingClicked() {
 		$('#done-uploading-button').addClass('disabled')
 		uploadManager.setDoneUploading();
-		// if (sending==true) {
-		// 	userDoneUploading = true;
-		// }
-		// else{
-		// 		redirectToNext();
-		// }
 	}
 	$('#done-uploading-button').on('click', doneUploadingClicked);
 		$(document).ready(function() {	
