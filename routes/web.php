@@ -112,17 +112,16 @@ Route::get('/run/{hash}', function ($hash)  {
 	try {
 		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$status = $run->status;
-		if ($status == 'running' || $status = 'error') {
-			return view('run', ['run'=>$run, 'hash'=>$hash]);
+		$redirect = $run->redirectFromStatus('running');
+		if ($redirect) {
+			return $redirect;
 		}
 		else if ($run->status == "finished") {
 			return view('results',['runName'=>$run->name, 'hash'=>$hash]);
 		}
-		else{
-			$redirect = $run->redirectFromStatus('running');
-			if ($redirect) {
-				return $redirect;
-			}
+		// else if ($status == 'running' || $status = 'error' || $status = 'queued') {
+		else {
+			return view('run', ['run'=>$run, 'hash'=>$hash]);
 		}
 	} 
 	catch(Exception $e) {
