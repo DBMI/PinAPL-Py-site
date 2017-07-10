@@ -111,19 +111,19 @@ Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
 Route::get('/run/{hash}', function ($hash)  {
 	try {
 		$run = \App\Run::where('dir',$hash)->firstOrFail();
-		$redirect = $run->redirectFromStatus('running');
-		if ($redirect) {
-			return $redirect;
+		$status = $run->status;
+		if ($status == 'running') {
+			return view('run', ['run'=>$run, 'hash'=>$hash]);
 		}
-		else {
-			if ($run->status == "finished") {
-				return view('results',['runName'=>$run->name, 'hash'=>$hash]);
-			}
-			else {
-				return view('run', ['run'=>$run, 'hash'=>$hash]);
+		else if ($run->status == "finished") {
+			return view('results',['runName'=>$run->name, 'hash'=>$hash]);
+		}
+		else{
+			$redirect = $run->redirectFromStatus('running');
+			if ($redirect) {
+				return $redirect;
 			}
 		}
-		
 	} 
 	catch(Exception $e) {
 		\Log::error("Error accessing run page");
@@ -362,7 +362,8 @@ Route::get('/test/{view}/{hash}', function ($view, $hash) {
 		$run = null;
 		$hash = null;
 	}
-	return view($view, ['hash'=>$hash,'run'=>$run]);
+	$files = Illuminate\Support\Facades\File::files($run->directory()."/workingDir/Data");
+	return view($view, ['hash'=>$hash,'run'=>$run,'files'=>$files]);
 });
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {
