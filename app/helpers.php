@@ -4,6 +4,10 @@ set_include_path(getcwd());
 restore_include_path();
 
 function csvToMysql ($file, $table, $columns, $seperator=',', $skipLines=0, $extraData=[]){
+	if ($file==null) {
+		\Log::error("The data files does not exist: $file");
+		return false;
+	}
 	$query = 
 		"LOAD DATA LOCAL INFILE '$file'
 		INTO TABLE $table

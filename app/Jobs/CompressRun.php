@@ -61,9 +61,9 @@ class CompressRun implements ShouldQueue
             File::deleteDirectory($dir."/$archiveName");
             File::deleteDirectory($dir."/workingDir/Alignments");
             File::deleteDirectory($dir."/workingDir/Library");
+            $run->importRankings();
             $run->status = 'finished';
             $run->save();
-            $run->importRankings();
             if (!empty($run->email)) {
                 Mail::to($run->email)->queue(new RunFinished($run));
             }

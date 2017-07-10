@@ -79,7 +79,7 @@ class Run extends Model
 	{
 		$hash = $this->dir;
 		$runStatus = strtolower(trim($this->status));
-		if ($runStatus == "finished" || $runStatus == "error" || $runStatus == "queued") {
+		if ($runStatus == "finished" || $runStatus == "error" || $runStatus == "queued" || $runStatus == "compressing" ) {
 			$runStatus = "running";
 		}
 		if ($runStatus == $status) {
