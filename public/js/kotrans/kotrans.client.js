@@ -42,19 +42,19 @@ kotrans.client = (function () {
 	var mainClientID;
 	//stores
 	var fileChunks;
-	var chunk_size = 4194304;
 
-    var timeTook,
-    	start;
-   	var mainClient;
-    var clients;
-    var clientids;
-    var chunkNumber;
-    var totalChunks;
-    var sentChunks;
-    var allTransferred;
-    var progress;
-    var working;
+  var timeTook,
+  	start;
+ 	var mainClient;
+  var clients;
+  var clientids;
+  var chunkNumber;
+  var totalChunks;
+  var sentChunks;
+  var chunk_size;
+  var allTransferred;
+  var progress;
+  var working;
 	function createClient(options) {
 		var i;
 		var options = options || {};
@@ -63,6 +63,7 @@ kotrans.client = (function () {
 		var streams = options.no_streams || 2;
 		var path = options.path || '';
 		mainClient = location.protocol === 'https:' ? new BinaryClient('wss://' + host + ':' + port + path) : new BinaryClient('ws://' + host + ':' + port + path);
+		chunk_size = options.chunk_size || 4194304;
 		
 		
 		clients = [];

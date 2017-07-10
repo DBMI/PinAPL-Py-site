@@ -4,6 +4,7 @@ class uploader {
 		this.directory = directory;
 		this.koTransPort = koTransPort;
 		this.no_streams = 8;
+		this.chunk_size = 500000;
 		this.host = host;
 		this.token = token;
 		this.fileQueue = [];
@@ -35,10 +36,10 @@ class uploader {
 
 	initilize(){
 		if (window.location.hostname == '172.21.51.26') {
-			this.client = kotrans.client.createClient({host: '172.21.51.26', port:this.koTransPort, streams:this.no_streams});
+			this.client = kotrans.client.createClient({host: '172.21.51.26', port:this.koTransPort, streams:this.no_streams, chunk_size:this.chunk_size});
 		}
 		else {
-			this.client = kotrans.client.createClient({host:this.host, port:this.koTransPort , no_streams:this.no_streams});
+			this.client = kotrans.client.createClient({host:this.host, port:this.koTransPort , no_streams:this.no_streams, chunk_size:this.chunk_size});
 		}	
 
 
@@ -128,8 +129,8 @@ class uploader {
 			
 			//grab the file
 			for(var i = 0; i < e.originalEvent.dataTransfer.files.length; i++) {
-				this.fileQueue.push(e.originalEvent.dataTransfer.files[i]);
 				this.drawUploadingFile(e.originalEvent.dataTransfer.files[i]);
+				this.fileQueue.push(e.originalEvent.dataTransfer.files[i]);
 			}
 			this.onSendClick();
 		} else {
