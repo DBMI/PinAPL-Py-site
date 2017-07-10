@@ -7,7 +7,7 @@
 	$step = "";
 	if($type == "float"){
 		$type = "number";
-		$step = 'step=0.01';
+		$step = 'step=any';
 	}
 	$label = $parameter['display_name'] ?? $name;
 	$placeholder = $parameter['placeholder'] ?? $parameter['default'];
