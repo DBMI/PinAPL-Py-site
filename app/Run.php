@@ -102,6 +102,7 @@ class Run extends Model
 				return redirect("/parameters/$hash");
 				break;
 			default:
+				\Log::error('RunId:'.$this->status.' Unknown run status:'.$runStatus);
 				abort(404);
 		}
 	}
