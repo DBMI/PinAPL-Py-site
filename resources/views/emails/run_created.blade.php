@@ -5,4 +5,4 @@ You can view this run here: <br>
 <br><br>
 Thank you.
 </p>
-<img src="{{ $message->embed(base_path().'/public/img/smallLogo.png') }}">
+<img height="200px" src="{{ $message->embed(base_path().'/public/img/logo_with_name.png') }}">

@@ -7,4 +7,4 @@ Your results will be stored for 5 days, then deleted. To preserve your run, you 
 <br>
 Thank you.
 </p>
-<img src="{{ $message->embed(base_path().'/public/img/smallLogo.png') }}">
+<img height="200px" src="{{ $message->embed(base_path().'/public/img/logo_with_name.png') }}">
