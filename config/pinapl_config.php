@@ -151,7 +151,7 @@ return [
 				"help_text"=>"Method of read count normalization. cpm = counts per million reads.",
 				"in_quotes"=>true,
 				"hidden" =>false,
-				"rules" => "string|in:cpm,size",
+				"rules" => "string|in:cpm,size,total",
 				"type" =>"select",
 				"options" => ["cpm"=>"cpm","size"=>"size","total"=>"total"]
 			],
