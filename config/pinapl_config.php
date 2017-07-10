@@ -300,7 +300,7 @@ return [
 				"default"=>"10",
 				"help_text"=>"Base of logarithm for log transformation of read counts.",
 				"in_quotes"=>false,
-				"hidden" =>false,
+				"hidden" =>true,
 				"rules" => "numeric|in:2,10",
 				"type"=>'select',
 				"options" => ["2"=>"2", "10"=>"10"]
