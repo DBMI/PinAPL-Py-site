@@ -112,7 +112,7 @@ Route::get('/run/{hash}', function ($hash)  {
 	try {
 		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$status = $run->status;
-		if ($status == 'running') {
+		if ($status == 'running' || $status = 'error') {
 			return view('run', ['run'=>$run, 'hash'=>$hash]);
 		}
 		else if ($run->status == "finished") {
@@ -127,6 +127,7 @@ Route::get('/run/{hash}', function ($hash)  {
 	} 
 	catch(Exception $e) {
 		\Log::error("Error accessing run page");
+		\Log::error('Run status: '.$run->status);
 		\Log::error($e);
 		abort(404);
 	}
