@@ -6,6 +6,7 @@
 				<li>Click \"Enter Sample Information\" when finished uploading.</li>  
 				<li>Please do not close this window. Your data will be deleted if you refresh the page.</li>  
 				<li>Upload speed is dependent on your internet connection and file size (we recommend using <b>fastq.gz</b> for optimal speed)</li>  
+				<li>Please use the most recent version of <a href='https://www.mozilla.org/firefox/new/'>Firefox</a> or <a href='https://www.google.com/chrome/browser/desktop/index.html'>Chrome</a></li>  
 			</ul>";
 @endphp
 @extends('layouts.master',["title"=>$title, "description"=>$description])
@@ -87,9 +88,17 @@
 		  return "Leaving this page will cancel your upload and may cause errors.";
 		}
 	}
-
+	$('document').ready(function(){
+		// detect if safari
+		var ua = navigator.userAgent.toLowerCase(); 
+		if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1 && ua.indexOf('chromium') == -1) { 
+		  $('#safari-modal').foundation('open');
+		}
+	});
 	@if ($noEmail)
-		$('document').ready(function(){$('#no-email').foundation('open');});
+		$('document').ready(function(){
+			$('#no-email').foundation('open');
+		});
 		function copyUrl() {
 			var $temp = $("<input>");
 			$("body").append($temp);
@@ -120,6 +129,25 @@
 		</div>
 	</div>
 	<p>If you close this page, and lose the url, you will have no way to get back to your run. After completion we will keep your run for 5 days before deleting it.</p>
+	<button class="button float-right" data-close aria-label="Close modal" type="button">Ok</button>
+	<button class="close-button" data-close aria-label="Close modal" type="button">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+
+{{-- Safari Modal --}}
+<div class="reveal large" id="safari-modal" data-reveal>
+	<h1>Your browser may not be supported</h1>
+	<p class="lead">
+		Your browser may have problems using this page. Please copy the url and open in the most recent version of <a href="https://www.mozilla.org/firefox/new/">Firefox</a> or <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a>.
+	</p>
+	<div class="input-group" >
+		<a class="input-group-label" id='run-url'href="{{ url("/run/$hash") }}">{{ url("/run/$hash") }}</a>
+		<div class="input-group-button">
+			<button type="button" class="button" onclick="copyUrl()">Copy</button>
+		</div>
+	</div>
 	<button class="button float-right" data-close aria-label="Close modal" type="button">Ok</button>
 	<button class="close-button" data-close aria-label="Close modal" type="button">
 		<span aria-hidden="true">&times;</span>
