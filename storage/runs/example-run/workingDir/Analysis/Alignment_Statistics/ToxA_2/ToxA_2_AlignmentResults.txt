@@ -1,22 +1,22 @@
 ToxA_2 Alignment Results
 **************************************
 
-Total Number of Reads: 	500000
+Total Number of Reads: 	499892
 
-Number of Reads with unique Alignments: 	291234 (58.2%)
-Number of Reads above Ambiguity Tolerance: 	35781 (7.2%)
+Number of Reads with unique Alignments: 	291333 (58.3%)
+Number of Reads above Ambiguity Tolerance: 	35804 (7.2%)
 ---------------------------------------------------------------
-Total Number of Reads matched: 			327015 (65.4%)
+Total Number of Reads matched: 			327137 (65.5%)
 
 
-Number of Reads below Ambiguity Tolerance: 	22252 (4.5%)
-Number of Reads with failed Alignment: 		150733 (30.1%)
+Number of Reads below Ambiguity Tolerance: 	22261 (4.5%)
+Number of Reads with failed Alignment: 		150494 (30.1%)
 ---------------------------------------------------------------
-Total Number of Reads discarded: 		172985 (34.6%)
+Total Number of Reads discarded: 		172755 (34.6%)
 
 
 
----- Alignment completed in 3.52 [secs] ----
+---- Alignment completed in 4.40 [secs] ----
 
 
 Parameter settings

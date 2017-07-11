@@ -1,7 +1,9 @@
 **************************************************
-Launching PinAPL-Py ...
-P. Spahn et al., UC San Diego (10/2016)
+Launching PinAPL-Py v2.7.1..
+P. Spahn et al., UC San Diego (07/2017)
 **************************************************
+
+
 **************************************************
 Reading data ...
 **************************************************
@@ -13,6 +15,7 @@ Found sample ToxB_1
 Found sample ToxB_2
 
 Data input completed.
+
 
 
 
@@ -151,359 +154,216 @@ Approx 90% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
 Approx 95% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
 Approx 100% complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
 Analysis complete for ToxA_R2_S2_L005_R1_001_x.fastq.gz
-Sequence quality check completed.
+------------------------------------------------
+Script completed.
+Time elapsed (Quality control) [secs]: 33.126
+
+Sequence quality control completed.
+
+
+
+
+**************************************************
+Trimming reads ...
+**************************************************
+Loading Control_R2_S15_L008_R1_001_x.fastq.gz
+Loading ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
+Loading ToxB_R2_S4_L005_R1_001_x.fastq.gz
+Loading ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
+Loading Control_R1_S14_L008_R1_001_x.fastq.gz
+Loading ToxA_R2_S2_L005_R1_001_x.fastq.gz
+Removing adapters ...
+Adapter removal completed.
+Writing logfiles...
+------------------------------------------------
+Script completed.
+Time elapsed (Read trimming) [secs]: 14.439
+
+Read trimming completed.
+
 
 
 
 **************************************************
 Aligning reads ...
 **************************************************
-
 Processing sample Control_1 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_Control_R1_S14_L008_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.17 s (2 us/read; 25.74 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    10,557,829 bp
-Total written (filtered):      9,998,092 bp (94.7%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.783
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    27164 (5.43%) aligned 0 times
-    401465 (80.29%) aligned exactly 1 time
-    71371 (14.27%) aligned >1 times
-94.57% overall alignment rate
+499804 reads; of these:
+  499804 (100.00%) were unpaired; of these:
+    26944 (5.39%) aligned 0 times
+    401486 (80.33%) aligned exactly 1 time
+    71374 (14.28%) aligned >1 times
+94.61% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 3.584
-
+Time elapsed (Alignment) [secs]: 5.132
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 5.042
-
+Time elapsed (Alignment analysis) [secs]: 2.426
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.940
-
+Time elapsed (Read Counting) [secs]: 3.199
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.042
-
+Time elapsed (Clean-up) [secs]: 0.025
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 20.638
-
+Time elapsed (Total) [secs]: 11.074
 
 Processing sample Control_2 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_Control_R2_S15_L008_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.21 s (2 us/read; 24.78 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    10,510,403 bp
-Total written (filtered):      9,997,836 bp (95.1%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.398
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    28774 (5.75%) aligned 0 times
-    398262 (79.65%) aligned exactly 1 time
-    72964 (14.59%) aligned >1 times
-94.25% overall alignment rate
+499792 reads; of these:
+  499792 (100.00%) were unpaired; of these:
+    28504 (5.70%) aligned 0 times
+    398325 (79.70%) aligned exactly 1 time
+    72963 (14.60%) aligned >1 times
+94.30% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 3.917
-
+Time elapsed (Alignment) [secs]: 4.963
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 5.270
-
+Time elapsed (Alignment analysis) [secs]: 2.274
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.935
-
+Time elapsed (Read Counting) [secs]: 2.905
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.042
-
+Time elapsed (Clean-up) [secs]: 0.039
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 20.789
-
+Time elapsed (Total) [secs]: 10.458
 
 Processing sample ToxA_1 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_ToxA_R1_98_S2_L008_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.29 s (3 us/read; 23.20 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    10,531,654 bp
-Total written (filtered):      9,991,416 bp (94.9%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.866
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    22598 (4.52%) aligned 0 times
-    401524 (80.30%) aligned exactly 1 time
-    75878 (15.18%) aligned >1 times
-95.48% overall alignment rate
+499290 reads; of these:
+  499290 (100.00%) were unpaired; of these:
+    21653 (4.34%) aligned 0 times
+    401759 (80.47%) aligned exactly 1 time
+    75878 (15.20%) aligned >1 times
+95.66% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 4.187
-
+Time elapsed (Alignment) [secs]: 4.893
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 4.889
-
+Time elapsed (Alignment analysis) [secs]: 1.911
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.910
-
+Time elapsed (Read Counting) [secs]: 2.765
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.041
-
+Time elapsed (Clean-up) [secs]: 0.023
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 21.120
-
+Time elapsed (Total) [secs]: 9.842
 
 Processing sample ToxA_2 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_ToxA_R2_S2_L005_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.12 s (2 us/read; 26.82 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    10,539,845 bp
-Total written (filtered):      9,998,214 bp (94.9%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.075
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    28977 (5.80%) aligned 0 times
-    396221 (79.24%) aligned exactly 1 time
-    74802 (14.96%) aligned >1 times
-94.20% overall alignment rate
+499892 reads; of these:
+  499892 (100.00%) were unpaired; of these:
+    28786 (5.76%) aligned 0 times
+    396288 (79.27%) aligned exactly 1 time
+    74818 (14.97%) aligned >1 times
+94.24% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 3.516
-
+Time elapsed (Alignment) [secs]: 4.398
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 4.756
-
+Time elapsed (Alignment analysis) [secs]: 1.967
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.889
-
+Time elapsed (Read Counting) [secs]: 2.832
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.042
-
+Time elapsed (Clean-up) [secs]: 0.043
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 19.505
-
+Time elapsed (Total) [secs]: 9.497
 
 Processing sample ToxB_1 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_ToxB_R1_98_S4_L008_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.13 s (2 us/read; 26.54 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    11,512,275 bp
-Total written (filtered):      9,998,965 bp (86.9%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.085
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    27059 (5.41%) aligned 0 times
-    407669 (81.53%) aligned exactly 1 time
-    65272 (13.05%) aligned >1 times
-94.59% overall alignment rate
+499987 reads; of these:
+  499987 (100.00%) were unpaired; of these:
+    27292 (5.46%) aligned 0 times
+    407470 (81.50%) aligned exactly 1 time
+    65225 (13.05%) aligned >1 times
+94.54% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 3.446
-
+Time elapsed (Alignment) [secs]: 5.162
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 4.510
-
+Time elapsed (Alignment analysis) [secs]: 1.943
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.933
-
+Time elapsed (Read Counting) [secs]: 2.744
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.040
-
+Time elapsed (Clean-up) [secs]: 0.042
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 19.236
-
+Time elapsed (Total) [secs]: 10.124
 
 Processing sample ToxB_2 ... 
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Alignment & Read Counting
-++++++++++++++++++++++++++++++++++++
-Trimming 5' adapters ...
-5' adapter trimming completed.
-
-Trimming 3' adapters...
-This is cutadapt 1.14 with Python 2.7.6
-Command line parameters: -l 20 Trim5_ToxB_R2_S4_L005_R1_001_x.fastq.gz
-Trimming 0 adapters with at most 10.0% errors in single-end mode ...
-Finished in 1.13 s (2 us/read; 26.48 M reads/minute).
-
-=== Summary ===
-
-Total reads processed:                 500,000
-Reads with adapters:                         0 (0.0%)
-Reads written (passing filters):       500,000 (100.0%)
-
-Total basepairs processed:    11,516,563 bp
-Total written (filtered):      9,999,315 bp (86.8%)
-
-3' adapter trimming completed.
-Time elapsed (Read trimming) [secs]: 8.136
-
+++++++++++++++++++++++++++++++++++++++++++++++++
 Aligning reads to library ...
-500000 reads; of these:
-  500000 (100.00%) were unpaired; of these:
-    29026 (5.81%) aligned 0 times
-    406110 (81.22%) aligned exactly 1 time
-    64864 (12.97%) aligned >1 times
-94.19% overall alignment rate
+499999 reads; of these:
+  499999 (100.00%) were unpaired; of these:
+    28983 (5.80%) aligned 0 times
+    406144 (81.23%) aligned exactly 1 time
+    64872 (12.97%) aligned >1 times
+94.20% overall alignment rate
 Alignment completed.
-Time elapsed (Alignment) [secs]: 3.553
-
+Time elapsed (Alignment) [secs]: 4.339
 Analyzing alignment ...
 Writing alignment logfile ...
 Plotting mapping quality ...
 Plotting alignment scores ...
 Alignment analysis completed.
-Time elapsed (Alignment analysis) [secs]: 4.608
-
+Time elapsed (Alignment analysis) [secs]: 1.938
 Read counting in progress ...
 Counting reads per sgRNA ...
 Counting reads per gene ...
 Read counting completed.
-Time elapsed (Read Counting) [secs]: 2.871
-
+Time elapsed (Read Counting) [secs]: 2.794
 Removing raw alignment output...
-Time elapsed (Clean-up) [secs]: 0.041
-
+Time elapsed (Clean-up) [secs]: 0.043
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 19.440
+Time elapsed (Total) [secs]: 9.358
 
 Read alignments completed.
+
 
 
 
 **************************************************
 Normalizing read counts ...
 **************************************************
-++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Read Count Normalization
-++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Normalizing to counts per million reads ...
 Processing ToxB_2 ...
 Processing ToxA_1 ...
@@ -519,14 +379,12 @@ Normalization completed.
 
 
 
+
 **************************************************
 Analyzing read counts ...
 **************************************************
-
 Processing sample Control_1 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.779
 Gini Index (genes): 0.481
@@ -536,13 +394,10 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.441
-
+Time elapsed (Total) [secs]: 1.566
 
 Processing sample Control_2 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.757
 Gini Index (genes): 0.46
@@ -552,13 +407,10 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.464
-
+Time elapsed (Total) [secs]: 1.755
 
 Processing sample ToxA_1 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.951
 Gini Index (genes): 0.801
@@ -568,13 +420,10 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.434
-
+Time elapsed (Total) [secs]: 1.708
 
 Processing sample ToxA_2 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.922
 Gini Index (genes): 0.726
@@ -584,13 +433,10 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.426
-
+Time elapsed (Total) [secs]: 1.614
 
 Processing sample ToxB_1 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.971
 Gini Index (genes): 0.898
@@ -600,13 +446,10 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.438
-
+Time elapsed (Total) [secs]: 1.484
 
 Processing sample ToxB_2 ... 
-++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Exploratory Counts Analysis
-++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Computing Gini coefficients ... 
 Gini Index (sgRNAs): 0.973
 Gini Index (genes): 0.906
@@ -616,161 +459,133 @@ Generating histograms...
 Writing distribution file ... 
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.402
+Time elapsed (Total) [secs]: 1.473
 
 Read count analysis completed.
 
 
 
+
 **************************************************
-Analyzing controls ...
+Analyzing control distribution ...
 **************************************************
-+++++++++++++++++++++++++++++++++++
-PinAPL-Py: Control Count Estimation
-+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Reading control counts ...
 Estimating mean and variance ...
+Computing parameters of neg. binomial distribution ...
 Writing dataframe ...
 Generating dispersion plot ...
 Generating log regression plot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 2.699
+Time elapsed (Total) [secs]: 2.934
 
 Control analysis completed.
+
 
 
 
 **************************************************
 sgRNA enrichment analysis ...
 **************************************************
-
 Processing sample ToxA_1 ... 
-++++++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: sgRNA Enrichment/Depletion Analysis
-++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading read counts ...
-Computing fold changes ...
-Computing p-values ...
+Computing fold-changes and p-values...
 p-value correction ...
 Plotting p-values ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 13.801
-
+Time elapsed (Total) [secs]: 7.496
 
 Processing sample ToxA_2 ... 
-++++++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: sgRNA Enrichment/Depletion Analysis
-++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading read counts ...
-Computing fold changes ...
-Computing p-values ...
+Computing fold-changes and p-values...
 p-value correction ...
 Plotting p-values ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 14.006
-
+Time elapsed (Total) [secs]: 8.600
 
 Processing sample ToxB_1 ... 
-++++++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: sgRNA Enrichment/Depletion Analysis
-++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading read counts ...
-Computing fold changes ...
-Computing p-values ...
+Computing fold-changes and p-values...
 p-value correction ...
 Plotting p-values ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 13.293
-
+Time elapsed (Total) [secs]: 7.697
 
 Processing sample ToxB_2 ... 
-++++++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: sgRNA Enrichment/Depletion Analysis
-++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading read counts ...
-Computing fold changes ...
-Computing p-values ...
+Computing fold-changes and p-values...
 p-value correction ...
 Plotting p-values ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 13.587
+Time elapsed (Total) [secs]: 7.892
 
 sgRNA enrichment analysis completed.
+
 
 
 
 **************************************************
 Read count scatterplots ...
 **************************************************
-
 Processing sample ToxA_1 ... 
-+++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Read Counts Scatterplot
-+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Reading counts ...
 Log10 transformation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.609
-
+Time elapsed (Total) [secs]: 1.725
 
 Processing sample ToxA_2 ... 
-+++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Read Counts Scatterplot
-+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Reading counts ...
 Log10 transformation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.579
-
+Time elapsed (Total) [secs]: 1.707
 
 Processing sample ToxB_1 ... 
-+++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Read Counts Scatterplot
-+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Reading counts ...
 Log10 transformation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.580
-
+Time elapsed (Total) [secs]: 1.722
 
 Processing sample ToxB_2 ... 
-+++++++++++++++++++++++++++++++++++++++++++
-PinAPL-Py: Read Counts Scatterplot
-+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Reading counts ...
 Log10 transformation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.569
+Time elapsed (Total) [secs]: 1.741
 
 Read count scatterplots completed.
+
 
 
 
 **************************************************
 Replicate correlation ...
 **************************************************
-
 Processing sample Control ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Replicate Scatterplot
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Sample 1: Control_1 | Sample 2: Control_2
 Reading counts ...
 Log10 transformation ...
@@ -778,13 +593,10 @@ Computing correlation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.653
-
+Time elapsed (Total) [secs]: 1.784
 
 Processing sample ToxB ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Replicate Scatterplot
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Sample 1: ToxB_1 | Sample 2: ToxB_2
 Reading counts ...
 Log10 transformation ...
@@ -792,13 +604,10 @@ Computing correlation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.680
-
+Time elapsed (Total) [secs]: 1.771
 
 Processing sample ToxA ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Replicate Scatterplot
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Sample 1: ToxA_1 | Sample 2: ToxA_2
 Reading counts ...
 Log10 transformation ...
@@ -806,19 +615,18 @@ Computing correlation ...
 Generating scatterplot ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 1.628
+Time elapsed (Total) [secs]: 1.769
 
 
 Replicate correlation analysis completed.
 
 
 
+
 **************************************************
 Clustering analysis ...
 **************************************************
-++++++++++++++++++++++++++++++++++
-PinAPL-Py: Sample Cluster Analysis
-++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading read counts ...
 Computing variance ...
 Extracting top 25 most variable sgRNAs ...
@@ -837,100 +645,90 @@ The following object is masked from 'package:stats':
 --------------------------------------------
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 2.255
+Time elapsed (Total) [secs]: 2.472
 
 Clustering analysis completed.
+
 
 
 
 **************************************************
 Gene ranking analysis ...
 **************************************************
-
 Processing sample ToxA_1 ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Gene Ranking Analysis
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading sgRNA enrichment table ...
 Looking for sgRNAs with significant fold change ...
 Computing aRRA scores ...
-Time elapsed (aRRA Computation) [secs]: 3.913
+Time elapsed (aRRA Computation) [secs]: 3.772
 Estimating aRRA null distribution (1000 Permutations)...
-Time elapsed (aRRA Permutation) [secs]: 0.216
+Time elapsed (aRRA Permutation) [secs]: 0.221
 Computing aRRA p-values ...
 Plotting p-values ...
 Computing average fold change across sgRNAs ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 10.026
-
+Time elapsed (Total) [secs]: 10.324
 
 
 Processing sample ToxA_2 ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Gene Ranking Analysis
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading sgRNA enrichment table ...
 Looking for sgRNAs with significant fold change ...
 Computing aRRA scores ...
-Time elapsed (aRRA Computation) [secs]: 3.610
+Time elapsed (aRRA Computation) [secs]: 3.812
 Estimating aRRA null distribution (1000 Permutations)...
-Time elapsed (aRRA Permutation) [secs]: 0.161
+Time elapsed (aRRA Permutation) [secs]: 0.220
 Computing aRRA p-values ...
 Plotting p-values ...
 Computing average fold change across sgRNAs ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 10.019
-
+Time elapsed (Total) [secs]: 10.974
 
 
 Processing sample ToxB_1 ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Gene Ranking Analysis
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading sgRNA enrichment table ...
 Looking for sgRNAs with significant fold change ...
 Computing aRRA scores ...
-Time elapsed (aRRA Computation) [secs]: 3.351
+Time elapsed (aRRA Computation) [secs]: 3.613
 Estimating aRRA null distribution (1000 Permutations)...
-Time elapsed (aRRA Permutation) [secs]: 0.169
+Time elapsed (aRRA Permutation) [secs]: 0.184
 Computing aRRA p-values ...
 Plotting p-values ...
 Computing average fold change across sgRNAs ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 8.468
-
+Time elapsed (Total) [secs]: 9.321
 
 
 Processing sample ToxB_2 ... 
-++++++++++++++++++++++++++++++++
-PinAPL-Py: Gene Ranking Analysis
-++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
 Loading sgRNA enrichment table ...
 Looking for sgRNAs with significant fold change ...
 Computing aRRA scores ...
-Time elapsed (aRRA Computation) [secs]: 3.300
+Time elapsed (aRRA Computation) [secs]: 3.501
 Estimating aRRA null distribution (1000 Permutations)...
-Time elapsed (aRRA Permutation) [secs]: 0.182
+Time elapsed (aRRA Permutation) [secs]: 0.194
 Computing aRRA p-values ...
 Plotting p-values ...
 Computing average fold change across sgRNAs ...
 Writing results dataframe ...
 ------------------------------------------------
 Script completed.
-Time elapsed (Total) [secs]: 9.071
+Time elapsed (Total) [secs]: 9.092
 
 
 Gene ranking analysis completed.
 
 
 
+
 **************************************************
 PinAPL-Py completed.
-Time elapsed [mins]: 4.687
+Time elapsed [mins]: 3.699
 
