@@ -350,6 +350,22 @@ Route::get('/results/qc/{hash}', 'ResultsController@getQc');
 Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}', 'ResultsController@getNewScatterPlot');
 
 
+// Bug reports
+Route::get('/bug-report', function () {
+	return view('bug_report');
+}); 
+// Bug reports
+Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
+	$url = $req->input('url');
+	$description = $req->input('description');
+	\Illuminate\Support\Facades\Mail::to('pinapl-py@ucsd.edu')->queue(new \App\Mail\BugReport($description,$url));
+	$status = "Your bug report has been submitted. Thank you!";
+	return view('bug_report',['status'=>$status]);
+}); 
+
+
+
+
 Route::get('/download_test', function ()
 {
 	return view('download_test');
