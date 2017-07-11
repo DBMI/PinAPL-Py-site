@@ -3,116 +3,114 @@
 @section('content')
 	<p class="c45" id="h.gjdgxs">
 		<span class="c3">
-			<a class="c5" href="#h.30j0zll">1 Running PinAPL-Py</a>
+			<a class="c5" href="#h-1">1 Running PinAPL-Py</a>
 		</span>
 	</p>
 	<p class="c31">
 		<span class="c3">
-			<a class="c5" href="#h.1fob9te">1.1 QUICK START:</a>
+			<a class="c5" href="#h-1.1">1.1 QUICK START:</a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.3znysh7">Step 1: SET UP A RUN </a>
+			<a class="c5" href="#h-step1">Step 1: SET UP A RUN </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.2et92p0">Step 2: UPLOAD DATA </a>
+			<a class="c5" href="#h-step2">Step 2: UPLOAD DATA </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.tyjcwt">Step 3: ENTER SAMPLE INFORMATION </a>
+			<a class="c5" href="#h-step3">Step 3: ENTER SAMPLE INFORMATION </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.3dy6vkm">Step 4: CONFIGURE YOUR ANALYSIS RUN </a>
+			<a class="c5" href="#h-step4">Step 4: CONFIGURE YOUR ANALYSIS RUN </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.1t3h5sf">Step 5: RUNNING AND COMPLETION </a>
+			<a class="c5" href="#h-step5">Step 5: RUNNING AND COMPLETION </a>
 		</span>
 	</p>
 	<p class="c31">
 		<span class="c3">
-			<a class="c5" href="#h.4d34og8">1.2 ADVANCED OPTIONS:</a>
+			<a class="c5" href="#h-1.2">1.2 ADVANCED OPTIONS:</a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.2s8eyo1">1.2.1 Parameters </a>
+			<a class="c5" href="#h-1.2.1">1.2.1 Parameters </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.26in1rg">1.2.2 Uploading a custom library:</a>
+			<a class="c5" href="#h-1.2.2">1.2.2 Uploading a custom library:</a>
 		</span>
 	</p>
 	<p class="c45">
 		<span class="c3">
-			<a class="c5" href="#h.35nkun2">2 Description of the PinAPL-Py Analysis output </a>
+			<a class="c5" href="#h-2">2 Description of the PinAPL-Py Analysis output </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.1ksv4uv">2.1 Enrichment/Depletion </a>
+			<a class="c5" href="#h-2.1">2.1 Enrichment/Depletion </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.44sinio">2.2 Statistics </a>
+			<a class="c5" href="#h-2.2">2.2 Statistics </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.z337ya">2.3 Scatter Plots</a>
+			<a class="c5" href="#h-2.3">2.3 Scatter Plots</a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.3j2qqm3">2.4 Heatmap</a>
+			<a class="c5" href="#h-2.4">2.4 Heatmap</a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h.1y810tw">2.5 Run Info</a>
+			<a class="c5" href="#h-2.5">2.5 Run Info</a>
 		</span>
 	</p>
 	<p class="c45" id="refrences-header">
 		<span class="c3">
-			<a class="c5" href="#refrences-section">3 References</a>
+			<a class="c5" href="#h-3">3 References</a>
 		</span>
 	</p>
 	<hr style="page-break-before:always;display:none;">
 	<p class="c22 c39">
 		<span class="c32"></span>
 	</p>
-	<h1>1 Running PinAPL-Py</h1>
-	<h2 class="c33" id="h.1fob9te">
+	<h1 id="h-1">1 Running PinAPL-Py</h1>
+	<h2 class="c33" id="h-1.1">
 		<span class="c23 c47">1.1 QUICK START:</span>
 	</h2>
-	<p class="c9" id="h.3znysh7">
+	<p class="c9" id="h-step1">
 		<span class="c8">Step 1: SET UP A RUN</span>
 	</p>
 	<p>
 		Enter a project name for your analysis run. This name will help you identify your results in case you do multiple runs in a row. Provision of an email address is optional, but will let you safely close the browser during the analysis and receive a notification after completion. </span>
 	</p>
-	<p class="c9" id="h.2et92p0">
-		<span class="c8">Step 2: UPLOAD DATA</span>
+	<p class="c9" id="h-step2">Step 2: UPLOAD DATA
 	</p>
 	<p>
 		Upload your files via the drag-and-drop frame. Uncompressed format (.fastq) is supported, but compressed (.fastq.gz) is recommended.</span>
 	</p>
-	<p class="c9" id="h.tyjcwt">
-		<span class="c8">Step 3: ENTER SAMPLE INFORMATION</span>
+	<p class="c9" id="h-step3">Step 3: ENTER SAMPLE INFORMATION
 	</p>
 	<p>Enter the <b>name of the condition each</b> file represents. Files representing replicates of the same condition have to be given the same name. Do not number your replicates. Numbering is done automatically by the program and displayed on the results page after completion of the analysis. 
 	</p>
 	<p>Please mark all <b>control replicates</b> with the checkbox to the right.</p>
-	<p class="c9" id="h.3dy6vkm">
+	<p class="c9" id="h-step4">
 		<span class="c8">Step 4: CONFIGURE YOUR ANALYSIS RUN</span>
 	</p>
    <p>
@@ -121,10 +119,7 @@
    <p>
 		Optional: If you would like to edit the default parameter settings, click <b>Advanced Options</b>. For instructions on these parameters, see “Parameter description” in the Advanced Options section.
 	</p>
-	<p class="c7 c22">
-		<span class="c8"></span>
-	</p>
-	<p class="c9" id="h.1t3h5sf">
+	<p class="c9" id="h-step5">
 		<span class="c8">Step 5: RUNNING AND COMPLETION</span>
 	</p>
 	<p>
@@ -135,9 +130,9 @@
 	<p>
 		The results will remain on the server for 5 days. You can download all content shown on the results page in a single ZIP archive.
 	</p>
-	<h2>1.2 ADVANCED OPTIONS:</h2>
+	<h2 id="h-1.2">1.2 ADVANCED OPTIONS:</h2>
 	</h2>
-	<h3>1.2.1 <u>Parameters</u></h3>
+	<h3 id="h-1.2.1">1.2.1 <u>Parameters</u></h3>
 	</p>
 	<h4 id="ALIGNMENT">ALIGNMENT</h4>
 	<h5><u>Adapter error tolerance (default = 0.1)</u></h5>
@@ -247,7 +242,7 @@
 
 
 
-	<h3>1.2.2 <u>Uploading a custom library:</u></h3>
+	<h3 id="h-1.2.2">1.2.2 <u>Uploading a custom library:</u></h3>
 	<p>Format your library file as a spreadsheet with <b>3 columns (with headers): </b></p>
 	<ul>
 		<li><b>gene:</b> This column contains an identifier of the gene that is targeted by the sgRNA</li>
@@ -425,7 +420,7 @@
 		Specifies the number of sgRNAs targeting a single gene (excluding non-targeting controls, miRNAs and other non-genes in your library). 
 	</p>
 
-	<h1>2 Description of the PinAPL-Py Analysis output</h1>
+	<h1 id="h-2">2 Description of the PinAPL-Py Analysis output</h1>
    <p>
 		The PinAPL-Py output is structured by logical order into tabs and subtabs on the results page. In addition, all output can be downloaded via the <b>“Download Results Archive”</b> button as a single .zip file. Images are saved both as high-resolution .png as well as as .svg vector graphics which can be further processed in Adobe Illustrator or similar image processing software. Tables are saved as raw text (.tsv), but can be manually opened with Excel and saved as Excel spreadsheets. For convenience, PinAPL-Py can convert tables on-the-fly (see the “Table Format” parameter on the configuration page), at the cost of additional computation time.
 	</p>
@@ -433,7 +428,7 @@
 	  NOTE for Windows users: To view text files (.txt/.tsv/.csv), <a target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a> is recommended
 	</p>
 
-	<h2>2.1 Enrichment/Depletion</h2>
+	<h2 id="h-2.1">2.1 Enrichment/Depletion</h2>
 
 	<h5><u>Gene Rankings:</u></h5>
 
@@ -476,7 +471,7 @@
 		<li><b>sgRNA QQ:</b> The plot visualizes the degree by which the p-values obtained from the sgRNA ranking analysis differ from a uniform distribution (=“expected p-values”). In order for low p-values to be credible, they should show noticeable distance from the dashed line. p-values are capped at 1e-16 for technical purposes. </li>
 		<li><b>sgRNA z-Scores:</b> The plot visualizes the fraction of sgRNAs whose z-Score (=normalized deviation from the mean read count) yielded statistical significance.</li>
 	</ul>
-	<h2>2.2 Statistics</h2>
+	<h2 id="h-2.2">2.2 Statistics</h2>
 	<h5><u>Read Count Distribution:</u></h5>
 	<p>This tab contains information about the statistical distribution of sgRNA read counts. </p>
 	<ul>
@@ -542,18 +537,18 @@
 
 	<p>This tab shows the sequencing depth (number of total reads) per sample. Results from the alignment analysis are superimposed on each bar.</p>
 
-	<h2>2.3 Scatter Plots</h2>
+	<h2 id="h-2.3">2.3 Scatter Plots</h2>
 
 	<h5><u>Treatment vs Control:</u></h5>
 	<p>Scatterplots of normalized sgRNA counts in the sample versus the average normalized count in the controls. The fraction reaching significant enrichment/depletion (dependent on screen type) compared to the control is marked in green.</p>
 	<h5><u>Replicate Correlation:</u></h5>
 	<p>Scatterplots showing the normalized sgRNA counts in one replicate of each condition versus another. Pearson and Spearman correlation coefficients are reported. </p>
 
-	<h2>2.4 Heatmap</h2>
+	<h2 id="h-2.4">2.4 Heatmap</h2>
 	<p>Clustering of all samples in the dataset, based on to the most variable or most abundant/depleted sgRNAs (as set up on the configuration page). Log10 normalized read counts are color-coded from lowest (yellow) to highest (red).
 	</p>
 
-	<h2>2.5 Run Info</h2>
+	<h2 id="h-2.5">2.5 Run Info</h2>
 
 	<h5><u>Output Log:</u></h5>
 	<p>This shows the program execution log.</p>
@@ -564,7 +559,7 @@
 	
 
 
-	<h1>3 REFERENCES:</h1>
+	<h1 id="h-3">3 REFERENCES:</h1>
 	<p class="c7 c26">
 		<span>Anders,S. and Huber,W. (2010) Differential expression analysis for sequence count data. </span>
 		<span class="c25">Genome Biol.</span>
