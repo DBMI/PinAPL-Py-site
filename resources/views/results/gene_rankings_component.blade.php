@@ -25,7 +25,8 @@ $(function () {
 		autoencode: true,
 		height: "100%",
     autowidth:true,
-    shrinkToFit:true
+    shrinkToFit:true,
+    emptyrecords: "No records to view",
 	}); 
 }); 
 </script>
