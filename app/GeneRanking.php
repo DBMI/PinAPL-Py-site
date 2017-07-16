@@ -11,7 +11,7 @@ class GeneRanking extends Model
 	 *
 	 * @var string
 	 */	
-	// protected $table = 'gene_ranking';
+	protected $table = 'gene_rankings';
 
 	/**
    * The attributes that aren't mass assignable.

@@ -11,7 +11,7 @@ class SgrnaRanking extends Model
 	 *
 	 * @var string
 	 */
-	protected $table = 'sgrna_ranking';
+	protected $table = 'sgrna_rankings';
 
 	/**
 	 * Indicates if the model should be timestamped.
