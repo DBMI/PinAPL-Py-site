@@ -81,7 +81,7 @@
 		uploadManager.setDoneUploading();
 	}
 	$('#done-uploading-button').on('click', doneUploadingClicked);
-		$(document).ready(function() {	
+	$(document).ready(function() {	
 		uploadManager.initilize();
 	});
 

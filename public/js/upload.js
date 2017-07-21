@@ -108,7 +108,11 @@ class uploader {
 		var size = this.calculateSize(this.curFile.size);
 
 		this.sending = false;
-		this.onSendClick();
+		if(this.fileQueue.length == 0 && this.sending) {
+			if (this.doneUploading == true) {
+				this.doneUploadingCallBack()
+			}
+		}
 	}
 
 	onClientClose() {
@@ -132,7 +136,7 @@ class uploader {
 				this.drawUploadingFile(e.originalEvent.dataTransfer.files[i]);
 				this.fileQueue.push(e.originalEvent.dataTransfer.files[i]);
 			}
-			this.onSendClick();
+			this.sendFile();
 		} else {
 			e.originalEvent.stopPropagation();
 			e.originalEvent.preventDefault();
@@ -140,21 +144,15 @@ class uploader {
 		}
 	}
 
-	onSendClick() {
-		if(this.fileQueue.length == 0 || !this.fileQueue || this.sending) {
-			if (this.doneUploading == true) {
-				this.doneUploadingCallBack()
-			}
-		} else {
-			this.sending = true;
-			this.curFile = this.fileQueue.shift();
-			this.curFileBasename = this.curFile.name.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~\s]/g, "_");
-			this.startProgress();
-			kotrans.client.sendFile(this.curFile, this.directory, function () {
-				this.stopProgress();
-				this.fileComplete();
-			}.bind(this));
-		}	
+	sendFile() {
+		this.sending = true;
+		this.curFile = this.fileQueue.shift();
+		this.curFileBasename = this.curFile.name.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~\s]/g, "_");
+		this.startProgress();
+		kotrans.client.sendFile(this.curFile, this.directory, function () {
+			this.stopProgress();
+			this.fileComplete();
+		}.bind(this));
 	}
 
 	//TB is the max
