@@ -37,7 +37,7 @@
 		</div>
 </div>
 <div class="row align-right">
-	<div class="columns shrink"><a id="done-uploading-button" class="button">Enter Sample Information</a></div>
+	<div class="columns shrink"><button type="button" id="done-uploading-button" class="button" disabled>Enter Sample Information</button></div>
 </div>
 
 		
@@ -62,6 +62,11 @@
 <script type="text/javascript" src="/js/upload.js"></script>
 <script>
 
+	$('#drop-box').on('drop', function(){
+		if (!userDoneUploading && $('#done-uploading-button').attr('disabled') ) {
+			$('#done-uploading-button').prop('disabled',false);
+		}
+	});
 	var uploadManager = new uploader('#drop-box',runDirectory, koTransPort, appHost, token);
 	uploadManager.setDoneUploadingCallBack (function (){
 			 $.post(
