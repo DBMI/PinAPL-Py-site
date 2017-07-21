@@ -148,6 +148,9 @@ class uploader {
 	}
 
 	sendFile() {
+		if (this.sending) {
+			return;
+		}
 		this.sending = true;
 		this.curFile = this.fileQueue.shift();
 		this.curFileBasename = this.curFile.name.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~\s]/g, "_");
