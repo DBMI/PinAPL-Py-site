@@ -108,10 +108,13 @@ class uploader {
 		var size = this.calculateSize(this.curFile.size);
 
 		this.sending = false;
-		if(this.fileQueue.length == 0 && this.sending) {
+		if(this.fileQueue.length == 0 && ! this.sending) {
 			if (this.doneUploading == true) {
 				this.doneUploadingCallBack()
 			}
+		}
+		else {
+			this.sendFile();
 		}
 	}
 
