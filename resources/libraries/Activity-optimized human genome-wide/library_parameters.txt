@@ -1,5 +1,6 @@
 LibFilename: 'Activity-optimized_human_genome-wide.tsv'
-seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'              
+seq_5_end: 'TCTTGTGGAAAGGACGAAACACCG'       
+seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       
 NonTargetPrefix: 'Non-Targeting'
-NumGuidesPerGene: 10                       
+sgRNAsPerGene: 10                       
 
