@@ -110,7 +110,10 @@ Route::get('/upload/{hash}', ['as'=>'upload', function ($hash) {
 // Display the run results. Unless the run is still in the upload stage, then redirect to upload page
 Route::get('/run/{hash}', function ($hash)  {
 	try {
-		$run = \App\Run::where('dir',$hash)->firstOrFail();
+		$run = \App\Run::where('dir',$hash)->first();
+		if(empty($run)){
+			return view('run_not_found');
+		}
 		$status = $run->status;
 		$redirect = $run->redirectFromStatus('running');
 		if ($redirect) {
@@ -125,8 +128,13 @@ Route::get('/run/{hash}', function ($hash)  {
 		}
 	} 
 	catch(Exception $e) {
-		\Log::error("Error accessing run page");
-		\Log::error('Run status: '.$run->status);
+		\Log::error("Error accessing run page; Run: "+$hash);
+		if(!empty($run)){
+			\Log::error('Run status: '.$run->status);
+		}
+		else {
+			\Log::error('Run does not exist');
+		}
 		\Log::error($e);
 		abort(404);
 	}
