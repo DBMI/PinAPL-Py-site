@@ -113,7 +113,7 @@ class ResultsController extends Controller
         $dir = storage_path("/runs/$hash/workingDir");
         if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/".$prefix.'_'.$gene.'_counts.png')){
             $dockerImage = config('docker.image');
-            $cmd = "docker run --rm -v $dir:/workingdir $dockerImage PlotCounts.py $prefix $gene";
+            $cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\"";
             \Log::debug($cmd);
             `$cmd`;
         }
