@@ -408,6 +408,7 @@ return [
 		"STARSDir: '/opt/PinAPL-Py/Scripts/STARS_mod/'\n"
 	,
 	"script_filenames" => 
+		"SanityScript: 'CheckLibrary'\n".
 		"IndexScript: 'BuildLibraryIndex'\n".
 		"LoaderScript: 'LoadDataSheet'\n".
 		"ReadDepthScript: 'PlotNumReads'\n".
