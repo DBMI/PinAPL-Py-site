@@ -51,6 +51,15 @@ return [
 			]
 		],
 		"Alignment" => [
+			"sgRNALength" => [
+				"display_name"=>"sgRNA Length (bp)",
+				"default"=>"20",
+				"help_text"=>"Length of sgRNA sequence (bp)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
 			"CutErrorTol" => [
 				"display_name"=>"Adapter Error Rate",
 				"default"=>"0.1",
@@ -63,10 +72,10 @@ return [
 			"AS_min" => [
 				"display_name"=>"Matching Threshold",
 				"default"=>"40",
-				"help_text"=>"Minimal alignment score required for accepting read (40 = perfect match)",
+				"help_text"=>"Minimal alignment score required for accepting read. For perfect match: 2*sgRNA Length",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|min:0|max:40",
+				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
 			"Theta" => [
@@ -215,10 +224,19 @@ return [
 			],
 		],
 		"Statistical Significance" => [
-			"alpha" => [
-				"default"=>"0.1",
-				"display_name"=>"Significance Threshold",
-				"help_text"=>"Significance threshold (false discovery rate) for enrichment/depletion analysis of sgRNAs and genes",
+			"alpha_s" => [
+				"default"=>"0.001",
+				"display_name"=>"Signif. level (sgRNA Ranking)",
+				"help_text"=>"Significance level for enrichment/depletion analysis of sgRNAs",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"alpha_g" => [
+				"default"=>"0.01",
+				"display_name"=>"Signif. level (Gene Ranking)",
+				"help_text"=>"Significance level for enrichment/depletion analysis of genes",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",
@@ -230,9 +248,14 @@ return [
 				"help_text"=>"Method for p-value adjustment for multiple tests.",
 				"in_quotes"=>true,
 				"hidden" =>false,
-				"rules" => "string|in:fdr_bh,fdr_tsbh",
+				"rules" => "string|in:fdr_bh,fdr_tsbh,sidak,bonferroni",
 				"type" =>"select",
-				"options" => ["fdr_bh"=>"FDR (Benjamini/Hochberg)", "fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)"]
+				"options" => [
+					"fdr_bh"=>"FDR (Benjamini/Hochberg)",
+					"fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)",
+					"sidak"=>"Sidak",
+					"bonferroni" => "Bonferroni"
+				]
 			],
 		],
 		"Sample Clustering" => [
@@ -368,7 +391,7 @@ return [
 			"HitListFormat" => [
 				"display_name"=>"Spreadsheet Format",
 				"default"=>"tsv",
-				"help_text"=>"Set to Excel to have tables automatically converted to Excel xlsx files",
+				"help_text"=>"Set to Excel to have tables automatically converted to Excel xlsx files. (WARNING: This slows down the workflow)",
 				"in_quotes"=>true,
 				"hidden" =>false,
 				"rules" => "string|in:tsv,xlsx",
@@ -408,7 +431,7 @@ return [
 		"STARSDir: '/opt/PinAPL-Py/Scripts/STARS_mod/'\n"
 	,
 	"script_filenames" => 
-		"SanityScript: 'CheckLibrary'\n".
+		"SanityScript: 'CheckCharacters'\n".
 		"IndexScript: 'BuildLibraryIndex'\n".
 		"LoaderScript: 'LoadDataSheet'\n".
 		"ReadDepthScript: 'PlotNumReads'\n".
