@@ -262,7 +262,7 @@ class RunController extends Controller
 					$libParameters = File::get("$libPath/library_parameters.txt");
 					$bowTieCopySuccessful = File::copyDirectory("$libPath/Bowtie2_Index", "$dir/workingDir/Library/Bowtie2_Index");
 					File::copy("$libPath/$libFilename", "$dir/workingDir/Library/$libFilename");
-					$config.= "\n$libParameters\n";
+					$config.= "$libParameters\n";
 					continue;
 				}
 			}
