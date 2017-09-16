@@ -60,7 +60,7 @@ class CompressRun implements ShouldQueue
             $zipStatus = `$zipCommand`;
             File::deleteDirectory($dir."/$archiveName");
             File::deleteDirectory($dir."/workingDir/Alignments");
-            File::deleteDirectory($dir."/workingDir/Library");
+            // File::deleteDirectory($dir."/workingDir/Library");
             $run->importRankings();
             $run->status = 'finished';
             $run->save();
