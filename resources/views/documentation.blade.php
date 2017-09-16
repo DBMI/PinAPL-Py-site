@@ -94,34 +94,30 @@
 	<h2 class="c33" id="h-1.1">
 		<span class="c23 c47">1.1 QUICK START:</span>
 	</h2>
-	<p class="c9" id="h-step1">
-		<span class="c8">Step 1: SET UP A RUN</span>
+	<p id="h-step1" class="c8">Step 1: SET UP A RUN
 	</p>
 	<p>
 		Enter a project name for your analysis run. This name will help you identify your results in case you do multiple runs in a row. Provision of an email address is optional, but will let you safely close the browser during the analysis and receive a notification after completion. </span>
 	</p>
-	<p class="c9" id="h-step2">Step 2: UPLOAD DATA
+	<p class="c8" id="h-step2" >Step 2: UPLOAD DATA
 	</p>
 	<p>
 		Upload your files via the drag-and-drop frame. Uncompressed format (.fastq) is supported, but compressed (.fastq.gz) is recommended.</span>
 	</p>
-	<p class="c9" id="h-step3">Step 3: ENTER SAMPLE INFORMATION
+	<p class="c8" id="h-step3">Step 3: ENTER SAMPLE INFORMATION
 	</p>
 	<p>Enter the <b>name of the condition each</b> file represents. Files representing replicates of the same condition have to be given the same name. Do not number your replicates. Numbering is done automatically by the program and displayed on the results page after completion of the analysis. 
 	</p>
 	<p>Please mark all <b>control replicates</b> with the checkbox to the right.</p>
-	<p class="c9" id="h-step4">
-		<span class="c8">Step 4: CONFIGURE YOUR ANALYSIS RUN</span>
+	<p id="h-step4" class="c8">Step 4: CONFIGURE YOUR ANALYSIS RUN
 	</p>
    <p>
-		First, choose the <b>screen type</b>. Choose between &ldquo;enrichment &rdquo;(e.g. a drug resistance screen) or &ldquo;depletion &rdquo;(e.g. a gene-essentiality screen), depending on whether your screen aims at finding sgRNAs of high or low abundance, respectively.Next, choose the <b>sgRNA library</b> used in your screen from the dropdown menu. If your screen uses a library not present in the list or a custom library, see &ldquo;Uploading a custom library &rdquo;in the Advanced Options below.
+		First, choose the <b>screen type</b>. Choose between &ldquo;enrichment&rdquo; (e.g. a drug resistance screen) or &ldquo;depletion&rdquo; (e.g. a gene-essentiality screen), depending on whether your screen aims at finding sgRNAs of high or low abundance, respectively.Next, choose the <b>sgRNA library</b> used in your screen from the dropdown menu. If your screen uses a library not present in the list or a custom library, see &ldquo;Uploading a custom library&rdquo; in the Advanced Options below.
 	</p>
    <p>
 		Optional: If you would like to edit the default parameter settings, click <b>Advanced Options</b>. For instructions on these parameters, see “Parameter description” in the Advanced Options section.
 	</p>
-	<p class="c9" id="h-step5">
-		<span class="c8">Step 5: RUNNING AND COMPLETION</span>
-	</p>
+	<p class="c8" id="h-step5"> Step 5: RUNNING AND COMPLETION </p>
 	<p>
 		You can follow the program’s execution log by refreshing the page repeatedly. In case another run was started shortly before yours, your run will be queued and start after completion of the previous. </p>
 	<p>
@@ -135,13 +131,17 @@
 	<h3 id="h-1.2.1">1.2.1 <u>Parameters</u></h3>
 	</p>
 	<h4 id="ALIGNMENT">ALIGNMENT</h4>
-	<h5><u>Adapter error tolerance (default = 0.1)</u></h5>
+	<h5><u>sgRNA Sequence Length (default = 20)</u></h5>
+	<p>
+		The length of your sgRNA sequence in the reads.
+	</p>
+	<h5><u>Adapter error rate (default = 0.1)</u></h5>
 	<p>
 		Error rate (mismatches and indels) allowed for the identification of the 5’ adapter (Refer to the <a href="http://cutadapt.readthedocs.io/en/stable/guide.html#error-tolerance">cutadapt manual</a> for more details). Increasing this rate can help to control for poor sequence quality.
 	</p>
 
 	<h5><u>Matching threshold (default = 40)</u></h5>
-	<p>Minimal alignment score required to consider a read successfully matched. For a 20 bp sequence a score of 40 means a perfect match (Refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#scores-higher-more-similar">Bowtie2 manual</a> for more details on calculation of the alignment score). Decreasing this threshold will include reads with a less than optimal match to a library entry which can be helpful to increase sensitivity or control for sequence quality.</p>
+	<p>Minimal alignment score required to consider a read successfully matched. For a perfect match this must be double the sgRNA sequence length (Refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#scores-higher-more-similar">Bowtie2 manual</a> for more details on calculation of the alignment score). Decreasing this threshold will include reads with a less than optimal match to a library entry which can be helpful to increase sensitivity or control for sequence quality.</p>
 
 	<h5><u>Ambiguity threshold (default = 2):</u></h5>
 	<p>Minimum tolerated difference between primary (best) and secondary (second-best) alignment to consider a read successfully matched. Reads with a difference lower than this threshold will be considered ambiguous and discarded. Increasing this threshold increases stringency. Decreasing this threshold increases sensitivity. With a threshold of 0, the program will accept reads even if they match multiple library entries equally well.</p>
@@ -207,6 +207,8 @@
 	<ul>
 		<li><b>fdr_bh:</b> Benjamini-Hochberg method.</li>
 		<li><b>fdr_tsbh:</b> Two-stage Benjamini-Hochberg method.</li>
+		<li><b>sidak:</b> Sidak correction method.</li>
+		<li><b>bonferroni:</b> Bonferroni correction method.</li>
 	</ul>
 
 	<h4>SAMPLE CLUSTERING</h4>
@@ -243,7 +245,7 @@
 
 
 	<h3 id="h-1.2.2">1.2.2 <u>Uploading a custom library:</u></h3>
-	<p>Format your library file as a spreadsheet with <b>3 columns (with headers): </b></p>
+	<p>Prepare your library file (e.g. in Excel) as a spreadsheet with <b>3 columns (with headers): </b></p>
 	<ul>
 		<li><b>gene:</b> This column contains an identifier of the gene that is targeted by the sgRNA</li>
 		<li><b>sgRNA_ID:</b> This column contains an identifier of the sgRNA</li>
@@ -333,11 +335,12 @@
 			</tr>
 		</tbody>
 	</table>
-	<p>&hellip;.</p>
 	<p>
-		The spreadsheet can be prepared in Excel but must be saved as plain text in <b>either tab-separated format (.tsv) or comma-separated format (.csv)</b>. 
+		Save the spreadsheet as <b>either tab-separated format (.tsv) or comma-separated format (.csv)</b>. 
+		You can use the <b>"Save As"</b> menu item in Excel to do this.
 	</p>
-	<p>Use the file browser to select and upload your library file. Next, specify the following parameters:</p>
+	<p>Use the file browser to select and upload your library file.</p>
+	<p>Next, specify the following parameters:</p>
 	<h5><u>5&rsquo;-adapter: </u></h5>
 	<p>
 		Enter the sequence of the 5&rsquo;-adapter. Adapters are simply sequences lying 5&rsquo; or 3&rsquo; of the 20bp sgRNA.  There are no restriction to length of your adapter definition, but it is generally recommended to define the <b>20-25 bp</b> immediately 5&rsquo; of the sgRNA sequence (see image below). Also, it is recommended to let the adapter sequence <b>end in an ‘N’</b> to allow possible mismatches (see example below). A sequence mapping program like <a href="http://www.snapgene.com/products/snapgene_viewer/">SnapGene Viewer</a> is helpful to define the adapter. Definition of the 3&rsquo; adapter is not necessary.
@@ -358,7 +361,7 @@
 	<p>you can, for example, define TCTTGTGGAAAGGACGAAACACCN as the 5&rsquo;-adapter. </p>
 
 	<h5><u>Identifier for non-targeting controls:</u></h5>
-	<p>If your library contains non-targeting controls, enter an<b>identifier</b> in the library spreadsheet to define sgRNAs containing non-targeting controls. The identifier is a part of the gene_ID that is unique to the non-targeting controls (see example below). If your library does not contain non-targeting controls, enter <b>&ldquo;none&rdquo;</b></p>
+	<p>If your library contains non-targeting controls, enter an <b>identifier</b> in the library spreadsheet to define sgRNAs containing non-targeting controls. The identifier is a part of the gene_ID that is unique to the non-targeting controls (see example below). If your library does not contain non-targeting controls, enter <b>&ldquo;none&rdquo;</b></p>
 
 	<table>
 		<tbody>
@@ -408,7 +411,6 @@
 			</tr>
 		</tbody>
 	</table>
-	<p>&hellip;.</p>
 	<p><i>Example:</i> An identifier in this case would be “Non_Target”.</p>
 
 
@@ -467,7 +469,9 @@
 	<ul>
 		<li><b>Gene Significance:</b> The plot shows the distribution of p-values obtained in the gene ranking analysis, both before and after adjustment for multiple tests. In order for low p-values to be credible, this distribution should be noticeably different from a uniform distribution.</li>
 		<li><b>sgRNA Significance:</b> he plot shows the distribution of p-values obtained in the sgRNA ranking analysis, both before and after adjustment for multiple tests. In order for low p-values to be credible, this distribution should be noticeably different from a uniform distribution. </li>
-		<li><b>sgRNA Volcano:</b> The plot visualizes the fraction of sgRNAs whose fold change compared to the control yielded statistical significance. Two-sided p-values are shown. p-values are capped at 1e-16 for technical purposes. </li>
+
+		<li><b>sgRNA Volcano:</b> The plot visualizes the fraction of sgRNAs whose fold change compared to the control yielded statistical significance. One-sided p-values are shown. p-values are capped at 1e-16 for technical purposes. </li>
+
 		<li><b>sgRNA QQ:</b> The plot visualizes the degree by which the p-values obtained from the sgRNA ranking analysis differ from a uniform distribution (=“expected p-values”). In order for low p-values to be credible, they should show noticeable distance from the dashed line. p-values are capped at 1e-16 for technical purposes. </li>
 		<li><b>sgRNA z-Scores:</b> The plot visualizes the fraction of sgRNAs whose z-Score (=normalized deviation from the mean read count) yielded statistical significance.</li>
 	</ul>
@@ -714,7 +718,8 @@
 					text-decoration: underline;
 					vertical-align: baseline;
 					font-size: 12pt;
-					font-style: normal
+					font-style: normal;
+					margin-top: 1em;
 				}
 
 				.c3 {
