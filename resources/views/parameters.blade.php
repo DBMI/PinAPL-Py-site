@@ -26,7 +26,10 @@
 <fieldset id="custom-library-fields" style="display: none;" disabled="true">
 	<legend>Custom Library Parameters</legend>
 	<div class="row">
-		<div class="column medium-3"><label for="custom-lib-file">Custom Library File</label><input type="file" id="custom-lib-file" name="custom-lib-file" required="true"></div>
+		<div class="column medium-3">
+			<label for="custom-lib-file">Custom Library File</label>
+			<input type="file" id="custom-lib-file" name="custom-lib-file" required="true" accept=".csv, .tsv">
+		</div>
 		@foreach (config('pinapl_config.parameter_groups.Library Parameters') as $paramName => $parameter)
 			@include('layouts.input',["name" => $paramName, "parameter"=>$parameter, "required"=>true])
 		@endforeach
@@ -65,7 +68,9 @@ $("#LibFilename-input").change(function function_name(argument) {
 		$("#custom-library-fields").slideUp();
 		$("#custom-library-fields").attr('disabled',true)
 	}
-})
-	
+});
+$('#sgRNALength-input').change(function(){
+   $('#AS_min-input').val(this.value * 2);
+});
 </script>
 @stop
