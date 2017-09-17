@@ -21,7 +21,7 @@
 	$afterSelectorColumn = $afterSelectorColumn ?? "";
 ?>
 {!! $beforeSelectorRow !!}
-<div class="row">
+<div class="row align-middle">
 	<div class="column">
 		<select id="{{ $result }}_selector">
 			@foreach ($files as $fileName => $fileProperties)
