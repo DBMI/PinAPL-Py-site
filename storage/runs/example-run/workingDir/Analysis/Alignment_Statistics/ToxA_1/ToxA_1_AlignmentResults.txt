@@ -3,20 +3,20 @@ ToxA_1 Alignment Results
 
 Total Number of Reads: 	499290
 
-Number of Reads with unique Alignments: 	298951 (59.9%)
-Number of Reads above Ambiguity Tolerance: 	36300 (7.3%)
+Number of Reads with unique Alignments: 	305801 (61.2%)
+Number of Reads above Ambiguity Tolerance: 	36336 (7.3%)
 ---------------------------------------------------------------
-Total Number of Reads matched: 			335251 (67.2%)
+Total Number of Reads matched: 			342137 (68.5%)
 
 
-Number of Reads below Ambiguity Tolerance: 	22717 (4.5%)
+Number of Reads below Ambiguity Tolerance: 	15831 (3.2%)
 Number of Reads with failed Alignment: 		141322 (28.3%)
 ---------------------------------------------------------------
-Total Number of Reads discarded: 		164039 (32.8%)
+Total Number of Reads discarded: 		157153 (31.5%)
 
 
 
----- Alignment completed in 4.29 [secs] ----
+---- Alignment completed in 4.17 [secs] ----
 
 
 Parameter settings

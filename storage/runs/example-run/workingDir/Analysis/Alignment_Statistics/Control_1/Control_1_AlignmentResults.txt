@@ -3,20 +3,20 @@ Control_1 Alignment Results
 
 Total Number of Reads: 	499804
 
-Number of Reads with unique Alignments: 	295027 (59.0%)
-Number of Reads above Ambiguity Tolerance: 	36422 (7.3%)
+Number of Reads with unique Alignments: 	300590 (60.1%)
+Number of Reads above Ambiguity Tolerance: 	36477 (7.3%)
 ---------------------------------------------------------------
-Total Number of Reads matched: 			331449 (66.3%)
+Total Number of Reads matched: 			337067 (67.4%)
 
 
-Number of Reads below Ambiguity Tolerance: 	19823 (4.0%)
+Number of Reads below Ambiguity Tolerance: 	14205 (2.8%)
 Number of Reads with failed Alignment: 		148532 (29.7%)
 ---------------------------------------------------------------
-Total Number of Reads discarded: 		168355 (33.7%)
+Total Number of Reads discarded: 		162737 (32.5%)
 
 
 
----- Alignment completed in 4.50 [secs] ----
+---- Alignment completed in 5.90 [secs] ----
 
 
 Parameter settings
