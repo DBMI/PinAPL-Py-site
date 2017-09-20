@@ -114,6 +114,15 @@ return [
 				"hidden" =>false,
 				"rules" => "string"
 			],
+			"thr_overdisp" => [
+				'display_name'=>'Overdispersion Threshold',
+				"default"=>".5",
+				"help_text"=>"Overdispersion threshold to choose negative binomial model",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				'type'=>'float',
+				"rules" => "numeric|min:0|max:1"
+			],
 			"AlnOutput" => [
 				"display_name"=>"Alignment Output",
 				"default"=>"Delete",

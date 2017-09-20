@@ -355,7 +355,7 @@ Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog'
 
 Route::get('/results/candidate_lists/{hash}', 'ResultsController@getCandidateLists');
 Route::get('/results/qc/{hash}', 'ResultsController@getQc');
-Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}/{nonT}', 'ResultsController@getNewScatterPlot');
+Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewScatterPlot');
 
 
 // Bug reports

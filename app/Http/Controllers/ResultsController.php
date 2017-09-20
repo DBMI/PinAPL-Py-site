@@ -55,7 +55,8 @@ class ResultsController extends Controller
 		$afterSelectorColumn = 
 			"<div class=column>
 				<select id=readcount_scatterplots_gene_selector>
-				<option value=null hidden>Select A Gene</option>";
+				<option value=none hidden>Select A Gene</option>
+				<option value=none>None</option>";
 
 		foreach ($genes as $gene) {
 			$afterSelectorColumn.="<option value=$gene>$gene</option>";
@@ -65,17 +66,22 @@ class ResultsController extends Controller
 			"<div class=column>
 				<input type=checkbox id=readcount_scatterplots_nontargeting>
 				<label for=readcount_scatterplots_nontargeting>Show non-targeting controls</label>
+			</div>
+			<div class=column>
+				<input type=checkbox id=readcount_scatterplots_show_ids>
+				<label for=readcount_scatterplots_show_ids>Show sgRNA IDs</label>
 			</div>";
 		$afterSelectorRow = 
 		"<script>
 			function getReadCountScatterPlot() {
 				var gene = $('#readcount_scatterplots_gene_selector').val();
 				var prefix = $('#readcount_scatterplots_selector').find(':selected').attr('data-prefix');
+				var showIds = ($('#readcount_scatterplots_show_ids')[0].checked) ? 'True' : 'none';
 				var nonT = ($('#readcount_scatterplots_nontargeting')[0].checked) ? 'True' : 'none';
 				console.log(gene);
 				console.log(prefix);
 				$('#'+prefix+'-readcount-scatterplot').addClass('loader');
-				$.get('/results/readcount_scatterplots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+nonT, function(data) {  
+				$.get('/results/readcount_scatterplots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+showIds+'/'+nonT, function(data) {  
 					$('#'+prefix+'-readcount-scatterplot').attr('src',data);
 					$('#'+prefix+'-readcount-scatterplot').removeClass('loader');
 				});
@@ -83,6 +89,8 @@ class ResultsController extends Controller
 			$(document).ready(function() {
 				$('#readcount_scatterplots_gene_selector').change(getReadCountScatterPlot);
 				$('#readcount_scatterplots_nontargeting').change(getReadCountScatterPlot);
+				$('#readcount_scatterplots_show_ids').change(getReadCountScatterPlot);
+				$('#readcount_scatterplots_selector').change(getReadCountScatterPlot);
 			});
 		</script>";
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'readcount_scatterplots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow]);
@@ -119,17 +127,33 @@ class ResultsController extends Controller
 	 ************************************/
 
 	// Generate new scatter plots with gene selection
-	public function getNewScatterPlot($hash, $prefix, $gene, $nonT='none') {
+	public function getNewScatterPlot($hash, $prefix, $gene='none', $showIds='none' ,$nonT='none') {
 		$dir = storage_path("/runs/$hash/workingDir");
+		$highlightedGene = 'Highlighted_Genes/';
+		if ($gene == 'none') {
+			$_gene = '';
+			$_id = '';
+			$showIds = 'none';
+			if ($nonT == 'none') {
+				return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/counts_$prefix.png");
+			}
+			else{
+				$highlightedGene = '';
+			}
+		}
+		else {
+			$_gene = "_$gene";
+			$_id = ($showIds == 'True') ? '_IDs' : '';
+		}
 		$_nonT = ($nonT == 'True') ? '_nonT' : '';
-		$fileName ="counts_".$prefix.'_'.$gene.$_nonT.'.png';
-		if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/$fileName")){
+		$fileName =$highlightedGene."counts_".$prefix.$_gene.$_id.$_nonT.'.png';
+		if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/$fileName")){
 			$dockerImage = config('docker.image');
-			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"none\" \"$nonT\"";
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 			\Log::debug($cmd);
 			`$cmd`;
 		}
-		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/$fileName");
+		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/$fileName");
 		return $imgPath;
 	}
 
