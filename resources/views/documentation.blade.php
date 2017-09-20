@@ -199,8 +199,11 @@
 
 	<h4>STATISTICAL SIGNIFICANCE</h4>
 
-	<h5><u>Significance threshold: (default = 0.1)</u></h5>
-	<p>Significance threshold (critical false discovery rate) for enrichment/depletion analysis of sgRNAs and genes.</p>
+	<h5><u>Significance level (sgRNAs) (default = 0.001)</u></h5>
+	<p>Significance threshold for the fold-change enrichment/depletion of sgRNAs.</p>
+
+	<h5><u>Significance level (genes) (default = 0.01)</u></h5>
+	<p>Significance threshold for the gene ranking score.</p>
 
 	<h5><u>p-value adjustment (default = ‘fdr_bh’):</u></h5>
 	<p>Method for p-value adjustment for multiple tests.</p>
