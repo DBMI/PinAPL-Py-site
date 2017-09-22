@@ -75,7 +75,7 @@ class ResultsController extends Controller
 		"<script>
 			function getReadCountScatterPlot() {
 				var gene = $('#readcount_scatterplots_gene_selector').val();
-				var prefix = $('#readcount_scatterplots_selector').find(':selected').attr('data-prefix');
+				var prefix = $('#readcount_scatterplots_selector').val();
 				var showIds = ($('#readcount_scatterplots_show_ids')[0].checked) ? 'True' : 'none';
 				var nonT = ($('#readcount_scatterplots_nontargeting')[0].checked) ? 'True' : 'none';
 				console.log(gene);
