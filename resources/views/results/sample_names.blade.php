@@ -1,8 +1,6 @@
 <?php
 use Illuminate\Support\Facades\File;
-$mapping = \File::get(storage_path("runs/$hash/fileMap.json"));
-$mapping = json_decode($mapping,true);
-$files = $mapping['control'] + $mapping['treatment'];
+$mapping = \App\Run::getMapping($hash);
 ?>
 <div class="row">
 	<div class="column shink">
@@ -11,10 +9,10 @@ $files = $mapping['control'] + $mapping['treatment'];
 				<th>Filename</th>
 				<th>Sample Name</th>
 			</tr>
-		@foreach ($files as $fileName => $fileProperties)
+		@foreach ($mapping as $file)
 			<tr>
-				<td>{{ $fileName }}</td>
-				<td>{{ $fileProperties['condition'] }}_{{ $fileProperties['index'] }}</td>
+				<td>{{ $file->filename }}</td>
+				<td>{{ $file->sample_name }}</td>
 			</tr>
 		@endforeach
 		</table>

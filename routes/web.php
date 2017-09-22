@@ -378,16 +378,11 @@ Route::get('/download_test', function ()
 {
 	return view('download_test');
 });
-Route::get('/test/{view}/{hash}', function ($view, $hash) {
-	if ($hash) {
-		$run = \App\Run::where('dir',$hash)->firstOrFail();
-	}
-	else {
-		$run = null;
-		$hash = null;
-	}
-	$files = Illuminate\Support\Facades\File::files($run->directory()."/workingDir/Data");
-	return view($view, ['hash'=>$hash,'run'=>$run,'files'=>$files]);
+Route::get('/test', function () {
+	echo "<pre>";
+	$mapping = \App\Run::getMapping('example-run');
+	print_r($mapping);
+	echo "</pre>";
 });
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {

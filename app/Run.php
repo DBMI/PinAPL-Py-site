@@ -75,6 +75,22 @@ class Run extends Model
 		return "http://pinapl-py.ucsd.edu/run/".$this->dir;
 	}
 
+	/**
+	 * Return the mapping of files to samples
+	 * @param string $dir Optional directory, name of run folder; to get mapping without database entry (e.g. example run)
+	 * 
+	 * @return object array
+	 */
+	public static function getMapping($dir=null){
+		// Assume this has a database entry;
+		if ($dir == null) {
+			$dir = $this->dir;
+		}
+		$file = storage_path("/runs/$dir/workingDir/DataSheet.xlsx");
+		$mapping = \Excel::load($file)->get();
+		return $mapping;
+	}
+
 	public function redirectFromStatus($status)
 	{
 		$hash = $this->dir;
@@ -107,18 +123,19 @@ class Run extends Model
 		}
 	}
 
-	public function importRankings(){
-		$dir = $this->dir;
+	public function importRankings($dir=null){
+		if ($dir==null) {
+			$dir = $this->dir;
+		}
 		$runHash = $dir;
-		$mapping = json_decode(\File::get($this->directory().'/fileMap.json'),true);
-		$files = $mapping['treatment'];
+		$mapping = \App\Run::getMapping($runHash);
 		$geneTable = 'gene_rankings';
 		$sgrnaTable= 'sgrna_rankings';
 		$geneColumns = array_keys(\App\GeneRanking::$columns);
 		$sgrnaColumns = array_keys(\App\SgrnaRanking::$columns);
 
-		foreach ($files as $fileName => $fileProperties){
-			$prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
+		foreach ($mapping as $file){
+			$prefix = $file->sample_name;
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.tsv"));
 			$geneFile = array_shift($geneFile);

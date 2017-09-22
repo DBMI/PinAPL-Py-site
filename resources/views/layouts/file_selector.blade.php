@@ -7,13 +7,7 @@
 	 */
 	
 
-	$mapping = \File::get(storage_path("runs/$runHash/fileMap.json"));
-	$mapping = json_decode($mapping,true);
-	$files = [];
-	if($withControl){
-		$files = $files + $mapping['control'];
-	}
-	$files = $files + $mapping['treatment'];
+	$mapping = \App\Run::getMapping($runHash);
 
 	$shrink = empty($fullSize) ? 'shrink' : '';
 	$beforeSelectorRow = $beforeSelectorRow ?? "";
@@ -24,27 +18,33 @@
 <div class="row align-middle">
 	<div class="column">
 		<select id="{{ $result }}_selector">
-			@foreach ($files as $fileName => $fileProperties)
-				@php $prefix = $fileProperties['condition'].'_'.$fileProperties['index']; @endphp
-				<option value="{{ $fileName }}" data-prefix="{{ $prefix }}">
-					{{ $prefix }} ({{ $fileName }})
-				</option>
+			@foreach ($mapping as $file)
+				@if ($file->treatment!='Control' || $withControl)
+					<option value="{{ $file->sample_name }}" data-filename="{{ $file->filename }}">
+						{{ $file->sample_name }} ({{ $file->filename }})
+					</option>
+				@endif
 			@endforeach
 		</select>
 	</div>
 	{!!$afterSelectorColumn !!}
 </div>
 {!! $afterSelectorRow !!}
-@foreach ($files as $fileName => $fileProperties)
-	<div class="row align-center" id="{{ $fileName }}_{{ $result }}" @if (!$loop->first) style="display:none;" @endif>
-		<div class="column {{ $shrink }}">
-			@include("results.".$result."_component", 
-				[ 'prefix'=>$fileProperties['condition'].'_'.$fileProperties['index'],
-					'fileName'=>$fileName, 'fileProperties'=>$fileProperties,
-					'runHash'=>$runHash
-				])
+@php $firstDrawn=true; @endphp
+@foreach ($mapping as $file)
+	@if ($file->treatment!='Control' || $withControl)
+		<div class="row align-center" id="{{ $file->sample_name }}_{{$result}}" @if (!$firstDrawn) style="display:none;" @endif>
+			<div class="column {{ $shrink }}">
+				@include("results.".$result."_component", 
+					[ 'prefix'=>$file->sample_name,
+					  'fileName'=>$file->filename,
+					  'treatment'=>$file->treatment,
+					  'runHash'=>$runHash
+					])
+			</div>
 		</div>
-	</div>
+		@php $firstDrawn = false; @endphp
+	@endif
 @endforeach
 
 <script>

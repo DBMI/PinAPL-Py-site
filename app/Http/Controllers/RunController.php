@@ -114,7 +114,6 @@ class RunController extends Controller
 		$newDataPath = $newPath.'/workingDir/Data';
 		$oldDataPath = storage_path("/data/$oldRun->data_dir");
 		`ln -s $oldDataPath $newDataPath`;
-		`cp $oldPath/fileMap.json $newPath/fileMap.json`;
 		`cp $oldPath/workingDir/DataSheet.xlsx $newPath/workingDir/DataSheet.xlsx`;
 
 		$CleanupRunJob = (new \App\Jobs\CleanupRun($newRun))
@@ -194,8 +193,6 @@ class RunController extends Controller
 		// For generating excel sheet
 		$excelRows = [];
 		// Map of files, group, index
-		$treatmentMap = ['control'=>[], 'treatment'=>[]];
-		$conditionCounts = [];
 		foreach ($files as $file) {
 			$basename = basename($file);
 			$groupInputName = "group-".str_replace(".", "_", $basename);
@@ -210,11 +207,8 @@ class RunController extends Controller
 					$prefix = "Treatment";
 				}
 			}
-			$conditionCounts[$prefix] = ($conditionCounts[$prefix] ?? 0) + 1;
 			array_push($excelRows, ['FILENAME'=>$basename, 'TREATMENT' => $prefix]);
-			$treatmentMap[$group][$basename] = (object)["condition"=>$prefix, "index"=>$conditionCounts[$prefix]];
 		}
-		File::put("$runDir/fileMap.json", json_encode($treatmentMap));
 
 		\Excel::create('DataSheet', function($excel) use (&$excelRows){
 
