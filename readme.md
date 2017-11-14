@@ -1,5 +1,6 @@
 <p align="center"><img src="https://github.com/DBMI/PinAPL-Py-site/blob/master/public/img/logo_with_name.png" width="100px"></p>
-<b>P</b>latform-<b>in</b>dependent <b>A</b>nalysis of <b>P</b>oo<b>L</b>ed screens using <b>Py</b>thon
+# <b>P</b>latform-<b>in</b>dependent <b>A</b>nalysis of <b>P</b>oo<b>L</b>ed screens using <b>Py</b>thon
+
 ## About
 
 This a a website built for the CRISPR CAS9 pipeline <a href="https://github.com/LewisLabUCSD/PinAPL-Py">PinAPL-Py</a> written by Philipp Spahn.
