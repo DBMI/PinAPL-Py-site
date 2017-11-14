@@ -1,5 +1,5 @@
 <p align="center"><img src="https://github.com/DBMI/PinAPL-Py-site/blob/master/public/img/logo_with_name.png" width="100px"></p>
-# <b>P</b>latform-<b>in</b>dependent <b>A</b>nalysis of <b>P</b>oo<b>L</b>ed screens using <b>Py</b>thon
+## **P**latform-**in**dependent **A**nalysis of **P**oo**L**ed screens using **Py**thon
 
 ## About
 
