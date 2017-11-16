@@ -1,4 +1,6 @@
-<p align="center"><img src="https://github.com/DBMI/PinAPL-Py-site/blob/master/public/img/logo_with_name.png"></p>
+<p align="center"><img src="https://github.com/DBMI/PinAPL-Py-site/blob/master/public/img/logo_with_name.png" width="100px"></p>
+
+## **P**latform-**in**dependent **A**nalysis of **P**oo**L**ed screens using **Py**thon
 
 ## About
 
