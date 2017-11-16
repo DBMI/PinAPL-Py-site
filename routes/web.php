@@ -379,10 +379,13 @@ Route::get('/download_test', function ()
 	return view('download_test');
 });
 Route::get('/test', function () {
-	echo "<pre>";
-	$mapping = \App\Run::getMapping('example-run');
-	print_r($mapping);
-	echo "</pre>";
+	echo "restarting";
+	$result = shell_exec(' '.base_path('setup/startKoTrans.sh')." 2>&1");
+	echo  "<pre>$result</pre>";
+});
+Route::get('/testList', function () {
+	$result = shell_exec("export HOME=".storage_path('logs')."; forever --plain list 2>&1 ");
+	echo  "<pre>$result</pre>";
 });
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {

@@ -295,5 +295,9 @@ class RunController extends Controller
 	{
 		return Run::all();
 	}
-	//
+	
+
+	public function tailLog(){
+		
+	}
 }
