@@ -14,9 +14,11 @@ class uploader {
 		this.sending = false;
 		this.doneUploading = false;
 		this.progressInterval;
+		this.connected = false; // Set to true if open is called. This lets us know if the server was working on page load
 		this.doneUploadingCallBack = function () {
 			console.log("User is done uploading, and files are uploaded");
 		};
+		var self = this;
 	}
 
 	/* Getters *****************/
@@ -33,15 +35,27 @@ class uploader {
 		}
 	}
 
-
-	initilize(){
+	createClient(){
+		// Hard coded idash. Remove
+		var host = ''
 		if (window.location.hostname == '172.21.51.26') {
-			this.client = kotrans.client.createClient({host: '172.21.51.26', port:this.koTransPort, streams:this.no_streams, chunk_size:this.chunk_size});
+			host = '172.21.51.26'
 		}
 		else {
-			this.client = kotrans.client.createClient({host:this.host, port:this.koTransPort , no_streams:this.no_streams, chunk_size:this.chunk_size});
-		}	
+			host = this.host;
+		}
+		this.client = kotrans.client.createClient({host:host, port:this.koTransPort , no_streams:this.no_streams, chunk_size:this.chunk_size});
+	}
 
+	attemptRestart(){
+
+		$('#drop-box').before('<div id="upload-error"><h2>The upload server appears to be down. Attempting to restart it now. Please wait</h2><div id="loader"></div></div>');
+		$('#drop-box').hide();
+	}
+
+	initilize(){
+			
+		this.createClient();
 
 		//This is to prevent the browser from accessing the default attrerty of dragging and
 		//dropping the file in the browser.
@@ -57,7 +71,7 @@ class uploader {
 		// STORAGE (CLIENT TO SERVER) LOGIC  	//
 		//////////////////////////////////////////
 		this.client.on('open', this.onClientOpen);
-		this.client.on('close', this.onClientClose);
+		this.client.on('close', this.onClientClose.bind(this));
 	}
 
 	// Hover Functionality for drag and drop
@@ -82,6 +96,7 @@ class uploader {
 
 	onClientOpen() {
 		this.fileQueue = [];
+		this.connected = true;
 	}
 
 	// Information retreived from the server gets placed here.
@@ -119,7 +134,12 @@ class uploader {
 	}
 
 	onClientClose() {
-	$('#drop-box').append('<div id="upload-error"><h2>Cannot connect to the Server, Please try again later</h2></div>');
+		if (this.connected) { // The server was running on page load. Attempt to reload page.
+			location.reload();
+		}
+		else { // The server was crashed on server, attempt to restart server and ask user to wait.
+			this.attemptRestart();
+		}
 	}
 
 	//when file is dropped onto drop-box
