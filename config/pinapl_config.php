@@ -114,15 +114,6 @@ return [
 				"hidden" =>false,
 				"rules" => "string"
 			],
-			"thr_overdisp" => [
-				'display_name'=>'Overdispersion Threshold',
-				"default"=>".5",
-				"help_text"=>"Overdispersion threshold to choose negative binomial model",
-				"in_quotes"=>false,
-				"hidden" =>true,
-				'type'=>'float',
-				"rules" => "numeric|min:0|max:1"
-			],
 			"AlnOutput" => [
 				"display_name"=>"Alignment Output",
 				"default"=>"Delete",
@@ -191,7 +182,17 @@ return [
 				"type" =>"select",
 				'placeholder'=>'No',
 				"options" => ["True"=>"Yes", "False"=>"No"]
-			]
+			],
+			"repl_avg" => [
+				"display_name"=>"Averaging",
+				"default"=>"median",
+				"help_text"=>"Method of read count averaging",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:median,mean",
+				"type" =>"select",
+				"options" => ["Median"=>"median","Mean"=>"mean"]
+			],
 		],
 		"Gene Ranking" => [
 			"GeneMetric" => [
@@ -200,9 +201,9 @@ return [
 				"help_text"=>"Metric for gene ranking analysis.",
 				"in_quotes"=>true,
 				"hidden" =>false,
-				"rules" => "string|in:aRRA,STARS",
+				"rules" => "string|in:aRRA,STARS,AVGLFC",
 				"type" =>"select",
-				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS"]
+				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS", "AVGLFC"=>"AVGLFC"]
 			],
 			"Np" => [
 				"display_name"=>"Number of permutations",
@@ -215,8 +216,17 @@ return [
 			],
 			"P_0" => [
 				"display_name"=>"sgRNA p-value Threshold (aRRA only)",
-				"default"=>"0.00005",
+				"default"=>"0.01",
 				"help_text"=>"Maximum allowed p-value for sgRNA to be taken into account for aRRA score",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"p_overdisp" => [
+				"display_name"=>"Overdispersion p-value Threshold",
+				"default"=>"0.01",
+				"help_text"=>"p-value threshold for rejecting Poisson distribution of read counts.",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",
@@ -234,7 +244,7 @@ return [
 		],
 		"Statistical Significance" => [
 			"alpha_s" => [
-				"default"=>"0.001",
+				"default"=>"0.01",
 				"display_name"=>"Signif. level (sgRNA Ranking)",
 				"help_text"=>"Significance level for enrichment/depletion analysis of sgRNAs",
 				"in_quotes"=>false,
@@ -448,10 +458,12 @@ return [
 		"TrimScript: 'TrimReads'\n".
 		"AlignScript: 'AlignReads'\n".
 		"NormalizeScript: 'NormalizeReadCounts'\n".
+		"AverageCountsScript: 'AverageCounts'\n".
 		"StatsScript: 'AnalyzeReadCounts'\n".
 		"ControlScript: 'AnalyzeControl'\n".
 		"sgRNARankScript: 'FindHits'\n".
 		"GeneRankScript: 'RankGenes'\n".
+		"CombineScript: 'CombineGeneRanks'\n".
 		"ScatterScript: 'PlotCounts'\n".
 		"ReplicateScript: 'PlotReplicates'\n".
 		"ClusterScript: 'PlotHeatmap'\n"

@@ -68,6 +68,8 @@ class CompressRun implements ShouldQueue
                 Mail::to($run->email)->queue(new RunFinished($run));
             }
 
+            // TODO if run exists 
+
         }
         catch (Exception $e) {
             \Log::error("ERROR: An error occured compressing a run", ['run' => $this->run]);
