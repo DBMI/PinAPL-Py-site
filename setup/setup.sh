@@ -8,7 +8,6 @@ echo "We are not liable for any problems this script may cause"
 read -r -p "Would you like to continue? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-        continue
         ;;
     *)
 		echo "Exiting script"
@@ -29,16 +28,23 @@ siteSafeName="pinaplpy" # Should be all lowercase and no symbols
 
 echo -e "\e[1mInstalling required packages\e[0m"
 sudo apt -qq update
-sudo apt -qq install curl
-sudo apt -qq install npm
-sudo apt -qq install zip
-sudo apt -qq install php-zip
+sudo apt install -qq -y apache2
+sudo apt install -qq -y libapache2-mod-xsendfile 
+sudo apt install -qq -y libapache2-mod-php
+sudo apt -qq -y install curl
+sudo apt -qq -y install nodejs
+sudo apt -qq -y install npm
+sudo apt -qq -y install php
+sudo apt -qq -y install zip
+sudo apt -qq -y install php-zip
+sudo apt -qq -y install php-xml
+sudo apt -qq -y install php-dom
+sudo apt -qq -y install php-mbstring
 sudo phpenmod zip
-sudo apt -qq install php-xml
-sudo apt -qq install php-dom
-sudo apt -qq install php-mbstring
+sudo phpenmod pdo
+sudo apt -qq -y install php-mysql
 sudo npm install -g forever
-sudo apt -qq install supervisor
+sudo apt -qq -y install supervisor
 
 # Install Docker 
 sudo apt-get install \
@@ -51,18 +57,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 curl -fsSL get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
-
-
-# ################################
-# Install Composer
-# ################################
-echo -e "\e[1mInstalling Composer\e[0m"
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php --filename=composer --install-dir=/bin > /dev//null
-php -r "unlink('composer-setup.php');"
-composer update
-composer dumpautoload -o
-php artisan key:generate
+rm get-docker.sh
+sudo usermod -aG docker $USER
+sudo usermod -aG docker www-data
 
 # ################################
 # Setup MySQL
@@ -78,11 +75,11 @@ else
 	echo "Please provide a root password for MySQL. It can be blank"
 	read -s mysqlRoot
 	echo "Now instaling mysql"
-	debconf-set-selections <<< "mysql-server mysql-server/root_password password $mysqlRoot"
-	debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $mysqlRoot"
-	apt-get -qq install mysql-server > /dev/null
+	sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $mysqlRoot"
+	sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $mysqlRoot"
+	sudo apt-get -qq -y install mysql-server 
 fi
-service mysql start
+sudo service mysql start
 echo "Please provide a password for the $siteName user"
 read -s mysqlPass
 if [[ -n $mysqlRoot ]]; then
@@ -96,7 +93,26 @@ mysql -u root $passFlag -e "Grant ALL ON $siteSafeName.* TO '$siteSafeName'@'loc
 mysql -u root $passFlag -e "FLUSH PRIVILEGES"
 
 
-sed -i "s/DB_PASSWORD=secret/DB_PASSWORD=${mysqlPass}/g" .env
+# ################################
+# Install Composer
+# ################################
+echo -e "\e[1mInstalling Composer\e[0m"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+sudo php composer-setup.php --filename=composer --install-dir=/bin 
+php -r "unlink('composer-setup.php');"
+composer install
+composer dumpautoload -o
+
+
+
+echo -e "\e[1mSetting up .env\e[0m"
+cp .env.example .env
+php artisan key:generate
+sed -i "s/DB_DATABASE=.*/DB_DATABASE=${siteSafeName}/g" .env
+sed -i "s/DB_USERNAME=.*/DB_USERNAME=${siteSafeName}/g" .env
+sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${mysqlPass}/g" .env
+
+
 
 echo -e "\e[1mSetting up Database\e[0m"
 php artisan migrate
@@ -107,14 +123,10 @@ php artisan migrate
 echo -e "\e[1mSetting up Apache\e[0m"
 # Setting up virtual host
 virtualHost="/etc/apache2/sites-available/$siteSafeName.conf"
-sudo cp $sitePath/setup/$siteSafeName.conf "$virtualHost"
-# Set up virtualhost
-
-sudo cat > "$virtualHost" <<EOT 
-<VirtualHost ${siteSafeName}:80>
-	DocumentRoot ${sitePath}
-	ServerName ${siteSafeName}
-	ServerAlias ${siteSafeName
+sudo touch "$virtualHost"
+sudo bash -c "cat > \"$virtualHost\" <<EOT 
+<VirtualHost *:80>
+	DocumentRoot ${sitePath}/public
 
 	<Directory ${sitePath}>
 		AllowOverride All
@@ -127,23 +139,26 @@ sudo cat > "$virtualHost" <<EOT
 	XSendFilePath /var/www
 </VirtualHost>
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-EOT
+EOT"
 
-
+sudo a2dissite 000-default.conf
 sudo a2ensite $siteSafeName.conf
 
 
 # Add flightdeck localhost to /etc/hosts
-sudo echo -e "\n127.0.0.1 $siteSafeName" >> /etc/hosts
-a2enmod rewrite
-service apache2 restart
+sudo bash -c "echo -e \"\n127.0.0.1 $siteSafeName\" >> /etc/hosts"
+sudo a2enmod rewrite
+sudo a2enmod xsendfile
+sudo service apache2 restart
 
 
 echo -e "\e[1mMoving Files\e[0m"
-cp .env.example .env
 
 # Symlink all supervisor files to the supervisor directory
 sudo ln -s $sitePath/setup/supervisor/* /etc/supervisor/conf.d/
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
 
 # ################################
 # Change ownership and permisions
@@ -169,11 +184,11 @@ docker pull "$DOCKER_IMAGE"
 
 # Start Supervisor
 echo -e "\e[1mStarting Supervisor (Queue Management)\e[0m"
-$scriptPath/startSupervisor.sh
+$scriptPath/setup/startSupervisor.sh
 
 # Start Kotrans server
 echo -e "\e[1mStarting KoTrans (File Upload Server)\e[0m"
-$scriptPath/startKoTrans.sh
+$scriptPath/setup/startKoTrans.sh
 
 echo -e "\e[1mInstall Complete. You may need to reboot\e[0m"
 
