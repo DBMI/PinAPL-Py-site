@@ -51,6 +51,22 @@ class uploader {
 
 		$('#drop-box').before('<div id="upload-error"><h2>The upload server appears to be down. Attempting to restart it now. Please wait</h2><div id="loader"></div></div>');
 		$('#drop-box').hide();
+		$.get("/check-kotrans", function (data) {
+			if (data == "running") {
+				var errorMsg = "It appears our upload server is running, but you can't connect to it.";
+				errorMsg += " Please check any blocking software you may have installed such as ad blockers or uMatrix.";
+				errorMsg += " If you are still having problems please email us at pinapl-py@ucsd.edu"
+				$('#upload-error').text(errorMsg);
+			} else if (data == "restarted"){
+				// unbind the refresh warning
+				window.onbeforeunload = function () {};
+				location.reload();
+			}
+			else {
+				var errorMsg = "We seem to be having problems restarting the server. Please email us at pinapl-py@ucsd.edu and let us know.";
+				$('#upload-error').text(errorMsg);
+			}
+		});
 	}
 
 	initilize(){
@@ -135,6 +151,9 @@ class uploader {
 
 	onClientClose() {
 		if (this.connected) { // The server was running on page load. Attempt to reload page.
+			$('#drop-box').before('<h2 id="upload-error">You have lost connection to the upload server. Please refresh the page. If the problem persists, please email us at pinapl-py@ucsd.edu </h2>');
+			$('#drop-box').hide();
+			window.onbeforeunload = function () {};
 			location.reload();
 		}
 		else { // The server was crashed on server, attempt to restart server and ask user to wait.
