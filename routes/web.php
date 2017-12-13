@@ -24,44 +24,6 @@ Route::get('/', function () {
 	}
 });
 
-Route::get('/test/one-at-time', function () {
-	$filename = storage_path('runs/example-run/workingDir/Analysis/Gene_Rankings/ToxA_1_0.1_fdr_bh_aRRA_P1000_GeneList.tsv');
-	$rankings = csvToArray($filename,"\t");
-	$mapping = [
-		'gene' => 'gene',
-		'aRRA' => 'arra',
-		'aRRA p_value' => 'arra_p_value',
-		'aRRA FDR' => 'arra_fdr',
-		'significant' => 'significant',
-		'# signif. sgRNAs' => 'num_sig_sgrna'
-	];
-	foreach ($rankings as $ranking) {
-		$remapped = array_combine(array_merge($ranking, $mapping), $ranking);
-		$remapped['dir'] = 'test_dir';
-		$row = \App\GeneRanking::create($remapped);
-	}
-	echo "<pre>";
-	echo 'ok';
-	echo "</pre>";
-});
-
-Route::get('/test/data-infile', function () {
-	$filename = storage_path('runs/example-run/workingDir/Analysis/Gene_Rankings/ToxA_1_0.1_fdr_bh_aRRA_P1000_GeneList.tsv');
-	$dir = 'example-run';
-	return csvToMysql($filename, 'gene_rankings',['gene','arra','arra_p_value','arra_fdr','significant','num_sig_sgrna'], '\t', 1, ['dir'=>$dir]);
-	// $query = 
-	// 	"LOAD DATA LOCAL INFILE '$filename'
-	// 	INTO TABLE gene_rankings
-	// 	FIELDS TERMINATED BY '\t'
-	// 	LINES TERMINATED BY '\n'
-	// 	IGNORE 1 LINES
-	// 	(gene,arra,arra_p_value,arra_fdr,significant,num_sig_sgrna)
-	// 	SET dir='$dir'";
-
-	// return	\DB::connection()->getpdo()->exec($query);
-
-});
-
 
 /**************************************************************************
  *** TopBar
@@ -323,6 +285,29 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 	
 });
 
+Route::get('/check-kotrans', function () {
+	$kotransRunning=false;
+	$pidsToCheck = \File::glob(storage_path('.forever/*.pid'));
+	foreach ($pidsToCheck as $pidFile) {
+		$pid = \File::get($pidFile);
+		$running = posix_getpgid($pid);
+		if ($running) {
+			$kotransRunning=true;
+			// Allow to continue to remove any errant pid files
+		}
+		else { //Pid is not running and this file was left behind in an error
+			\File::delete($pidFile);
+		}
+	}
+	// Return based on status of kotrans
+	if ($kotransRunning) { // KoTrans is probably running, 
+		return "running";
+	}
+	else { // Kotrans is not running, attempt to restart
+		$result = shell_exec(' '.base_path('setup/startKoTrans.sh')." 2>&1");
+		return "restarted";
+	}
+});
 
 /**************************************************************************
  *** Results requests
@@ -378,11 +363,7 @@ Route::get('/download_test', function ()
 {
 	return view('download_test');
 });
-Route::get('/test', function () {
-	echo "restarting";
-	$result = shell_exec(' '.base_path('setup/startKoTrans.sh')." 2>&1");
-	echo  "<pre>$result</pre>";
-});
+
 Route::get('/testList', function () {
 	$result = shell_exec("export HOME=".storage_path('logs')."; forever --plain list 2>&1 ");
 	echo  "<pre>$result</pre>";
