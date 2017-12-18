@@ -91,6 +91,24 @@ class Run extends Model
 		return $mapping;
 	}
 
+	/**
+	 * Return the treatments 
+	 * @param string $dir Optional directory, name of run folder; to get treatments without database entry (e.g. example run)
+	 * 
+	 * @return object array
+	 */
+	public static function getTreatmentsFromXlsx($dir=null){
+		$mapping = $this->getMapping($dir);
+		return $this->getTreatments($mapping);
+	}
+
+	public static function getTreatments($mapping)
+	{
+		$treatments = $mapping->unique('treatment');
+		$treatments = $treatments->pluck('treatment');
+		return $treatments;
+	}
+
 	public function redirectFromStatus($status)
 	{
 		$hash = $this->dir;
@@ -135,6 +153,17 @@ class Run extends Model
 		$geneColumns = array_keys(\App\GeneRanking::$columns);
 		$sgrnaColumns = array_keys(\App\SgrnaRanking::$columns);
 
+		// Add combined to mapping
+		$treatments = $this->getTreatments($mapping);
+		foreach ($treatments as $treatment) {
+			$mapping->push((object)[
+				'0' => count($mapping),
+				'filename' => "",
+				'treatment' => $treatment,
+				'sample_name' => $treatment."_combined"
+			]);
+		}
+
 		foreach ($mapping as $file){
 			$prefix = $file->sample_name;
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
@@ -145,6 +174,7 @@ class Run extends Model
 			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
 			csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
 		}
+
 		
 	}
 }

@@ -12,10 +12,10 @@ class ResultsController extends Controller
 	 *** Enrichment / Depletion
 	 ************************************/
 	public function getP_Values($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values', 'withAvgPrefix'=>true ]);
 	}
 	public function getGeneRankings($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true]);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>true ]);
 	}
 	public function getSgrnaRankings($hash) {
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings']);
@@ -33,7 +33,7 @@ class ResultsController extends Controller
 		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'alignment_statistics']);
 	}
 	public function getReadCountStatistics($hash) {
-		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'readcount_statistics']);
+		return view('layouts.file_selector', ['withControl' => true, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'readcount_statistics']);
 	}
 	public function getCutadapt($hash) {
 		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'cutadapt']);
@@ -93,7 +93,7 @@ class ResultsController extends Controller
 				$('#readcount_scatterplots_selector').change(getReadCountScatterPlot);
 			});
 		</script>";
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'readcount_scatterplots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow]);
+		return view('layouts.file_selector', ['withControl' => false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'readcount_scatterplots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow]);
 	}
 	public function getReplicateCorrelation($hash) {
 		return view('results.replicate_correlation_component', ['runHash'=>$hash]);

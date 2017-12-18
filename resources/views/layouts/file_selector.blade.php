@@ -13,6 +13,37 @@
 	$beforeSelectorRow = $beforeSelectorRow ?? "";
 	$afterSelectorRow = $afterSelectorRow ?? "";
 	$afterSelectorColumn = $afterSelectorColumn ?? "";
+	$extraMapping = $extraMapping ?? [];
+
+	if (!empty($withCombinedPrefix) && $withCombinedPrefix) {
+		$treatments = $mapping->unique('treatment');
+		$treatments = $treatments->pluck('treatment');
+		foreach ($treatments as $treatment) {
+			$mapping->push((object)[
+				'0' => count($mapping),
+				'filename' => "",
+				'treatment' => $treatment,
+				'sample_name' => $treatment."_combined"
+			]);
+		}
+	}
+	if (!empty($withAvgPrefix) && $withAvgPrefix) {
+		$treatments = $mapping->unique('treatment');
+		$treatments = $treatments->pluck('treatment');
+		foreach ($treatments as $treatment) {
+			$mapping->push((object)[
+				'0' => count($mapping),
+				'filename' => "",
+				'treatment' => $treatment,
+				'sample_name' => $treatment."_avg"
+			]);
+		}
+	}
+
+	if (!empty($extraMapping)) {
+		$mapping = array_merge($mapping, $extraMapping);
+	}
+
 ?>
 {!! $beforeSelectorRow !!}
 <div class="row align-middle">
@@ -30,7 +61,7 @@
 	{!!$afterSelectorColumn !!}
 </div>
 {!! $afterSelectorRow !!}
-@php $firstDrawn=true; @endphp
+@php $firstDrawn=true; @endphp 
 @foreach ($mapping as $file)
 	@if ($file->treatment!='Control' || $withControl)
 		<div class="row align-center" id="{{ $file->sample_name }}_{{$result}}" @if (!$firstDrawn) style="display:none;" @endif>
