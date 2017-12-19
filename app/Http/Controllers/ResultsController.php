@@ -18,7 +18,7 @@ class ResultsController extends Controller
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>true ]);
 	}
 	public function getSgrnaRankings($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings', 'withAvgPrefix'=>true ]);
 	}
 	public function getSgrnaEfficiency($hash) {
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency']);

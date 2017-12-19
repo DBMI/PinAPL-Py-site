@@ -41,6 +41,14 @@
 		</div>
 	</div>
 </div>
+<footer>
+	<div class="row footer align-center">
+		<div class=" columns">
+			If you like this site, please acknowledge PinAPL-Py in your publication: <br>
+			Spahn PN, Bath T, Weiss RJ, Kim J, Esko JD, Lewis NE, Harismendy O : <b>PinAPL-Py: A comprehensive web-application for the analysis of CRISPR/Cas9 screens.</b>&nbsp; Sci Rep. 2017 Nov 20;7(1):15854. &nbsp;<a href="https://www.nature.com/articles/s41598-017-16193-9"> doi: 10.1038/s41598-017-16193-9.</a>
+		</div>
+	</div>
+</footer>
 @stop
 @section('customCSS')
 	<style type="text/css">
@@ -66,6 +74,16 @@
 		}
 		.callout {
 			margin-bottom: 0;
+		}
+		.footer {
+			/*position: absolute;
+			  right: 0;
+			  bottom: 0;
+			  left: 0;
+			  padding: 1rem;
+			  background-color: #efefef;
+			  text-align: center;*/
+			margin-top: 6em;
 		}
 	</style>
 @stop

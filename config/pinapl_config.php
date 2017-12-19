@@ -223,15 +223,6 @@ return [
 				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
-			"p_overdisp" => [
-				"display_name"=>"Overdispersion p-value Threshold",
-				"default"=>"0.01",
-				"help_text"=>"p-value threshold for rejecting Poisson distribution of read counts.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
 			"thr_STARS" => [
 				"display_name"=>"% sgRNAs Included (STARS only)",
 				"default"=>"10",
@@ -254,7 +245,7 @@ return [
 			],
 			"alpha_g" => [
 				"default"=>"0.01",
-				"display_name"=>"Signif. level (Gene Ranking)",
+				"display_name"=>"Signif. Level (Gene Ranking)",
 				"help_text"=>"Significance level for enrichment/depletion analysis of genes",
 				"in_quotes"=>false,
 				"hidden" =>false,
@@ -275,6 +266,15 @@ return [
 					"sidak"=>"Sidak",
 					"bonferroni" => "Bonferroni"
 				]
+			],
+			"p_overdisp" => [
+				"display_name"=>"Signif. Level (Model Selection)",
+				"default"=>"0.01",
+				"help_text"=>"p-value threshold for rejecting Poisson distribution of read counts.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
 			],
 		],
 		"Sample Clustering" => [

@@ -142,7 +142,6 @@ class Run extends Model
 	}
 
 	public function importRankings($dir=null){
-		// TODO change to work with new average
 		if ($dir==null) {
 			$dir = $this->dir;
 		}
@@ -169,6 +168,9 @@ class Run extends Model
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.txt"));
 			$geneFile = array_shift($geneFile);
+			if (str_contains($file->treatment.'_combined')) {
+				$prefix = $file->treatment.'_avg';
+			}
 			$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/sgRNA_Rankings/$prefix*.txt"));
 			$sgrnaFile = array_shift($sgrnaFile);
 			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);

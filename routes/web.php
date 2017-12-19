@@ -364,6 +364,11 @@ Route::get('/download_test', function ()
 	return view('download_test');
 });
 
+Route::get('/no_space', function ()
+{
+	return view('no_space');
+});
+
 Route::get('/testList', function () {
 	$result = shell_exec("export HOME=".storage_path('logs')."; forever --plain list 2>&1 ");
 	echo  "<pre>$result</pre>";
