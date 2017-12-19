@@ -164,16 +164,22 @@ class Run extends Model
 		}
 
 		foreach ($mapping as $file){
+
 			$prefix = $file->sample_name;
+			\Log::debug("-------------\n".$prefix);
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.txt"));
 			$geneFile = array_shift($geneFile);
-			if (str_contains($file->treatment.'_combined')) {
+			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
+
+			if ($prefix == $file->treatment.'_combined') {
 				$prefix = $file->treatment.'_avg';
+				$extra['file'] = $prefix;
+				\Log::debug('Overwriting prefix: '.$prefix);
 			}
 			$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/sgRNA_Rankings/$prefix*.txt"));
+			\Log::debug(print_r($sgrnaFile,true));
 			$sgrnaFile = array_shift($sgrnaFile);
-			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
 			csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
 		}
 
