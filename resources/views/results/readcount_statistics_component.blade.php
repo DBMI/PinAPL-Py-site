@@ -1,3 +1,6 @@
+@php
+	$statisticsTextFile = "runs/$runHash/workingDir/Analysis/ReadCount_Statistics/$prefix/$prefix"."_ReadCount_Statistics.txt";
+@endphp
 <div class="row align-middle">
 	<div class="column shrink">
 		<?php
@@ -19,6 +22,10 @@
 <hr>
 <div class="row align-center">
 	<div class="column shrink">
-		<pre>{{ \File::get(storage_path("runs/$runHash/workingDir/Analysis/ReadCount_Statistics/$prefix/$prefix"."_ReadCount_Statistics.txt")) }}</pre>
+		@if (\File::exists($statisticsTextFile))
+			<pre>{{ \File::get(storage_path($statisticsTextFile)) }}</pre>
+		@else
+			<span>Could not load the ReadCount_Statistics text file</span>
+		@endif
 	</div>
 </div>
