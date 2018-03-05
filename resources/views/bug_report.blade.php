@@ -10,9 +10,13 @@
 	<form action="/bug-report" method="post">
 		{!! csrf_field() !!}
 		<label>Url of the page where the error occurred</label>
-		<input type="text" name="url">
+		<input type="text" name="url" required>
 		<label>Description of the error</label>
-		<textarea name="description" id="" cols="30" rows="10"></textarea>
+		<textarea name="description" id="" cols="30" rows="10" required></textarea>
+
+		<label>Email address (Optional, lets us reply to you)</label>
+		<input type="text" name="email">
+
 		<input type="submit" class="button" name="Submit">
 	</form>
 @endsection

@@ -351,7 +351,8 @@ Route::get('/bug-report', function () {
 Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
 	$url = $req->input('url');
 	$description = $req->input('description');
-	\Illuminate\Support\Facades\Mail::to('pinapl-py@ucsd.edu')->queue(new \App\Mail\BugReport($description,$url));
+	$email = $req->input('email');
+	\Illuminate\Support\Facades\Mail::to('pinapl-py@ucsd.edu')->queue(new \App\Mail\BugReport($description,$url, $email));
 	$status = "Your bug report has been submitted. Thank you!";
 	return view('bug_report',['status'=>$status]);
 }); 

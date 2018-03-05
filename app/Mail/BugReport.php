@@ -13,16 +13,18 @@ class BugReport extends Mailable
 
     protected $url;
     protected $description;
+    protected $email;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($description, $url="")
+    public function __construct($description, $url="", $email)
     {
         $this->url = $url;
         $this->description = $description;
+        $this->email = $email ?? "No email provided";
     }
 
     /**
@@ -36,6 +38,7 @@ class BugReport extends Mailable
             ->with([
                     'url'=>$this->url, 
                     'description' => $this->description,
+                    'email' => $this->email,
                 ]
         );
     }

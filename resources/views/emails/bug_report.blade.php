@@ -4,3 +4,5 @@ User submitted bug for <a href="{{ $url }}">{{ $url }}</a>
 Description: 
 </p>
 <p>{{ $description }}</p>
+
+<p>Email: {{$email}}</p>
