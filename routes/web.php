@@ -318,6 +318,7 @@ Route::get('/check-kotrans', function () {
 Route::get('/results/p-values/{hash}',           'ResultsController@getP_Values');
 Route::get('/results/gene_rankings/{hash}',  'ResultsController@getGeneRankings');
 Route::get('/results/gene_rankings_query/{hash}/{prefix}',  'ResultsController@getGeneRankingsQuery');
+Route::get('/results/gene_combined_rankings_query/{hash}/{prefix}',  'ResultsController@getGeneCombinedRankingsQuery');
 Route::get('/results/sgrna_rankings_query/{hash}/{prefix}',  'ResultsController@getSGRNARankingsQuery');
 Route::get('/results/sgrna_rankings/{hash}',  'ResultsController@getSgrnaRankings');
 Route::get('/results/sgrna_efficiency/{hash}',  'ResultsController@getSgrnaEfficiency');

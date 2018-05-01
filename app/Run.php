@@ -36,6 +36,12 @@ class Run extends Model
     return $this->hasMany('App\GeneRanking', 'dir', 'dir');
   }
 
+  // Get gene combined rankings belonging to this run
+  public function geneCombinedRankings()
+  {
+    return $this->hasMany('App\GeneCombinedRanking', 'dir', 'dir');
+  }
+
   // Get sgrna rankings belonging to this run
   public function sgrnaRankings()
   {
@@ -148,8 +154,10 @@ class Run extends Model
 		$runHash = $dir;
 		$mapping = \App\Run::getMapping($runHash);
 		$geneTable = 'gene_rankings';
+		$geneCombinedTable = 'gene_combined_rankings';
 		$sgrnaTable= 'sgrna_rankings';
 		$geneColumns = array_keys(\App\GeneRanking::$columns);
+		$geneCombinedColumns = array_keys(\App\GeneCombinedRanking::$columns);
 		$sgrnaColumns = array_keys(\App\SgrnaRanking::$columns);
 
 		// Add combined to mapping
@@ -166,19 +174,23 @@ class Run extends Model
 		foreach ($mapping as $file){
 
 			$prefix = $file->sample_name;
-			\Log::debug("-------------\n".$prefix);
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.txt"));
 			$geneFile = array_shift($geneFile);
-			csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
 
+			\Log::debug("Prefix: $prefix");
 			if ($prefix == $file->treatment.'_combined') {
+				// Insert geneCombined
+				\Log::debug('Combined File: '.$geneFile);
+				csvToMysql($geneFile, $geneCombinedTable, $geneCombinedColumns, "\t", 1, $extra);
+				// Overwrite prefix for setting sgRNA
 				$prefix = $file->treatment.'_avg';
 				$extra['file'] = $prefix;
-				\Log::debug('Overwriting prefix: '.$prefix);
+			}
+			else {
+				csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
 			}
 			$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/sgRNA_Rankings/$prefix*.txt"));
-			\Log::debug(print_r($sgrnaFile,true));
 			$sgrnaFile = array_shift($sgrnaFile);
 			csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
 		}

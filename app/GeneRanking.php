@@ -14,10 +14,10 @@ class GeneRanking extends Model
 	protected $table = 'gene_rankings';
 
 	/**
-   * The attributes that aren't mass assignable.
-   *
-   * @var array
-   */
+	 * The attributes that aren't mass assignable.
+	 *
+	 * @var array
+	 */
 	protected $guarded = ['id'];
 
 	/**
@@ -28,11 +28,11 @@ class GeneRanking extends Model
 	public $timestamps = false;
 
 	// Get run which owns this ranking
-  public function run()
-  {
-    return $this->hasOne('App\Run', 'dir', 'dir');
-  }
-  public static $columns = [
+	public function run() {
+		return $this->hasOne('App\Run', 'dir', 'dir');
+	}
+
+	public static $columns = [
 	  'gene'=>'Gene',
 	  'arra'=>'Gene Score',
 	  'arra_p_value'=>'Gene Score p_value',

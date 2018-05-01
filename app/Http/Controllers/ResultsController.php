@@ -8,6 +8,7 @@ use App\Run;
 
 class ResultsController extends Controller
 {
+
 	/*************************************
 	 *** Enrichment / Depletion
 	 ************************************/
@@ -150,7 +151,6 @@ class ResultsController extends Controller
 		if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/$fileName")){
 			$dockerImage = config('docker.image');
 			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
-			\Log::debug($cmd);
 			`$cmd`;
 		}
 		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/$fileName");
@@ -161,6 +161,12 @@ class ResultsController extends Controller
 	{
 		$columns = array_keys(\App\GeneRanking::$columns);
 		return self::jqQuery($req, 'gene_rankings', $columns, $hash, $prefix);
+	}
+
+	public function getGeneCombinedRankingsQuery(Request $req, $hash,$prefix)
+	{
+		$columns = array_keys(\App\GeneCombinedRanking::$columns);
+		return self::jqQuery($req, 'gene_combined_rankings', $columns, $hash, $prefix);
 	}
 
 	public function getSGRNARankingsQuery(Request $req, $hash,$prefix)

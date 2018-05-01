@@ -52,7 +52,10 @@
 			@foreach ($mapping as $file)
 				@if ($file->treatment!='Control' || $withControl)
 					<option value="{{ $file->sample_name }}" data-filename="{{ $file->filename }}">
-						{{ $file->sample_name }} ({{ $file->filename }})
+						{{ $file->sample_name }} 
+						 @if(!empty($file->filename))
+							({{ $file->filename }})
+						 @endif
 					</option>
 				@endif
 			@endforeach

@@ -69,6 +69,10 @@ class uploader {
 		});
 	}
 
+	checkServer(){
+		
+	}
+
 	initilize(){
 			
 		this.createClient();
