@@ -286,6 +286,8 @@ Route::get('/run-images', function (\Illuminate\Http\Request $request)
 });
 
 Route::get('/check-kotrans', function () {
+	// Having issues, just having it return running for now
+	return 'running';
 	$kotransRunning=false;
 	$pidsToCheck = \File::glob(storage_path('.forever/*.pid'));
 	foreach ($pidsToCheck as $pidFile) {

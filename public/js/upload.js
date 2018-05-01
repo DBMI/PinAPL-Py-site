@@ -157,7 +157,7 @@ class uploader {
 			location.reload();
 		}
 		else { // The server was crashed on server, attempt to restart server and ask user to wait.
-			this.attemptRestart();
+			//this.attemptRestart();
 		}
 	}
 
