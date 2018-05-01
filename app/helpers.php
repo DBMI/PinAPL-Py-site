@@ -5,7 +5,7 @@ restore_include_path();
 
 function csvToMysql ($file, $table, $columns, $seperator=',', $skipLines=0, $extraData=[]){
 	if ($file==null) {
-		\Log::error("The data files does not exist: $file");
+		\Log::error("File is null");
 		return false;
 	}
 	$query = 
