@@ -160,6 +160,7 @@ class Run extends Model
 		$geneCombinedColumns = array_keys(\App\GeneCombinedRanking::$columns);
 		$sgrnaColumns = array_keys(\App\SgrnaRanking::$columns);
 
+
 		// Add combined to mapping
 		$treatments = $this->getTreatments($mapping);
 		foreach ($treatments as $treatment) {
@@ -176,13 +177,42 @@ class Run extends Model
 			$prefix = $file->sample_name;
 			$extra = ['dir'=>$dir, 'file'=>$prefix];
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.txt"));
+			if (empty($geneFile)) {
+				\Log::debug('Skipping empty geneFile');
+				continue;
+			}
 			$geneFile = array_shift($geneFile);
 
 			\Log::debug("Prefix: $prefix");
 			if ($prefix == $file->treatment.'_combined') {
+				// Get total count of columns in combined file, to decide which columns to skip
+				$geneCombinedColumnsPadded = $geneCombinedColumns;
+				if(($handle = fopen($geneFile, 'r')) !== false){
+					$headerLine = fgetcsv($handle,0,"\t");
+					$geneCombinedColumnCount = count($headerLine);
+					fclose($handle);
+					if ($geneCombinedColumnCount > 4) {
+						$dummyVariableArray = [];
+						$numDummyVariables = $geneCombinedColumnCount - 4;
+						for ($i=0; $i < $numDummyVariables ; $i++) { 
+							array_push($dummyVariableArray, '@dummy');
+						}
+						array_splice( $geneCombinedColumnsPadded, 1, 0, $dummyVariableArray );
+						\Log::debug("",$geneCombinedColumnsPadded);
+					}
+					else {
+						\Log::debug('Combined column count is not greater then 4');
+						\Log::debug("count: $geneCombinedColumnCount");
+						\Log::debug("header line: $headerLine");
+					}
+				}
+				else {
+					\Log::error("Could not load geneCombinedFile: $geneFile");
+				}
+
 				// Insert geneCombined
 				\Log::debug('Combined File: '.$geneFile);
-				csvToMysql($geneFile, $geneCombinedTable, $geneCombinedColumns, "\t", 1, $extra);
+				csvToMysql($geneFile, $geneCombinedTable, $geneCombinedColumnsPadded, "\t", 1, $extra);
 				// Overwrite prefix for setting sgRNA
 				$prefix = $file->treatment.'_avg';
 				$extra['file'] = $prefix;

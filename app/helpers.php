@@ -3,7 +3,7 @@ set_include_path(getcwd());
 // include '/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php';
 restore_include_path();
 
-function csvToMysql ($file, $table, $columns, $seperator=',', $skipLines=0, $extraData=[]){
+function csvToMysql ($file, $table, $columns, $seperator=',', $skipLines=0,$extraData=[]){
 	if ($file==null) {
 		\Log::error("File is null");
 		return false;
