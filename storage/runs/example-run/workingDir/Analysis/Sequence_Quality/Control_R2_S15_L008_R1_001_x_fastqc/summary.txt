@@ -1,0 +1,12 @@
+PASS	Basic Statistics	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Per base sequence quality	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Per tile sequence quality	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Per sequence quality scores	Control_R2_S15_L008_R1_001_x.fastq.gz
+FAIL	Per base sequence content	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Per sequence GC content	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Per base N content	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Sequence Length Distribution	Control_R2_S15_L008_R1_001_x.fastq.gz
+FAIL	Sequence Duplication Levels	Control_R2_S15_L008_R1_001_x.fastq.gz
+WARN	Overrepresented sequences	Control_R2_S15_L008_R1_001_x.fastq.gz
+PASS	Adapter Content	Control_R2_S15_L008_R1_001_x.fastq.gz
+FAIL	Kmer Content	Control_R2_S15_L008_R1_001_x.fastq.gz
