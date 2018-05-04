@@ -2,7 +2,7 @@
 	if (ends_with($prefix, '_combined')) {
 		$columns = \App\GeneCombinedRanking::$columns;
 		$url = "/results/gene_combined_rankings_query/$runHash/$prefix";
-		$sortname = "p_Value_combined";
+		$sortname = "fisher_statistic";
 	} else {
 		$columns = \App\GeneRanking::$columns;
 		$url = "/results/gene_rankings_query/$runHash/$prefix";
