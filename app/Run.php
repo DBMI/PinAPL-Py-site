@@ -72,6 +72,7 @@ class Run extends Model
 			\File::deleteDirectory(storage_path("/data/$dataDir"));
 		}
 		$this->geneRankings()->delete();
+		$this->geneCombinedRankings()->delete();
 		$this->sgrnaRankings()->delete();
 		return parent::delete();
 	}
