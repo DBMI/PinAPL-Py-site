@@ -148,7 +148,7 @@ class Run extends Model
 		}
 	}
 
-	public function importRankings($dir=null){
+	public static function importRankings($dir=null){
 		if ($dir==null) {
 			$dir = $this->dir;
 		}
@@ -163,7 +163,7 @@ class Run extends Model
 
 
 		// Add combined to mapping
-		$treatments = $this->getTreatments($mapping);
+		$treatments = self::getTreatments($mapping);
 		foreach ($treatments as $treatment) {
 			$mapping->push((object)[
 				'0' => count($mapping),
