@@ -7,6 +7,7 @@ use \App\GeneRanking;
 use \App\GeneCombinedRanking;
 use \App\SgrnaRanking;
 use \App\Run;
+use \App\Http\Controllers\RunController;
 
 class ReimportExampleRankings extends Command
 {
@@ -44,6 +45,6 @@ class ReimportExampleRankings extends Command
         GeneRanking::where('dir','example-run')->delete();
         GeneCombinedRanking::where('dir','example-run')->delete();
         SgrnaRanking::where('dir','example-run')->delete();
-        Run::importRankings('example-run');
+        RunController::importRankings('example-run');
     }
 }
