@@ -1,0 +1,58 @@
+Unable to find image 'oncogx/pinaplpy_docker:v2.8.1' locally
+v2.8.1: Pulling from oncogx/pinaplpy_docker
+050aa9ae81a9: Pulling fs layer
+1eb2c989bc04: Pulling fs layer
+f5e83780ccda: Pulling fs layer
+2dec31d7323c: Pulling fs layer
+286f32949bdc: Pulling fs layer
+99cdba10c12d: Pulling fs layer
+e9c180ae3070: Pulling fs layer
+7de638340e95: Pulling fs layer
+af16dd424478: Pulling fs layer
+f197585bf73b: Pulling fs layer
+d69cdf8b8569: Pulling fs layer
+4c915a8d7df1: Pulling fs layer
+99cdba10c12d: Waiting
+f197585bf73b: Waiting
+e9c180ae3070: Waiting
+d69cdf8b8569: Waiting
+4c915a8d7df1: Waiting
+7de638340e95: Waiting
+af16dd424478: Waiting
+2dec31d7323c: Waiting
+f5e83780ccda: Download complete
+2dec31d7323c: Verifying Checksum
+2dec31d7323c: Download complete
+286f32949bdc: Download complete
+1eb2c989bc04: Verifying Checksum
+1eb2c989bc04: Download complete
+e9c180ae3070: Verifying Checksum
+e9c180ae3070: Download complete
+7de638340e95: Verifying Checksum
+7de638340e95: Download complete
+050aa9ae81a9: Verifying Checksum
+050aa9ae81a9: Download complete
+f197585bf73b: Verifying Checksum
+f197585bf73b: Download complete
+af16dd424478: Verifying Checksum
+af16dd424478: Download complete
+d69cdf8b8569: Verifying Checksum
+d69cdf8b8569: Download complete
+99cdba10c12d: Verifying Checksum
+99cdba10c12d: Download complete
+4c915a8d7df1: Verifying Checksum
+4c915a8d7df1: Download complete
+050aa9ae81a9: Pull complete
+1eb2c989bc04: Pull complete
+f5e83780ccda: Pull complete
+2dec31d7323c: Pull complete
+286f32949bdc: Pull complete
+99cdba10c12d: Pull complete
+e9c180ae3070: Pull complete
+7de638340e95: Pull complete
+af16dd424478: Pull complete
+f197585bf73b: Pull complete
+d69cdf8b8569: Pull complete
+4c915a8d7df1: Pull complete
+Digest: sha256:ee0320f85d28923cb0430299c1d6ef65627c21c47514d9a11438d4f1bf0cd360
+Status: Downloaded newer image for oncogx/pinaplpy_docker:v2.8.1
