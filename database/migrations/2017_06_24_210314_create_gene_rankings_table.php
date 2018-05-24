@@ -25,33 +25,6 @@ class CreateGeneRankingsTable extends Migration
             $table->integer('num_sig_sgrna');
         });
 
-        $geneColumns = ['gene','arra','arra_p_value','arra_fdr','significant','num_sig_sgrna'];
-        $geneTable = 'gene_rankings';
-        
-        // Import example-run
-        $mapping = json_decode(\File::get(storage_path("runs/example-run/fileMap.json")),true);
-        $files = $mapping['treatment'];
-        foreach ($files as $fileName => $fileProperties){
-            $prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
-            $extra = ['dir'=>'example-run', 'file'=>$prefix];
-            $geneFile = \File::glob(storage_path("runs/example-run/workingDir/Analysis/Gene_Rankings/$prefix*.tsv"));
-            $geneFile = array_shift($geneFile);
-            csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
-        }
-        // Imporrt all existing finished runs
-        $runs = \App\Run::where('status','finished')->get();
-        foreach ($runs as $run) {
-            $runHash = $run->dir;
-            $mapping = json_decode(\File::get($run->directory().'/fileMap.json'),true);
-            $files = $mapping['treatment'];
-            foreach ($files as $fileName => $fileProperties){
-                $prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
-                $extra = ['dir'=>$runHash, 'file'=>$prefix];
-                $geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/Gene_Rankings/$prefix*.tsv"));
-                $geneFile = array_shift($geneFile);
-                csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
-            }
-        }
     }
 
     /**

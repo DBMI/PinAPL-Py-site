@@ -23,20 +23,6 @@ class AddToGeneRanking extends Migration
             $table->double('arra_p_value')->after('arra');
             $table->double('arra_fdr')->after('arra_p_value');
         });
-        $geneColumns = ['gene','arra','arra_p_value','arra_fdr','significant','num_sgrna','num_sig_sgrna', 'avg_log_fc'];
-        $geneTable = 'gene_rankings';
-        \DB::delete("delete from $geneTable");
-        
-        // Import example-run
-        $mapping = json_decode(\File::get(storage_path("runs/example-run/fileMap.json")),true);
-        $files = $mapping['treatment'];
-        foreach ($files as $fileName => $fileProperties){
-            $prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
-            $extra = ['dir'=>'example-run', 'file'=>$prefix];
-            $geneFile = \File::glob(storage_path("runs/example-run/workingDir/Analysis/Gene_Rankings/$prefix*.tsv"));
-            $geneFile = array_shift($geneFile);
-            csvToMysql($geneFile, $geneTable, $geneColumns, "\t", 1, $extra);
-        }
     }
 
     /**

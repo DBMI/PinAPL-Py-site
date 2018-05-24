@@ -27,34 +27,6 @@ class CreateSgrnaRankingsTable extends Migration
 			$table->double('fdr');
 			$table->string('significant');
 		});
-
-		$sgrnaColumns = ['sgrna', 'gene', 'counts', 'control_mean', 'control_stdev', 'fold_change', 'p_value', 'fdr', 'significant'];
-		$sgrnaTable= 'sgrna_rankings';
-
-		// Import example-run
-    $mapping = json_decode(\File::get(storage_path("runs/example-run/fileMap.json")),true);
-		$files = $mapping['treatment'];
-		foreach ($files as $fileName => $fileProperties){
-			$prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
-			$extra = ['dir'=>'example-run', 'file'=>$prefix];
-			$sgrnaFile = \File::glob(storage_path("runs/example-run/workingDir/Analysis/sgRNA_Rankings/$prefix*.tsv"));
-			$sgrnaFile = array_shift($sgrnaFile);
-			csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
-		}
-		// Imporrt all existing finished runs
-		$runs = \App\Run::where('status','finished')->get();
-		foreach ($runs as $run) {
-			$runHash = $run->dir;
-			$mapping = json_decode(\File::get($run->directory().'/fileMap.json'),true);
-			$files = $mapping['treatment'];
-			foreach ($files as $fileName => $fileProperties){
-				$prefix = $fileProperties['condition'].'_'.$fileProperties['index'];
-				$extra = ['dir'=>$runHash, 'file'=>$prefix];
-				$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/sgRNA_Rankings/$prefix*.tsv"));
-				$sgrnaFile = array_shift($sgrnaFile);
-				csvToMysql($sgrnaFile, $sgrnaTable, $sgrnaColumns, "\t", 1, $extra);
-			}
-		}
 	}
 
 	/**
