@@ -32,12 +32,12 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
         ],
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/laravel-'.php_sapi_name().'-'.posix_getpwuid(posix_geteuid())['name'].'.log'),
             'level' => 'debug',
         ],
 
