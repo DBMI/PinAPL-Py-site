@@ -1,4 +1,4 @@
-@foreach (config('pinapl_config.parameter_groups') as $group => $parameters)
+@foreach (config('parameters.parameter_groups') as $group => $parameters)
 	@continue($group == "Required" || $group == "Library Parameters")
 	<fieldset>
 		<legend>{{ $group }}</legend>

@@ -18,7 +18,7 @@
 <fieldset>
 	<legend>Project Parameters</legend>
 	<div class="row align-bottom medium-unstack">
-	@foreach (config('pinapl_config.parameter_groups.Required') as $paramName => $parameter)
+	@foreach (config('parameters.parameter_groups.Required') as $paramName => $parameter)
 		@include('layouts.input',["name" => $paramName, "parameter"=>$parameter, "required"=>true])
 	@endforeach
 	</div>
@@ -30,7 +30,7 @@
 			<label for="custom-lib-file">Custom Library File</label>
 			<input type="file" id="custom-lib-file" name="custom-lib-file" required="true" accept=".csv, .tsv">
 		</div>
-		@foreach (config('pinapl_config.parameter_groups.Library Parameters') as $paramName => $parameter)
+		@foreach (config('parameters.parameter_groups.Library Parameters') as $paramName => $parameter)
 			@include('layouts.input',["name" => $paramName, "parameter"=>$parameter, "required"=>true])
 		@endforeach
 	</div>

@@ -18,7 +18,7 @@
 
 	if ($name == "LibFilename"){
 		$options = [];
-		foreach (config('pinapl_config.libraries') as $filename => $displayName) {
+		foreach (config('parameters.libraries') as $filename => $displayName) {
 			$options[$filename] = $displayName;
 		} 
 		$options['custom'] = 'Upload a Custom Library File';
