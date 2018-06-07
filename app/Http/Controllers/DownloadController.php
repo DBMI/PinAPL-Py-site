@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\File;
 
 class DownloadController
 {
-protected $filepath = "/var/www/pinapl-py/storage/runs/example-run/archive.zip";
-protected $filename = "PinAPL-py_example_run.zip";
+protected $filepath = "/var/www/pinapl-py/resources/exampleFiles/PinAPL-py_demo_data.zip";
+protected $filename = "PinAPL-py_demo_data.zip";
 
 public function xsendfile()
 {
