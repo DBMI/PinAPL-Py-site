@@ -14,6 +14,17 @@ return [
 
     'name' => 'PinAPL-py',
 
+    /* 
+    |--------------------------------------------------------------------------
+    | Application Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value specifies the webserver that is being used to host the site. I 
+    | put this in because nginx doesn't support XSendFile in a compatible fashion. 
+    */
+
+    'webserver' => env('WEBSERVER','apache'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

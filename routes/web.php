@@ -39,10 +39,16 @@ Route::get('/example-data', function ()
 {
 		$path = resource_path('exampleFiles/PinAPL-py_demo_data.zip');
 		$filename = 'PinAPL-py_demo_data.zip';
+	if(config('app.webserver') == 'nginx'){
+		return response()->download($path,$filename);
+	}
+	else {
 		header("X-Sendfile: $path");
+		header("X-Accel-Redirect: $path");
 		header("Content-type: application/octet-stream");
 		header('Content-Disposition: attachment; filename="' . $filename . '"');
 		exit;
+	}
 });
 
 Route::get('/documentation', function ()  {
@@ -145,6 +151,7 @@ Route::get('/parameters/{hash}', function ($hash)  {
 // If it does not exist or is not finished, 404
 Route::get('/run/download/{hash}', function ($hash)  {
 	try {
+		$aliasedFile = '/download/archive.zip';
 		$path = storage_path("/runs/$hash/archive.zip");
 		$runName = $hash;
 		$filename = sanitizeFileName("PinAPL-py_example_run.zip");
@@ -153,22 +160,18 @@ Route::get('/run/download/{hash}', function ($hash)  {
 			$filename = sanitizeFileName($runName) .'_'. $hash . ".zip";
 		}
 		if (\File::exists($path)) {
-			//header("Pragma: public");
-			//header("Expires: 0");
-			//header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			//header("Cache-Control: public");
-			//header("Content-Description: File Transfer");
-			//header("Content-type: application/octet-stream");
-			//header("Content-Disposition: attachment; filename=\"".$filename."\"");
-			//header("Content-Transfer-Encoding: binary");
-			//header("Content-Length: ".filesize($path));
-			header("X-Sendfile: $path");
-			header("Content-type: application/octet-stream");
-			header('Content-Disposition: attachment; filename="' . $filename . '"');
-			exit;
-			//return readfile($path);
-			//return download($path, $filename);
-			// return $filename;
+			if(config('app.webserver') == 'nginx'){
+        		        return response()->download($path,$filename);
+	        	}
+			else {
+				header("Content-Disposition: attachment; filename=\"".$filename."\"");
+				header("Content-Length: ".filesize($path));
+				header("X-Sendfile: $path");
+                	        header("X-Accel-Redirect: $aliasedFile");
+				header("Content-type: application/octet-stream");
+				header('Content-Disposition: attachment; filename="' . $filename . '"');
+				exit;
+			}
 		}
 		else {
 			abort(404);
