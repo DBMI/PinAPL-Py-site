@@ -58,7 +58,7 @@
 	var token = "{{csrf_token()}}";
 </script>
 <script type="text/javascript" src="/js/kotrans/kotrans.client.js"></script>
-<script type="text/javascript" src="/js/binary.min.js"></script>
+<script type="text/javascript" src="/js/binary.js"></script>
 <script type="text/javascript" src="/js/upload.js"></script>
 <script>
 
@@ -95,9 +95,13 @@
 	}
 	$('document').ready(function(){
 		// detect if safari
-		var ua = navigator.userAgent.toLowerCase(); 
-		if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1 && ua.indexOf('chromium') == -1) { 
-		  $('#safari-modal').foundation('open');
+		// var ua = navigator.userAgent.toLowerCase(); 
+		// if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1 && ua.indexOf('chromium') == -1) { 
+		//   $('#safari-modal').foundation('open');
+		// }
+		var isChrome = !!window.chrome && !!window.chrome.webstore;
+		if (!isChrome) {
+			$('#safari-modal').foundation('open');
 		}
 	});
 	@if ($noEmail)
@@ -145,7 +149,7 @@
 <div class="reveal large" id="safari-modal" data-reveal>
 	<h1>Your browser may not be supported</h1>
 	<p class="lead">
-		Your browser may have problems using this page. Please copy the url and open in the most recent version of <a href="https://www.mozilla.org/firefox/new/">Firefox</a> or <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a>.
+		Your browser may have problems using this page. Please copy the url and open in the most recent version of <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a>.
 	</p>
 	<div class="input-group" >
 		<a class="input-group-label" id='run-url'href="{{ url("/run/$hash") }}">{{ url("/run/$hash") }}</a>
