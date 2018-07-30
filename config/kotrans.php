@@ -2,5 +2,5 @@
 
 return [
 	'port' => env('KOTRANS_PORT', 9000),
-	'host' => env('APP_HOST', 'null')
+	'host' => env('KOTRANS_URL') ?? env('APP_URL')
 ];

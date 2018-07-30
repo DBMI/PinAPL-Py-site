@@ -80,7 +80,7 @@ class Run extends Model
 
 	public function url()
 	{
-		return "http://pinapl-py.ucsd.edu/run/".$this->dir;
+		return config('app.url')."/run/".$this->dir;
 	}
 
 	/**
