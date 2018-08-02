@@ -191,7 +191,7 @@ return [
 				"hidden" =>false,
 				"rules" => "string|in:median,mean",
 				"type" =>"select",
-				"options" => ["Median"=>"median","Mean"=>"mean"]
+				"options" => ["median"=>"Median","mean"=>"Mean"]
 			],
 		],
 		"Gene Ranking" => [
