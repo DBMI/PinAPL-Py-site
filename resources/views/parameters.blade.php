@@ -72,5 +72,14 @@ $("#LibFilename-input").change(function function_name(argument) {
 $('#sgRNALength-input').change(function(){
    $('#AS_min-input').val(this.value * 2);
 });
+
+
+$('#GeneMetric-input').change(function(){
+	if ($('#GeneMetric-input option:selected').val() == 'STARS') {
+	   $('#Np-input').val(10);
+	} else {
+		$('#Np-input').val("");
+	}
+});
 </script>
 @stop
