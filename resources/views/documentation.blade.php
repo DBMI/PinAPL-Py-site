@@ -8,7 +8,7 @@
 	</p>
 	<p class="c31">
 		<span class="c3">
-			<a class="c5" href="#h-1.1">1.1 QUICK START:</a>
+			<a class="c5" href="#h-1.1">1.1 QUICK START</a>
 		</span>
 	</p>
 	<p class="c17">
@@ -38,7 +38,7 @@
 	</p>
 	<p class="c31">
 		<span class="c3">
-			<a class="c5" href="#h-1.2">1.2 ADVANCED OPTIONS:</a>
+			<a class="c5" href="#h-1.2">1.2 ADVANCED OPTIONS</a>
 		</span>
 	</p>
 	<p class="c17">
@@ -48,7 +48,7 @@
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-1.2.2">1.2.2 Uploading a custom library:</a>
+			<a class="c5" href="#h-1.2.2">1.2.2 Uploading a custom library</a>
 		</span>
 	</p>
 	<p class="c45">
@@ -126,7 +126,7 @@
 	<p>
 		The results will remain on the server for 5 days. You can download all content shown on the results page in a single ZIP archive.
 	</p>
-	<h2 id="h-1.2">1.2 ADVANCED OPTIONS:</h2>
+	<h2 id="h-1.2">1.2 ADVANCED OPTIONS</h2>
 	</h2>
 	<h3 id="h-1.2.1">1.2.1 <u>Parameters</u></h3>
 	</p>
@@ -182,6 +182,9 @@
 		</li>
 		<li>
 			<b>STARS:</b> STARS score (Doench et al., 2016). This method ranks genes, based on a binomial model. It requires a gene to have at least two sgRNAs ranked among the top x% (see “sgRNA percentage” parameter below). 
+		</li>
+		<li>
+			<b>AVGLFC:</b> Genes solely ranked by sgRNA abundance. The gene rank is the log fold-change in sgRNA abundance, averaged over all sgRNAs targeting the same gene.
 		</li>
 	</ul>
 	<p>For more details on these methods, please refer to the original publications.</p>
@@ -427,11 +430,13 @@
 
 	<h1 id="h-2">2 Description of the PinAPL-Py Analysis output</h1>
    <p>
-		The PinAPL-Py output is structured by logical order into tabs and subtabs on the results page. In addition, all output can be downloaded via the <b>“Download Results Archive”</b> button as a single .zip file. Images are saved both as high-resolution .png as well as as .svg vector graphics which can be further processed in Adobe Illustrator or similar image processing software. Tables are saved as raw text (.tsv), but can be manually opened with Excel and saved as Excel spreadsheets. For convenience, PinAPL-Py can convert tables on-the-fly (see the “Table Format” parameter on the configuration page), at the cost of additional computation time.
+		The PinAPL-Py output is structured by logical order into tabs and subtabs on the results page. In addition, all output can be downloaded via the <b>“Download Results Archive”</b> button as a single .zip file. Images are saved both as high-resolution .png as well as as .svg vector graphics which can be further processed in Adobe Illustrator or similar image processing software. Tables are saved as raw text (.tsv), but can be manually opened with Excel and saved as Excel spreadsheets. For convenience, PinAPL-Py can convert tables on-the-fly (see the “Table Format” parameter on the configuration page), at the cost of additional computation time. NOTE for Windows users: To view text files (.txt/.tsv/.csv), <a target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a> is recommended
 	</p>
-   <p>
-	  NOTE for Windows users: To view text files (.txt/.tsv/.csv), <a target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a> is recommended
-	</p>
+
+	<br>
+	<div class="callout warning">
+		<p>NOTE: When the analysis is run with two or more replicate samples for a condition, PinAPL-Py will show an additional sample for that condition (named "&lt;condition name&gt;_avg") where results are averaged across the replicates.</p>
+	</div>
 
 	<h2 id="h-2.1">2.1 Enrichment/Depletion</h2>
 
@@ -449,6 +454,10 @@
 		<li><b>Avg. log FC:</b> Average log10 fold-change of all sgRNAs targeting the particular gene</li>
 	</ul>
 	<p>Results are sorted by number of significant sgRNAs by default.</p>
+
+	<div class="callout warning">
+		<p>NOTE: When the analysis is run with two or more replicate samples for a condition, PinAPL-Py will show an additional sample for that condition (named "&lt;condition name&gt;_combined") where p-values from the individual replicates are combined according to Fisher's method.</p>
+	</div>
 
 	<h5><u>sgRNA Rankings:</u></h5>
 	<p>This tab contains the results of the sgRNA enrichment/depletion analysis. The columns are:</p>
@@ -566,7 +575,7 @@
 	
 
 
-	<h1 id="h-3">3 REFERENCES:</h1>
+	<h1 id="h-3">3 REFERENCES</h1>
 	<p class="c7 c26">
 		<span>Anders,S. and Huber,W. (2010) Differential expression analysis for sequence count data. </span>
 		<span class="c25">Genome Biol.</span>
