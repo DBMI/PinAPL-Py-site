@@ -247,7 +247,12 @@ class RunController extends Controller
 						$customFile->move("$dir/workingDir/Library/",$customFilename);
 					}
 					else {
+						$file = $req->file('custom-lib-file');
+						\Log::error("If you are seeing this error, check upload_max_filesize and post_max_size in php.ini");
 						\Log::error("Custom Lib selected, but no file provided");
+						\Log::error(print_r($file,true));
+						\Log::error($file->isValid() ? "Valid File" : "Invalid File");
+						\Log::error(print_r($req->all(),true));
 					}
 				}
 				else{
