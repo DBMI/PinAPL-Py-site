@@ -79,15 +79,11 @@ class MonitorRun implements ShouldQueue
                 case 'running':
                 default:
                     $delayTime = 30;
-                    if ($this->attempts() >= 250) {
-                        $job = (new \App\Jobs\MonitorRun($run))
-                                ->onQueue("monitor")
-                                ->delay($delayTime);
-                        dispatch($job);
-                        $this->delete();
-                    } else {
-                        $this->release($delayTime);
-                    }
+                    $job = (new \App\Jobs\MonitorRun($run))
+                            ->onQueue("monitor")
+                            ->delay($delayTime);
+                    dispatch($job);
+                    $this->delete();
                     break;
             }
         }

@@ -45,7 +45,7 @@ class CompressRun implements ShouldQueue
     {
         if ((empty($this->run)) || (!$this->run->exists)) {
             $this->delete();
-            \Log::info("MonitorRun job cancled because it's run does not exist");
+            \Log::info("CompressRun job cancled because it's run does not exist");
             return;
         }
         try{
