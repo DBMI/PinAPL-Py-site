@@ -180,7 +180,7 @@ class ResultsController extends Controller
 		// Current page # of results 
 		$page = $req->input('page');
 		// Number of rows per table page
-		$limit = $req->input('rows');
+		$limit = $req->input('rows') ?? 10;
 		// get index row - i.e. user click to sort. At first time sortname parameter -
 		// after that the index from colModel
 		// If not provided, use 1st column 
@@ -192,7 +192,7 @@ class ResultsController extends Controller
 		$start = $limit*$page -$limit;
 		// if for some reasons start position is negative set it to 0 
 		// typical case is that the user type 0 for the requested page 
-		if($start <0) $start = 0; 
+		if($start < 0) $start = 0; 
 		
 
 		$query = \DB::table($table)->select($columns)
@@ -209,8 +209,11 @@ class ResultsController extends Controller
 					  $total_pages = 0; 
 		} 
 
+		// Seems like limit is being dropped and an offset 0 with out a limit causes an error. 
+		if ($start > 0) {
+			$query = $query->offset($start);
+		}
 		$query = $query
-			->offset($start)
 			->limit($limit)
 			->orderBy($sidx, $sord)
 		;
