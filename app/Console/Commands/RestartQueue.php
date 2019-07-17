@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Run;
 
-class RestartRun extends Command
+class RestartQueue extends Command
 {
     /**
      * The name and signature of the console command.
@@ -40,7 +40,13 @@ class RestartRun extends Command
     {
 
         try {
-            $run = Run::where('status','running')->first();
+	    if (Run::where('status','running')->count() > 0){
+            	$run = Run::where('status','running')->first();
+	    } else if (Run::where('status','queued')->count() > 0){
+		$run = $run = Run::where('status','queued')->first();
+	    } else{
+               $this->error("No crashed runs to restart and no runs in the queue to start");
+	    }
         } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             $this->error("Run $runHash does not exist");
             return;
