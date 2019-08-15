@@ -32,8 +32,9 @@ $(function () {
 		gridview: true,
 		autoencode: true,
 		height: "100%",
-	    autowidth:true,
-	    shrinkToFit:true,
+	    //autowidth:true,
+	    //shrinkToFit:true,
+	    width: 960,
 	    emptyrecords: "No records to view",
 	}); 
 }); 
