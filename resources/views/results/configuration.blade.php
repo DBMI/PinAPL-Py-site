@@ -1,11 +1,16 @@
 <?php
 use Illuminate\Support\Facades\File;
-$filePath = storage_path("/runs/$hash/workingDir/configuration.yaml");
+use Illuminate\Support\Str;
+$filePath = storage_path("/runs/$hash/workingDir/Analysis/00_LogFile/configuration.yaml");
+$fileContents = File::get($filePath);
+$fileContents = explode(PHP_EOL, $fileContents);
+$fileContents = array_slice($fileContents, 0, 54);
+$fileContents = implode(PHP_EOL, $fileContents);
 ?>
 @if (File::exists($filePath))
 	<div class="row align-center">
 		<div class="column shrink">
-			<pre>{{  File::get($filePath) }}</pre>
+			<pre>{{  $fileContents }}</pre>
 		</div>
 	</div>
 @else
