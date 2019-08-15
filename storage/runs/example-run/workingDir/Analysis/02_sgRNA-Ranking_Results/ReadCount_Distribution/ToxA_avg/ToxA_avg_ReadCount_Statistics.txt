@@ -1,0 +1,24 @@
+ToxA_avg Read Counts Distribution:
+***********************************
+
+Read Counts per sgRNA (normalized)
+------------------------------------
+Median:			0
+Standard Deviation:	19
+25% Quantile:		0
+75% Quantile:		0
+Minimum:		0
+Maximum:		2511
+sgRNA Representation:	35915 (29.3%)
+Gini coefficient:	0.93
+
+Read Counts per Gene (normalized)
+------------------------------------
+Median:			4
+Standard Deviation:	49
+25% Quantile:		0
+75% Quantile:		15
+Minimum:		0
+Maximum:		3064
+Gene Representation:	18002 (82.1%)
+Gini coefficient:	0.75
