@@ -1,0 +1,1 @@
+@extends('layouts.results_section', ['idPrefix' => 'pvalue_dist'])
