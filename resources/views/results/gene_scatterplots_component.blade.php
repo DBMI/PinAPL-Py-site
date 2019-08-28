@@ -1,0 +1,1 @@
+<img id="{{ $prefix }}-gene-scatterplot" src='{{"/run-images?path=".urlencode("/$runHash/workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$prefix"."_GeneScores.png" )}}'>
