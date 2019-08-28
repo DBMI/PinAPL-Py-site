@@ -1,10 +1,13 @@
 <?php
 $sections = [
-	"enrichment_depletion"  => "Enrichment/Depletion",
-	"statistics"            => "Statistics",
-	"scatter_plots"         => "Scatter Plots",
-	"heatmap"               => "Heatmap",
-	"run_info"            	=> "Run Info"
+	"run_info"            	=> "Run Info",
+	"alignment_results"     => "Alignment Results",
+	"sgrna_ranking_results" => "sgRNA Ranking Results",
+	"gene_ranking_results"  => "Gene Ranking Results",
+	#"enrichment_depletion"  => "Enrichment/Depletion",
+	#"statistics"            => "Statistics",
+	#"scatter_plots"         => "Scatter Plots",
+	#"heatmap"               => "Heatmap"
 ];
 ?>
 @extends('layouts.master')
@@ -27,7 +30,7 @@ $sections = [
 @section('customScripts')
 <script type="text/javascript" src="/js/run.js"></script>
 <script type="text/javascript">
-	var runHash = '{{ $hash}}';
+	var runHash = '{{ $hash }}';
 </script>
 <link rel="stylesheet" type="text/css" media="screen" href="/css/jquery-ui.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="/css/ui.jqgrid.css" />
