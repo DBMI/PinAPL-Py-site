@@ -34,7 +34,7 @@ $(function () {
 		height: "100%",
 	    //autowidth:true,
 	    //shrinkToFit:true,
-	    width: 960,
+	    width: 960, //new
 	    emptyrecords: "No records to view",
 	}); 
 }); 

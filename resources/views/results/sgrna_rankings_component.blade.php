@@ -24,7 +24,8 @@ $(function () {
         gridview: true,
         autoencode: true,
         height: "100%",
-        autowidth:true,
+        //autowidth:true,
+        width: 960, //new
         emptyrecords: "No records to view",
     }); 
 }); 
