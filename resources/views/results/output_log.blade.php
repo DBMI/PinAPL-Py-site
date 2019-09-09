@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\File;
-$filePath = storage_path("/runs/$hash/workingDir/output.log");
+$filePath = storage_path("/runs/$hash/workingDir/Analysis/00_LogFile/PinAPL-Py.log");
 ?>
 @if (File::exists($filePath))
 	<div class="row align-center">
