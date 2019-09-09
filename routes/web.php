@@ -14,9 +14,10 @@ use Illuminate\Http\Response;
 
 
 Route::get('/', function () {
+	return view('welcome');
 	$bytes = disk_free_space(storage_path()); 
 	if ($bytes < 30*1024*1024*1024) {
-	// if ($bytes < 30*1024*1024*1024) {
+	if ($bytes < 30*1024*1024*1024) {
 		return view('no_space');
 	}
 	else{
@@ -326,6 +327,9 @@ Route::get('/results/sgrna_rankings_query/{hash}/{prefix}',  'ResultsController@
 Route::get('/results/sgrna_rankings/{hash}',  'ResultsController@getSgrnaRankings');
 Route::get('/results/sgrna_efficiency/{hash}',  'ResultsController@getSgrnaEfficiency');
 Route::get('/results/control/{hash}',           'ResultsController@getControl');
+Route::get('/results/density_plots/{hash}',  'ResultsController@getSgrnaDensity');
+Route::get('/results/gene_pvalue/{hash}',  'ResultsController@getGenePValue');
+Route::get('/results/pvalue_dist/{hash}',  'ResultsController@getSgrnaPvalue');
 
 /*** Statistics *********************/
 Route::get('/results/readcount_statistics/{hash}',           'ResultsController@getReadCountStatistics');
@@ -333,10 +337,18 @@ Route::get('/results/alignment_statistics/{hash}',           'ResultsController@
 Route::get('/results/cutadapt/{hash}',        						   'ResultsController@getCutadapt');
 Route::get('/results/sequence_quality/{hash}',        			 'ResultsController@getSequenceQuality');
 Route::get('/results/sequencing_depth/{hash}',        			 'ResultsController@getSequencingDepth');
+Route::get('/results/readcount_dispersion/{hash}',        			 'ResultsController@getReadcountDispersion');
+Route::get('/results/readcount_distribution/{hash}',           'ResultsController@getReadcountDistribution');
+Route::get('/results/replicate_correlation/{hash}',  'ResultsController@getReplicateCorrelation');
 
 /*** Scatter Plots ******************/
 Route::get('/results/readcount_scatterplots/{hash}',     'ResultsController@getReadCountScatterplots');
 Route::get('/results/replicate_correlation/{hash}',     'ResultsController@getReplicateCorrelation');
+Route::get('/results/volcano_plots/{hash}',     'ResultsController@getVolcanoPlots');
+Route::get('/results/zscore_plots/{hash}',     'ResultsController@getZscorePlots');
+Route::get('/results/gene_plots/{hash}',     'ResultsController@getGenePlots');
+//WIP 9/4
+//Route::get('/results/readcount_scatterplots/{hash}/{id}/{idSingular}',     'ResultsController@getScatterplots');
 
 /*** Heatmap ************************/
 Route::get('/results/heatmap/{hash}',           'ResultsController@getHeatmap');
@@ -347,6 +359,9 @@ Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog'
 Route::get('/results/candidate_lists/{hash}', 'ResultsController@getCandidateLists');
 Route::get('/results/qc/{hash}', 'ResultsController@getQc');
 Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewScatterPlot');
+Route::get('/results/volcano_plots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewVolcanoPlot');
+Route::get('/results/zscore_plots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewZscorePlot');
+Route::get('/results/gene_plots_gene_select/{hash}/{prefix}/{gene}', 'ResultsController@getNewGenePlot');
 
 
 // Bug reports
