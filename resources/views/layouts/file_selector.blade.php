@@ -14,6 +14,7 @@
 	$afterSelectorRow = $afterSelectorRow ?? "";
 	$afterSelectorColumn = $afterSelectorColumn ?? "";
 	$extraMapping = $extraMapping ?? [];
+	$extraData = $extraData ?? [];
 
 	if (!empty($withCombinedPrefix) && $withCombinedPrefix) {
 		$treatments = $mapping->unique('treatment');
@@ -73,7 +74,8 @@
 					[ 'prefix'=>$file->sample_name,
 					  'fileName'=>$file->filename,
 					  'treatment'=>$file->treatment,
-					  'runHash'=>$runHash
+					  'runHash'=>$runHash,
+					  'extraData'=>$extraData
 					])
 			</div>
 		</div>
