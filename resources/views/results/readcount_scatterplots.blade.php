@@ -1,1 +1,1 @@
-@extends('layouts.results_section', ['idPrefix' => 'readcount_scatterplots'])
+@extends('layouts.results_section', ['idPrefix' => 'readcount_scatterplots', 'idSingular' => 'readcount-scatterplot'])
