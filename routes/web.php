@@ -17,7 +17,6 @@ Route::get('/', function () {
 	return view('welcome');
 	$bytes = disk_free_space(storage_path()); 
 	if ($bytes < 30*1024*1024*1024) {
-	if ($bytes < 30*1024*1024*1024) {
 		return view('no_space');
 	}
 	else{
