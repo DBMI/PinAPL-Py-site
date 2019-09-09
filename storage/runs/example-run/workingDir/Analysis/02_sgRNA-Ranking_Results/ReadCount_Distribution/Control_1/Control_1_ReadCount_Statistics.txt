@@ -8,7 +8,7 @@ Standard Deviation:	5
 25% Quantile:		0
 75% Quantile:		3
 Minimum:		0
-Maximum:		138
+Maximum:		136
 sgRNA Representation:	58111 (47.5%)
 Gini coefficient:	0.774
 
@@ -19,6 +19,6 @@ Standard Deviation:	14
 25% Quantile:		5
 75% Quantile:		21
 Minimum:		0
-Maximum:		174
+Maximum:		171
 Gene Representation:	20487 (93.5%)
 Gini coefficient:	0.467

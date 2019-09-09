@@ -1,1 +1,1 @@
-bash /var/www/pinaplepy-site/app/Scripts/startRun.sh oncogx/pinaplpy_docker:v2.8.1 /var/www/pinaplepy-site/storage/runs/1525477178_19 /var/www/pinaplepy-site/storage/data/example-run 8 > /var/www/pinaplepy-site/storage/runs/1525477178_19/runStatus.log
+bash /Users/darrenchang/git/PinAPL-Py-site/app/Scripts/startRun.sh oncogx/pinaplpy_docker:v2.9 /Users/darrenchang/git/PinAPL-Py-site/storage/runs/example-run /Users/darrenchang/git/PinAPL-Py-site/storage/data/example-run 2 > /Users/darrenchang/git/PinAPL-Py-site/storage/runs/example-run/runStatus.log

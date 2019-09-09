@@ -33,7 +33,7 @@ TopN: 25                                # number of top sgRNAs to take into acco
 ShowNonTargets: True                    # show non-targeting controls in scatterplots [True/False]
 scatter_annotate: False                 # annotate highlighted sgRNAs in scatterplots [True/False]
 IncludeDensityPlots: True              # include sgRNA density plots [True/False]
-AutoHighlight: True                     # automatically highlight the top 10 ranked genes [True/False]
+AutoHighlight: False                     # automatically highlight the top 10 ranked genes [True/False]
 
 # TECHNICAL PARAMETERS (changes not required/recommended)
 Cutoff: 0                       # read count threshold
@@ -50,8 +50,8 @@ AlnOutput: 'Delete'             # keep raw alignment output? ['Keep'/'Compress'/
 keepCutReads: False             # keep files containing trimmed reads? [True/False]
 dpi: 300                        # resolution of PNG plots
 svg: True                       # save figures as vector graphics?  [True/False]
-HitListFormat: 'xlsx'                # format of results spreadsheets ['txt'/'xlsx']
-PrintHighlights: True              # print highlighted sgRNA info in console [True/False]
+HitListFormat: 'txt'                # format of results spreadsheets ['txt'/'xlsx']
+PrintHighlights: False              # print highlighted sgRNA info in console [True/False]
 
 # HARD-CODED PARAMETERS (not available on website)
 FCmin_SigmaFC: 0                        # minimal FC required for SigmaFC score (not compatible with depletion screen)
