@@ -124,7 +124,7 @@ class ResultsController extends Controller
 	*/
 	public function getReadCountScatterplots($hash) {
 		$dir = storage_path("/runs/$hash/workingDir");
-		$data = Yaml::parseFile("$dir/Analysis/00_LogFile/configuration.yaml");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
 		$nonT_bool = $data["ShowNonTargets"];
 		$nonT_checked = $nonT_bool ? "checked" : "";
 		$extraData = ['nonT'=>$nonT_bool];
@@ -180,7 +180,7 @@ class ResultsController extends Controller
 	//new
 	public function getVolcanoPlots($hash) {
 		$dir = storage_path("/runs/$hash/workingDir");
-		$data = Yaml::parseFile("$dir/Analysis/00_LogFile/configuration.yaml");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
 		$nonT_bool = $data["ShowNonTargets"];
 		$nonT_checked = $nonT_bool ? "checked" : "";
 		$extraData = ['nonT'=>$nonT_bool];
@@ -234,7 +234,7 @@ class ResultsController extends Controller
 
 	public function getZscorePlots($hash) {
 		$dir = storage_path("/runs/$hash/workingDir");
-		$data = Yaml::parseFile("$dir/Analysis/00_LogFile/configuration.yaml");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
 		$nonT_bool = $data["ShowNonTargets"];
 		$nonT_checked = $nonT_bool ? "checked" : "";
 		$extraData = ['nonT'=>$nonT_bool];
