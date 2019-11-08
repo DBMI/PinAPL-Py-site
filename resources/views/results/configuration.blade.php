@@ -11,17 +11,22 @@ $line_number = $data["PrintHighlights"];
 
 $search      = "PrintHighlights";
 $dir         = storage_path("/runs/$hash/workingDir");
-$lines       = file("$dir/Analysis/00_LogFile/configuration.yaml");
-$line_number = false;
-
-while (list($key, $line) = each($lines) and !$line_number) {
-   $line_number = (strpos($line, $search) !== FALSE) ? $key + 1 : $line_number;
-}
-
-$filePath = storage_path("/runs/$hash/workingDir/Analysis/00_LogFile/configuration.yaml");
+$filePath = "$dir/configuration.yaml";
 if (File::exists($filePath)){
+	
+	// Find cuttoff point to hide config output
+	/*
+	$lines       = file("$dir/configuration.yaml");
+	$line_number = false;
+	
+	while (list($key, $line) = each($lines) and !$line_number) {
+	   $line_number = (strpos($line, $search) !== FALSE) ? $key + 1 : $line_number;
+	}
+	*/
+
 	$fileContents = File::get($filePath);
 	$fileContents = explode(PHP_EOL, $fileContents);
+	$line_number = count($fileContents); 
 	$fileContents = array_slice($fileContents, 0, $line_number);
 	$fileContents = implode(PHP_EOL, $fileContents);
 }
