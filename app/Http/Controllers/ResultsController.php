@@ -18,28 +18,28 @@ class ResultsController extends Controller
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values', 'withAvgPrefix'=>true ]);
 	}
 	public function getGeneRankings($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>true ]);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>false, 'withAvgPrefix'=>true ]);
 	}
 	public function getSgrnaRankings($hash) {
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings', 'withAvgPrefix'=>true ]);
 	}
 	public function getSgrnaEfficiency($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency', 'withAvgPrefix'=>true ]);
 	}
 	public function getControl($hash) {
 		return view('results.control_component', ['runHash'=>$hash]);
 	}
 	//added for sgRNA density plots
 	public function getSgrnaDensity($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'density_plots']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'density_plots', 'withAvgPrefix'=>true]);
 	}
 	//added for Gene tab p-val dist
 	public function getGenePValue($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_pvalue']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_pvalue', 'withAvgPrefix'=>true]);
 	}
 	//added for sgRNA p-val
 	public function getSgrnaPvalue($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'pvalue_dist']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'pvalue_dist', 'withAvgPrefix'=>true]);
 	}
 	/*************************************
 	 *** Statistics
@@ -64,7 +64,7 @@ class ResultsController extends Controller
 		return view('results.readcount_dispersion_component', ['runHash'=>$hash]);
 	}
 	public function getReadcountDistribution($hash) {
-		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'readcount_distribution']);
+		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'readcount_distribution', 'withAvgPrefix'=>true]);
 	}
 	public function getReplicateCorrelation($hash) {
 		return view('results.replicate_correlation_component', ['runHash'=>$hash, 'result'=>'replicate_correlation']);

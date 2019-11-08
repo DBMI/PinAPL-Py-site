@@ -130,6 +130,34 @@
 	</h2>
 	<h3 id="h-1.2.1">1.2.1 <u>Parameters</u></h3>
 	</p>
+
+	<h4>GENE RANKING</h4>
+	<h5><u>Gene Metric (default = "αRRA:"): </u></h5>
+	<p>Method to combine the sgRNA enrichment/depletion data for ranking of genes: </p>
+	<ul>
+		<li>
+			<b>αRRA:</b> Adjusted robust rank aggregation (Li et al., 2014). This method ranks genes, based on a Beta model of the aggregation of sgRNAs. It requires a sgRNA to achieve at least a certain critical p-value (see “P0” parameter below) to be taken into account.
+		</li>
+		<li>
+			<b>STARS:</b> STARS score (Doench et al., 2016). This method ranks genes, based on a binomial model. It requires a gene to have at least two sgRNAs ranked among the top x% (see “sgRNA percentage” parameter below). 
+		</li>
+		<li>
+			<b>AVGLFC:</b> Genes solely ranked by sgRNA abundance. The gene rank is the log fold-change in sgRNA abundance, averaged over all sgRNAs targeting the same gene.
+		</li>
+	</ul>
+	<p>For more details on these methods, please refer to the original publications.</p>
+
+	<h5><u>Number of permutations (default = 1000): </u></h5>
+	<p>
+		Number of permutations for p-value estimation of the gene ranking score. CAUTION: STARS is more computationally demanding than aRRA, so reducing the number of permutations is recommended in this case.
+	</p>
+
+	<h5><u>sgRNA percentage (STARS only) (default = 10):</u></h5>
+	<p>Percentage of sgRNAs to be included in the ranking analysis. Only relevant if &ldquo;STARS &rdquo;method is chosen.</p>
+
+	<h5><u>P0 (aRRA only) (default = 0.0005): </u></h5>
+	<p>Critical p-value for individual sgRNAs to be included in the ranking analysis. Only relevant if “aRRA” method is chosen.</p>
+
 	<h4 id="ALIGNMENT">ALIGNMENT</h4>
 	<h5><u>sgRNA Sequence Length (default = 20)</u></h5>
 	<p>
@@ -173,33 +201,6 @@
 		Round counts after normalization to avoid fractional counts. Rounding only affects visualization, but not significance analysis.
 	</p>
 	
-	<h4>GENE RANKING</h4>
-	<h5><u>Gene Metric (default = "αRRA:"): </u></h5>
-	<p>Method to combine the sgRNA enrichment/depletion data for ranking of genes: </p>
-	<ul>
-		<li>
-			<b>αRRA:</b> Adjusted robust rank aggregation (Li et al., 2014). This method ranks genes, based on a Beta model of the aggregation of sgRNAs. It requires a sgRNA to achieve at least a certain critical p-value (see “P0” parameter below) to be taken into account.
-		</li>
-		<li>
-			<b>STARS:</b> STARS score (Doench et al., 2016). This method ranks genes, based on a binomial model. It requires a gene to have at least two sgRNAs ranked among the top x% (see “sgRNA percentage” parameter below). 
-		</li>
-		<li>
-			<b>AVGLFC:</b> Genes solely ranked by sgRNA abundance. The gene rank is the log fold-change in sgRNA abundance, averaged over all sgRNAs targeting the same gene.
-		</li>
-	</ul>
-	<p>For more details on these methods, please refer to the original publications.</p>
-
-	<h5><u>Number of permutations (default = 1000): </u></h5>
-	<p>
-		Number of permutations for p-value estimation of the gene ranking score. CAUTION: STARS is more computationally demanding than aRRA, so reducing the number of permutations is recommended in this case.
-	</p>
-
-	<h5><u>sgRNA percentage (STARS only) (default = 10):</u></h5>
-	<p>Percentage of sgRNAs to be included in the ranking analysis. Only relevant if &ldquo;STARS &rdquo;method is chosen.</p>
-
-	<h5><u>P0 (aRRA only) (default = 0.0005): </u></h5>
-	<p>Critical p-value for individual sgRNAs to be included in the ranking analysis. Only relevant if “aRRA” method is chosen.</p>
-
 	<h4>STATISTICAL SIGNIFICANCE</h4>
 
 	<h5><u>Significance level (sgRNAs) (default = 0.001)</u></h5>

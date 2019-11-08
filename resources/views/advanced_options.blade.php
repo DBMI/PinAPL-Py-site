@@ -1,6 +1,5 @@
 @foreach (config('parameters.parameter_groups') as $group => $parameters)
 	@continue($group == "Required" || $group == "Library Parameters")
-	#if counts provided continue
 	<fieldset>
 		<legend>{{ $group }}</legend>
 		<div class="row">
