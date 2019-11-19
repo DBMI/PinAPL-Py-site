@@ -1,0 +1,20 @@
+[Unit]
+Description=App
+# Run after these
+After=syslog.target
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=www-data
+Group=www-data
+Restart=no
+# Note that first argument must be an absolute path, rest are arguments to it
+ExecStart=/var/www/pinapl-py/setup/startKotrans.sh
+# Startup/shutdown grace period
+TimeoutSec=60
+
+[Install]
+# Run before this
+WantedBy=multi-user.target
