@@ -326,9 +326,10 @@ class RunController extends Controller
 			$geneFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/03_GeneRanking_Results/Gene_Rankings/$prefix*.txt"));
 
 			$sgrnaFile = \File::glob(storage_path("runs/$runHash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Rankings/$prefix*.txt"));
-
+			
 			if (empty($geneFile)) {
-				\Log::debug('Skipping empty geneFile: '.$geneFile);
+				\Log::debug('Skipping empty geneFile: '.$prefix);
+				//\Log::debug('Skipping empty geneFile: '.$geneFile);
 				continue;
 			}
 			$geneFile = array_shift($geneFile);
