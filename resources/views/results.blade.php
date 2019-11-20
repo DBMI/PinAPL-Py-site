@@ -1,13 +1,9 @@
 <?php
 $sections = [
-	"run_info"            	=> "Run Info",
-	"alignment_results"     => "Alignment Results",
-	"sgrna_ranking_results" => "sgRNA Ranking Results",
 	"gene_ranking_results"  => "Gene Ranking Results",
-	#"enrichment_depletion"  => "Enrichment/Depletion",
-	#"statistics"            => "Statistics",
-	#"scatter_plots"         => "Scatter Plots",
-	#"heatmap"               => "Heatmap"
+	"sgrna_ranking_results" => "sgRNA Ranking Results",
+	"alignment_results"     => "Alignment Results",
+	"run_info"            	=> "Run Info",
 ];
 ?>
 @extends('layouts.master')
