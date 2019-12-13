@@ -18,7 +18,7 @@ $(function () {
         pager: "#{{ $prefix }}-sgrna-rankings-pager",
         rowNum: 10,
         rowList: [10, 20, 30],
-        sortname: "fdr",
+        sortname: "p_value",
         sortorder: "asc",
         viewrecords: true,
         gridview: true,
