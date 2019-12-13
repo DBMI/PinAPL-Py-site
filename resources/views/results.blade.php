@@ -12,7 +12,7 @@ $sections = [
 		<div class="columns shrink"><h4>{{ $runName }}</h4></div>
 		<div class="columns shrink">
 			<a id="re-run" class="button warning bold" href="/rerun/{{ $hash }}" >Rerun With New Parameters</a>
-			<a id="download-archive" class="button success bold" href="/run/download/{{ $hash }}" download>Download Results Archive</a>
+			<a id="download-archive" class="button success bold" href="/run/download/{{ $hash }}" download>Download Results</a>
 		</div>
 	</div>
 	<div class="row collapse">
