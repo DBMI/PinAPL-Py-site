@@ -34,7 +34,6 @@ class SgrnaRanking extends Model
 	  'control_stdev'=>'Control StDev',
 	  'fold_change'=>"Fold Change",
 	  'p_value'=>"p_value",
-	  'fdr'=>"FDR",
 	  'significant'=>'Significant'
 	];
  }
