@@ -27,6 +27,7 @@ siteSafeName="pinaplpy" # Should be all lowercase and no symbols
 
 
 echo -e "\e[1mInstalling required packages\e[0m"
+sudo add-apt-repository ppa:ondrej/php
 sudo apt -qq update
 sudo apt install -qq -y apache2
 sudo apt install -qq -y libapache2-mod-xsendfile 

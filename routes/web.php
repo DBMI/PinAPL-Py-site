@@ -29,9 +29,7 @@ Route::get('/', function () {
  *** TopBar
 **************************************************************************/
 
-Route::get('/contact', function () {
-	return view('contact');
-});
+Route::view('/contact', 'contact');
 
 // Return a download of the sample-data
 
@@ -51,15 +49,13 @@ Route::get('/example-data', function ()
 	}
 });
 
-Route::get('/documentation', function ()  {
-	return view('documentation');
-});
+Route::view('/documentation', 'documentation');
 
 //Return example output results page
-Route::get('/example-results', function ()
-{
-	return view('results',['runName'=>"Example Run", 'hash'=>"example-run"]);
-});
+Route::view('/example-results','results',['runName'=>"Example Run", 'hash'=>"example-run"]);
+
+Route::view('/upload-previous','upload_previous');
+Route::post('/upload-previous','RunController@postUploadPrevious');
 
 
 // The upload page for a run. If the run has a status of running, redirect to run page
@@ -140,7 +136,11 @@ Route::get('/parameters/{hash}', function ($hash)  {
 		}
 		
 	} 
-	catch(Exception $e) {
+	catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+		\Log::debug("Run not found ");
+		abort(404);
+	}
+	catch(\Exception $e) {
 		\Log::error("Exception thrown on /parameters/$hash");
 		\Log::error($e);
 		abort(404);
@@ -364,9 +364,7 @@ Route::get('/results/gene_plots_gene_select/{hash}/{prefix}/{gene}', 'ResultsCon
 
 
 // Bug reports
-Route::get('/bug-report', function () {
-	return view('bug_report');
-}); 
+Route::view('/bug-report', 'bug_report'); 
 // Bug reports
 Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
 	$url = $req->input('url');
@@ -380,20 +378,36 @@ Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
 
 
 
-Route::get('/download_test', function ()
-{
-	return view('download_test');
-});
+Route::view('/download_test', 'download_test');
 
-Route::get('/no_space', function ()
-{
-	return view('no_space');
-});
+Route::view('/no_space', 'no_space');
 
 Route::get('/testList', function () {
 	$result = shell_exec("export HOME=".storage_path('logs')."; forever --plain list 2>&1 ");
 	echo  "<pre>$result</pre>";
 });
+
+
+Route::get('/test', function () {
+	 if (is_numeric($postMaxSize = ini_get('post_max_size'))) {
+            return (int) $postMaxSize;
+        }
+
+        $metric = strtoupper(substr($postMaxSize, -1));
+        $postMaxSize = (int) $postMaxSize;
+
+        switch ($metric) {
+            case 'K':
+                return $postMaxSize * 1024;
+            case 'M':
+                return $postMaxSize * 1048576;
+            case 'G':
+                return $postMaxSize * 1073741824;
+            default:
+                return $postMaxSize;
+        }
+});
+
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {
 		Route::get("/download_test/$method", "DownloadController@$method");
