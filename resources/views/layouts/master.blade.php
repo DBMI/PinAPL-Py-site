@@ -7,6 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/foundation.css" />
+    <link rel="stylesheet" href="/foundation-icons.css" />
     <link rel="stylesheet" href="/css/app.css">
     @yield('customCSS')
     <script src="/js/vendor/modernizr.js"></script>

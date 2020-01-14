@@ -8,7 +8,7 @@ This a a website built for the CRISPR CAS9 pipeline <a href="https://github.com/
 
 It is written mainly in PHP using the php framework <a href="https://laravel.com/">Laravel</a>
 
-We use a custom file upload server written in nodeJS which allows for the upload of large files. The larges we tested was 300GB
+We use a custom file upload server written in nodeJS which allows for the upload of large files. The largest we tested was 300GB
 
 ## Installation & Setup
 Clone this repository to where you would like to host the site. E.g. /var/www/
