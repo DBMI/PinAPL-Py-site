@@ -11,6 +11,9 @@
 	}
 	$label = $parameter['display_name'] ?? $name;
 	$placeholder = $parameter['placeholder'] ?? $parameter['default'];
+	// if($type == 'select') {
+	// 	$placeholder = $parameter['options'][$placeholder];
+	// }
 	$helpText = $parameter['help_text'];
 	$rules = $parameter['rules'];
 	$options = $parameter['options'] ?? [];

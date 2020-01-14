@@ -7,6 +7,7 @@
     <ul class="menu">
       <li><a href="/example-data" download="true">Download Test Dataset</a></li>      
       <li><a href="/example-results">Example Results</a></li>      
+      <li><a href="/upload-previous">Upload past result</a></li>
       <li><a href="/documentation">Documentation</a></li>
       <li><a href="/contact">Contact Us</a></li>
       <li><a href="/bug-report">Submit a Bug</a></li>

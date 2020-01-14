@@ -386,6 +386,52 @@ class RunController extends Controller
 	}
 	
 
+
+
+	public function postUploadPrevious(Request $req)
+	{
+		$this->validate($req, 
+			[ "email" => "email|nullable",
+				"name" => "required|string"
+			]
+		);
+
+		$email = $req->input('email');
+		$name = $req->input('name');
+
+		$archive = $req->file('archive');
+		$archiveFilename = $archive->getClientOriginalName();
+		// $customFile->move("$dir/workingDir/Library/",$customFilename);
+		$zip = new \ZipArchive;
+		$zippped = $zip->open($archive);
+		
+		$newRun = Run::create( [
+			'email'=>$email,
+			'name'=>$name,
+			'status'=> 'finished',
+			'dir' => time(),
+			'data_dir'=>"no_data",
+		]);
+
+
+		$newRun->dir=$newRun->dir.'_'.$newRun->id;
+		$newRun->save();
+
+		$newPath = $newRun->directory();
+
+		$zip->extractTo($newRun->dir);
+
+		`chmod 774 `.$newRun->dir;
+
+		$deleteThisRunJob = (new \App\Jobs\DeleteRun($newRun))
+		                    ->delay(\Carbon\Carbon::now()->addDays(5));
+		dispatch($deleteThisRunJob);
+
+		return redirect("/run/".$newRun->dir);
+	}
+
+
+
 	public function tailLog(){
 		
 	}
