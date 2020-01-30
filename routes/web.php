@@ -14,9 +14,9 @@ use Illuminate\Http\Response;
 
 
 Route::get('/', function () {
+	return view('welcome');
 	$bytes = disk_free_space(storage_path()); 
 	if ($bytes < 30*1024*1024*1024) {
-	// if ($bytes < 30*1024*1024*1024) {
 		return view('no_space');
 	}
 	else{
@@ -29,9 +29,7 @@ Route::get('/', function () {
  *** TopBar
 **************************************************************************/
 
-Route::get('/contact', function () {
-	return view('contact');
-});
+Route::view('/contact', 'contact');
 
 // Return a download of the sample-data
 
@@ -51,15 +49,13 @@ Route::get('/example-data', function ()
 	}
 });
 
-Route::get('/documentation', function ()  {
-	return view('documentation');
-});
+Route::view('/documentation', 'documentation');
 
 //Return example output results page
-Route::get('/example-results', function ()
-{
-	return view('results',['runName'=>"Example Run", 'hash'=>"example-run"]);
-});
+Route::view('/example-results','results',['runName'=>"Example Run", 'hash'=>"example-run", 'oldVersion'=>false]);
+
+Route::view('/upload-previous','upload_previous');
+Route::post('/upload-previous','RunController@postUploadPrevious');
 
 
 // The upload page for a run. If the run has a status of running, redirect to run page
@@ -88,7 +84,8 @@ Route::get('/run/{hash}', function ($hash)  {
 			return $redirect;
 		}
 		else if ($run->status == "finished") {
-			return view('results',['runName'=>$run->name, 'hash'=>$hash]);
+			$oldVersion = ($hash != 'example-run' && (empty($run->version)) || $run->version != config('docker.tag'));
+			return view('results',['oldVersion'=>$oldVersion, 'runName'=>$run->name, 'hash'=>$hash]);
 		}
 		// else if ($status == 'running' || $status = 'error' || $status = 'queued') {
 		else {
@@ -140,7 +137,11 @@ Route::get('/parameters/{hash}', function ($hash)  {
 		}
 		
 	} 
-	catch(Exception $e) {
+	catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+		\Log::debug("Run not found ");
+		abort(404);
+	}
+	catch(\Exception $e) {
 		\Log::error("Exception thrown on /parameters/$hash");
 		\Log::error($e);
 		abort(404);
@@ -326,6 +327,9 @@ Route::get('/results/sgrna_rankings_query/{hash}/{prefix}',  'ResultsController@
 Route::get('/results/sgrna_rankings/{hash}',  'ResultsController@getSgrnaRankings');
 Route::get('/results/sgrna_efficiency/{hash}',  'ResultsController@getSgrnaEfficiency');
 Route::get('/results/control/{hash}',           'ResultsController@getControl');
+Route::get('/results/density_plots/{hash}',  'ResultsController@getSgrnaDensity');
+Route::get('/results/gene_pvalue/{hash}',  'ResultsController@getGenePValue');
+Route::get('/results/pvalue_dist/{hash}',  'ResultsController@getSgrnaPvalue');
 
 /*** Statistics *********************/
 Route::get('/results/readcount_statistics/{hash}',           'ResultsController@getReadCountStatistics');
@@ -333,10 +337,18 @@ Route::get('/results/alignment_statistics/{hash}',           'ResultsController@
 Route::get('/results/cutadapt/{hash}',        						   'ResultsController@getCutadapt');
 Route::get('/results/sequence_quality/{hash}',        			 'ResultsController@getSequenceQuality');
 Route::get('/results/sequencing_depth/{hash}',        			 'ResultsController@getSequencingDepth');
+Route::get('/results/readcount_dispersion/{hash}',        			 'ResultsController@getReadcountDispersion');
+Route::get('/results/readcount_distribution/{hash}',           'ResultsController@getReadcountDistribution');
+Route::get('/results/replicate_correlation/{hash}',  'ResultsController@getReplicateCorrelation');
 
 /*** Scatter Plots ******************/
 Route::get('/results/readcount_scatterplots/{hash}',     'ResultsController@getReadCountScatterplots');
 Route::get('/results/replicate_correlation/{hash}',     'ResultsController@getReplicateCorrelation');
+Route::get('/results/volcano_plots/{hash}',     'ResultsController@getVolcanoPlots');
+Route::get('/results/zscore_plots/{hash}',     'ResultsController@getZscorePlots');
+Route::get('/results/gene_plots/{hash}',     'ResultsController@getGenePlots');
+//WIP 9/4
+//Route::get('/results/readcount_scatterplots/{hash}/{id}/{idSingular}',     'ResultsController@getScatterplots');
 
 /*** Heatmap ************************/
 Route::get('/results/heatmap/{hash}',           'ResultsController@getHeatmap');
@@ -347,12 +359,13 @@ Route::get('/results/output_log/{hash}',        'ResultsController@getOutputLog'
 Route::get('/results/candidate_lists/{hash}', 'ResultsController@getCandidateLists');
 Route::get('/results/qc/{hash}', 'ResultsController@getQc');
 Route::get('/results/readcount_scatterplots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewScatterPlot');
+Route::get('/results/volcano_plots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewVolcanoPlot');
+Route::get('/results/zscore_plots_gene_select/{hash}/{prefix}/{gene}/{showIds}/{nonT}', 'ResultsController@getNewZscorePlot');
+Route::get('/results/gene_plots_gene_select/{hash}/{prefix}/{gene}', 'ResultsController@getNewGenePlot');
 
 
 // Bug reports
-Route::get('/bug-report', function () {
-	return view('bug_report');
-}); 
+Route::view('/bug-report', 'bug_report'); 
 // Bug reports
 Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
 	$url = $req->input('url');
@@ -366,20 +379,36 @@ Route::post('/bug-report', function (\Illuminate\Http\Request $req) {
 
 
 
-Route::get('/download_test', function ()
-{
-	return view('download_test');
-});
+Route::view('/download_test', 'download_test');
 
-Route::get('/no_space', function ()
-{
-	return view('no_space');
-});
+Route::view('/no_space', 'no_space');
 
 Route::get('/testList', function () {
 	$result = shell_exec("export HOME=".storage_path('logs')."; forever --plain list 2>&1 ");
 	echo  "<pre>$result</pre>";
 });
+
+
+Route::get('/test', function () {
+	 if (is_numeric($postMaxSize = ini_get('post_max_size'))) {
+            return (int) $postMaxSize;
+        }
+
+        $metric = strtoupper(substr($postMaxSize, -1));
+        $postMaxSize = (int) $postMaxSize;
+
+        switch ($metric) {
+            case 'K':
+                return $postMaxSize * 1024;
+            case 'M':
+                return $postMaxSize * 1048576;
+            case 'G':
+                return $postMaxSize * 1073741824;
+            default:
+                return $postMaxSize;
+        }
+});
+
 
 foreach (get_class_methods('App\Http\Controllers\DownloadController') as $method) {
 		Route::get("/download_test/$method", "DownloadController@$method");

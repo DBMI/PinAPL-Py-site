@@ -2,3 +2,6 @@
 !.gitignore
 !example-run
 !example-run/**
+example-run/**/*_Highlighed_Genes**
+example-run/workingDir/Analysis/*/*/*_Highlighted_Genes
+example-run/workingDir/Analysis/*/*/*_Highlighted_Genes/**

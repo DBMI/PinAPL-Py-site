@@ -43,7 +43,7 @@
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-1.2.1">1.2.1 Parameters </a>
+			<a class="c5" href="#h-1.2.1">1.2.1 Parameter description </a>
 		</span>
 	</p>
 	<p class="c17">
@@ -58,27 +58,22 @@
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-2.1">2.1 Enrichment/Depletion </a>
+			<a class="c5" href="#h-2.1">2.1 Gene Ranking Results </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-2.2">2.2 Statistics </a>
+			<a class="c5" href="#h-2.2">2.2 sgRNA Ranking Results </a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-2.3">2.3 Scatter Plots</a>
+			<a class="c5" href="#h-2.3">2.3 Alignment Results</a>
 		</span>
 	</p>
 	<p class="c17">
 		<span class="c3">
-			<a class="c5" href="#h-2.4">2.4 Heatmap</a>
-		</span>
-	</p>
-	<p class="c17">
-		<span class="c3">
-			<a class="c5" href="#h-2.5">2.5 Run Info</a>
+			<a class="c5" href="#h-2.4">2.4 Run Info</a>
 		</span>
 	</p>
 	<p class="c45" id="refrences-header">
@@ -102,24 +97,28 @@
 	<p class="c8" id="h-step2" >Step 2: UPLOAD DATA
 	</p>
 	<p>
-		Upload your files via the drag-and-drop frame. Uncompressed format (.fastq) is supported, but compressed (.fastq.gz) is recommended.</span>
+		Upload your files via the drag-and-drop frame. Uncompressed format (.fastq) is supported, but compressed (.fastq.gz) is strongly recommended for speed.</span>
 	</p>
 	<p class="c8" id="h-step3">Step 3: ENTER SAMPLE INFORMATION
 	</p>
-	<p>Enter the <b>name of the condition each</b> file represents. Files representing replicates of the same condition have to be given the same name. Do not number your replicates. Numbering is done automatically by the program and displayed on the results page after completion of the analysis. 
+	<p>Enter the <b>name of the condition each</b> file represents. <b>Files representing replicates of the same condition have to be given the same name. Do not number your replicates</b>. Numbering is done automatically by the program and displayed on the results page after completion of the analysis. 
+	<p>Please mark all <b>control replicates</b> with the checkbox to the right. Naming the control samples is optional</p>
+	Example:
+	<SCREENSHOT>
+	Here, two files represent replicates of treatment with Toxin A. Two files represent replicates of treatment with Toxin B. Two files represent replicates of the control treatment.
 	</p>
-	<p>Please mark all <b>control replicates</b> with the checkbox to the right.</p>
+	<img src="/img/screenshot_doc.png" align="middle">
 	<p id="h-step4" class="c8">Step 4: CONFIGURE YOUR ANALYSIS RUN
 	</p>
    <p>
-		First, choose the <b>screen type</b>. Choose between &ldquo;enrichment&rdquo; (e.g. a drug resistance screen) or &ldquo;depletion&rdquo; (e.g. a gene-essentiality screen), depending on whether your screen aims at finding sgRNAs of high or low abundance, respectively.Next, choose the <b>sgRNA library</b> used in your screen from the dropdown menu. If your screen uses a library not present in the list or a custom library, see &ldquo;Uploading a custom library&rdquo; in the Advanced Options below.
+		First, choose the <b>screen type</b>. Choose between &ldquo;enrichment&rdquo; (e.g. a drug resistance screen) or &ldquo;depletion&rdquo; (e.g. a gene-essentiality screen), depending on whether your screen aims at finding sgRNAs of high or low abundance, respectively. Next, choose the <b>sgRNA library</b> used in your screen from the dropdown menu. If your screen uses a library not present in the list or a custom library, see &ldquo;Uploading a custom library&rdquo; in the Advanced Options below.
 	</p>
    <p>
 		Optional: If you would like to edit the default parameter settings, click <b>Advanced Options</b>. For instructions on these parameters, see “Parameter description” in the Advanced Options section.
 	</p>
 	<p class="c8" id="h-step5"> Step 5: RUNNING AND COMPLETION </p>
 	<p>
-		You can follow the program’s execution log by refreshing the page repeatedly. In case another run was started shortly before yours, your run will be queued and start after completion of the previous. </p>
+		You can follow the program’s execution log by refreshing the page repeatedly. In case another run was started before yours, your run will be queued and start after completion of the previous. </p>
 	<p>
 		If you provided an email address, you can close the browser; you will be notified by email and sent a link to the results after completion. Otherwise, please leave the progress screen open. 
 	</p>
@@ -128,126 +127,139 @@
 	</p>
 	<h2 id="h-1.2">1.2 ADVANCED OPTIONS</h2>
 	</h2>
-	<h3 id="h-1.2.1">1.2.1 <u>Parameters</u></h3>
+	<h3 id="h-1.2.1">1.2.1 <u>Parameter Description</u></h3>
 	</p>
-	<h4 id="ALIGNMENT">ALIGNMENT</h4>
-	<h5><u>sgRNA Sequence Length (default = 20)</u></h5>
+	<h4>Gene Ranking</h4>
+    
+	<h5><u>Gene Ranking Metric (default = "SUMLFC"): </u></h5>
+	<p>Method to combine the sgRNA enrichment/depletion data for ranking of genes: </p>
+	<ul>
+		<li>
+			<b>SUMLFC:</b> <span style="color:red">*** NEW in v2.9 ***</span> This method computes a gene score by taking the sum of the log fold-changes of all sgRNAs targeting it, and multiplying it by the number of its sgRNAs that reached statistically significant enrichment/depletion.
+		</li>
+		<li>
+			<b>AVGLFC:</b> This method computes a gene score by averaging the log fold-changes of all sgRNAs targeting it.
+		</li>
+		<li>
+			<b>αRRA:</b> Adjusted robust rank aggregation (Li et al., 2014). This method computes a gene score based on a Beta model of the aggregation of sgRNAs. 
+		</li>
+		<li>
+			<b>STARS:</b> STARS score (Doench et al., 2016). This method computes a gene score based on a binomial model. It requires a gene to have at least two sgRNAs ranked among the top x% (see the “sgRNAs Included (STARS only)” parameter below). 
+		</li>
+	</ul>
+	<p>For more details on these methods, please refer to the original publications or use our contact page.</p>
+
+	<h5><u>Number of permutations (default = 1000): </u></h5>
 	<p>
-		The length of your sgRNA sequence in the reads.
+		Number of permutations for p-value estimation of the gene ranking score. <b>CAUTION:</b> If STARS is chosen, reducing the number of permutations (to e.g. 10) is strongly recommended, due to the increased computational demand.
 	</p>
-	<h5><u>Adapter error rate (default = 0.1)</u></h5>
+
+	<h5><u>Significance level (default = 0.01)</u></h5>
+	<p>Significance threshold for gene ranking.</p>    
+        
+	<h5><u>%sgRNAs Included (STARS only) (default = 10):</u></h5>
+	<p>Percentage of sgRNAs to be included in the ranking analysis. Only relevant if &ldquo;STARS &rdquo;method is chosen.</p>
+
+	<br>
+    
+    <h4>sgRNA Ranking</h4>    
+	<h5><u>p-value adjustment (default = "Sidak"):</u></h5>
+	<p>Method for p-value adjustment for multiple tests.</p>
+	<ul>
+		<li><b>sidak:</b> Sidak correction method.</li>
+        <li><b>fdr_bh:</b> Benjamini-Hochberg correction method.</li>	
+		<li><b>bonferroni:</b> Bonferroni correction method.</li>
+	</ul>    
+
+	<h5><u>Significance level (default = 0.01)</u></h5>
+	<p>Significance threshold for sgRNA ranking.</p>    
+    
+	<h5><u>Cluster by… (default = "Highest Variance"): </u></h5>
+	<p>Criterion for sample clustering.</p>
+	<ul>
+		<li><b>Highest Variance:</b> Clustering of the samples is based on the sgRNAs with the highest read count variance across all samples.</li>
+		<li><b>Highest Counts:</b> Clustering of the samples is based on the sgRNAs with the highest/lowest abundance (depending on whether the screen type is "enrichment"/"depletion").</li>
+	</ul>
+
+    <h5><u>Top% of sgRNAs for clustering (default = 25): </u></h5>
+	<p>Specifies what quantile of sgRNAs clustering is based on. In case of clustering by highest counts, the top x sgRNAs from each sample are combined.</p>
+    
+	
+	<h4>Read Counting</h4>
+	<h5><u>Normalization: (default = &lsquo;cpm &rsquo;): </u></h5>
+	<p>Method of read count normalization.</p>
+	<ul>
+		<li><b>total:</b> Read counts for each sgRNA are divided by the number of total number of reads in the sample and multiplied by the mean total number of read counts across all samples.</li>
+		<li><b>cpm:</b> Counts per million. Read counts for each sgRNA are divided by the number of total read counts in the sample and multiplied by 1,000,000.</li>		
+		<li><b>size:</b> Read counts are normalized using median ratios and the "size-factor" method, as decribed in (Li et al., 2014; Anders and Huber, 2010).</li>
+	</ul>
+	<h5><u>Cutoff (default = 0): </u></h5>
+	<p>
+		Cutoff threshold (given in cpm) to filter out low sgRNA read counts. sgRNAs with read counts lower than the cutoff will be set to 0.
+	</p>
+	<h5><u>Round Counts (default = No): </u></h5>
+	<p>
+		Round read counts after normalization to avoid fractional read counts. Rounding only affects visualization, but not significance analysis.
+	</p>
+	<h5><u>Averaging (default = Median): </u></h5>
+	<p>
+		Method of averaging sgRNA read counts across replicates (Median / Mean)
+	</p>		
+	
+	
+    <h4 id="ALIGNMENT">Alignment</h4>
+	<h5><u>sgRNA Length (default = 20)</u></h5>
+	<p>
+		Length of the sgRNA in the sequence read.
+	</p>
+	<h5><u>Adapter Error Tolerance (default = 0.1)</u></h5>
 	<p>
 		Error rate (mismatches and indels) allowed for the identification of the 5’ adapter (Refer to the <a href="http://cutadapt.readthedocs.io/en/stable/guide.html#error-tolerance">cutadapt manual</a> for more details). Increasing this rate can help to control for poor sequence quality.
 	</p>
 
-	<h5><u>Matching threshold (default = 40)</u></h5>
-	<p>Minimal alignment score required to consider a read successfully matched. For a perfect match this must be double the sgRNA sequence length (Refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#scores-higher-more-similar">Bowtie2 manual</a> for more details on calculation of the alignment score). Decreasing this threshold will include reads with a less than optimal match to a library entry which can be helpful to increase sensitivity or control for sequence quality.</p>
+	<h5><u>Matching Threshold (default = 40)</u></h5>
+	<p>Minimal alignment score required to consider a read successfully matched. For a perfect match this must be double the sgRNA sequence length (Refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#scores-higher-more-similar">Bowtie2 manual</a> for more details on calculation of the alignment score). Decreasing this threshold will include reads with a less than optimal match to a library entry which can be helpful to increase sensitivity or control for poor sequence quality.</p>
 
-	<h5><u>Ambiguity threshold (default = 2):</u></h5>
+	<h5><u>Ambiguity Threshold (default = 2):</u></h5>
 	<p>Minimum tolerated difference between primary (best) and secondary (second-best) alignment to consider a read successfully matched. Reads with a difference lower than this threshold will be considered ambiguous and discarded. Increasing this threshold increases stringency. Decreasing this threshold increases sensitivity. With a threshold of 0, the program will accept reads even if they match multiple library entries equally well.</p>
 
-	<h5><u>Seed length (default = 11): </u></h5>
+	<h5><u>Seed Length (default = 11): </u></h5>
 	<p>Seed length parameter for Bowtie2 alignment (-L, refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#options">Bowtie2 manual</a> for more details). Changing this parameter is generally not required.</p>
 
-	<h5><u>Seed number (default = 1):</u></h5>
+	<h5><u>Seed Number (default = 1):</u></h5>
 	<p>Number of allowed mismatches for Bowtie2 seed alignment (-N, refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#options">Bowtie2 manual</a> for more details). Changing this parameter is generally not required.</p>
 
-	<h5><u>Seed interval function (default = ‘S,1,0.75’): </u></h5>
+	<h5><u>Interval Function (default = "S,1,0.75"): </u></h5>
 	<p>Bowtie2 seed interval function (-i, refer to the <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#options">Bowtie2 manual</a> for more details). Changing this parameter is generally not required.</p>
 
-	<h4>READ COUNTING</h4>
-	<h5><u>Normalization: (default = &lsquo;cpm &rsquo;): </u></h5>
-	<p>Method of read count normalization.</p>
-	<ul>
-		<li><b>cpm:</b> Counts per million. Read counts are divided by the number of total read counts in the sample and multiplied by 1,000,000.</li>
-		<li><b>total:</b> Read counts are divided by the number of total read counts in the sample and multiplied by the mean total read count across all samples.</li>
-		<li><b>size:</b> Read counts are normalized using median ratios and the “size-factor” method, as decribed in (Li et al., 2014; Anders and Huber, 2010).</li>
-	</ul>
-	<h5><u>Cutoff (default = 0): </u></h5>
-	<p>
-		Cutoff threshold (given in cpm) to filter out low sgRNA counts. sgRNAs with counts lower than the cutoff will be set to 0 counts. If low counts are of minor interest for the experiment (e.g. in an enrichment screen), this can be helpful to reduce noise in the data.
-	</p>
 
-	<h5><u>Round counts (default = No): </u></h5>
-	<p>
-		Round counts after normalization to avoid fractional counts. Rounding only affects visualization, but not significance analysis.
-	</p>
-	
-	<h4>GENE RANKING</h4>
-	<h5><u>Gene Metric (default = "αRRA:"): </u></h5>
-	<p>Method to combine the sgRNA enrichment/depletion data for ranking of genes: </p>
-	<ul>
-		<li>
-			<b>αRRA:</b> Adjusted robust rank aggregation (Li et al., 2014). This method ranks genes, based on a Beta model of the aggregation of sgRNAs. It requires a sgRNA to achieve at least a certain critical p-value (see “P0” parameter below) to be taken into account.
-		</li>
-		<li>
-			<b>STARS:</b> STARS score (Doench et al., 2016). This method ranks genes, based on a binomial model. It requires a gene to have at least two sgRNAs ranked among the top x% (see “sgRNA percentage” parameter below). 
-		</li>
-		<li>
-			<b>AVGLFC:</b> Genes solely ranked by sgRNA abundance. The gene rank is the log fold-change in sgRNA abundance, averaged over all sgRNAs targeting the same gene.
-		</li>
-	</ul>
-	<p>For more details on these methods, please refer to the original publications.</p>
+	<h4>Plotting</h4>
+	<h5><u>Show Non-Targeting Controls (default = Yes):</u></h5>
+	<p>Highlight non-targeting control sgRNAs (if present in the library) in scatterplots.</p>
 
-	<h5><u>Number of permutations (default = 1000): </u></h5>
-	<p>
-		Number of permutations for p-value estimation of the gene ranking score. CAUTION: STARS is more computationally demanding than aRRA, so reducing the number of permutations is recommended in this case.
-	</p>
+	<h5><u>Annotate sgRNAs (default = No):</u></h5>
+	<p>Display sgRNA IDs when highlighting individual genes in scatterplots.</p>
 
-	<h5><u>sgRNA percentage (STARS only) (default = 10):</u></h5>
-	<p>Percentage of sgRNAs to be included in the ranking analysis. Only relevant if &ldquo;STARS &rdquo;method is chosen.</p>
+	<h5><u>Transparency Level (default = 0.05):</u></h5>
+	<p>Transparency of points in scatterplots. A lower level is helpful to visualize differences in density. </p>
 
-	<h5><u>P0 (aRRA only) (default = 0.0005): </u></h5>
-	<p>Critical p-value for individual sgRNAs to be included in the ranking analysis. Only relevant if “aRRA” method is chosen.</p>
-
-	<h4>STATISTICAL SIGNIFICANCE</h4>
-
-	<h5><u>Significance level (sgRNAs) (default = 0.001)</u></h5>
-	<p>Significance threshold for the fold-change enrichment/depletion of sgRNAs.</p>
-
-	<h5><u>Significance level (genes) (default = 0.01)</u></h5>
-	<p>Significance threshold for the gene ranking score.</p>
-
-	<h5><u>p-value adjustment (default = ‘fdr_bh’):</u></h5>
-	<p>Method for p-value adjustment for multiple tests.</p>
-	<ul>
-		<li><b>fdr_bh:</b> Benjamini-Hochberg method.</li>
-		<li><b>fdr_tsbh:</b> Two-stage Benjamini-Hochberg method.</li>
-		<li><b>sidak:</b> Sidak correction method.</li>
-		<li><b>bonferroni:</b> Bonferroni correction method.</li>
-	</ul>
-
-	<h4>SAMPLE CLUSTERING</h4>
-	<h5><u>Cluster by… (default = ‘variance’): </u></h5>
-	<p>Criterion for sample clustering.</p>
-	<ul>
-		<li><b>variance:</b> Clustering of the samples is based on the sgRNAs with the highest read count variance across all samples.</li>
-		<li><b>counts:</b> Clustering of the samples is based on the sgRNAs with the highest/lowest abundance (depending on whether the screen type is “enrichment” or “depletion”).</li>
-	</ul>
-
-	<h5><u>Number of sgRNAs for clustering (default = 25): </u></h5>
-	<p>Specify how many sgRNAs are used for clustering with the method selected above. In case of clustering by counts, the top x sgRNAs from each sample are combined.</p>
-
-	<h4>VISUALIZATION</h4>
-	
 	<h5><u>Dotsize (default = 10):</u></h5>
-	<p>Size of dots in replicate scatterplots.</p>
+	<p>Size of dots in scatterplots.</p>
 
-	<h5><u>Transparency level (default = 0.1):</u></h5>
-	<p>Transparency of points in scatterplots. A low level is helpful to visualize density. </p>
-	
-	<h5><u>sgRNA annotation (default = No):</u></h5>
-	<p>Annotate sgRNA with their IDs when highlighting individual genes in scatterplots.</p>
-	
-	<h5><u>Highlight non-targeting controls (default = No):</u></h5>
-	<p>Highlight non-targeting control sgRNAs in scatterplots.</p>
-
-	<h5><u>Table format (default = Text only):</u></h5>
-	<p>File format for sgRNA and gene tables in the download archive. Use “Text only” for optimal workflow speed. Text files (.tsv) can be manually opened and converted with Excel. Use “Excel” to have the workflow automatically convert all text tables into .xlsx format (WARNING: This increases computation time).</p>
-
-	<h5><u>PNG resolution (default = 300):</u></h5>
+	<h5><u>PNG Resolution (default = 300):</u></h5>
 	<p>Resolution for PNG output (dpi).</p>
+	
+	<h5><u>Spreadsheet Format (default = Excel):</u></h5>
+	<p>File format for sgRNA and gene tables in the download archive. Use "Excel" to have the workflow automatically convert all text tables into .xlsx format. "Text only" produces only .txt files which saves computation time, but requires manual import into Excel.</p>
 
+	<h5><u>AutoHighlight Top Hits (default = Yes):</u> <span style="color:red">** NEW in v2.9 ***</span></h5>
+	<p>Automatically draws scatterplots highlighting the 10 top ranked genes (only available in the download zip file, not on the website). Setting this to "No" saves computation time.</p>
+	
+	<h5><u>Include Density Plot (default = Yes):</u> <span style="color:red">** NEW in v2.9 ***</span></h5>
+	<p>Draw a density plot of the sgRNA abundance for each sample. Setting this to "No" saves computation time.</p>	
+
+	<h5><u>Signif. Level (Model Selection) (default = 0.05):</u></h5>
+	<p>Significance level for choosing a statistical model for the read count distribution. If the data differs significantly from a Poisson distribution, the Negative Binomial distribution is chosen.</p>	
 
 
 	<h3 id="h-1.2.2">1.2.2 <u>Uploading a custom library:</u></h3>
@@ -255,7 +267,7 @@
 	<ul>
 		<li><b>gene:</b> This column contains an identifier of the gene that is targeted by the sgRNA</li>
 		<li><b>sgRNA_ID:</b> This column contains an identifier of the sgRNA</li>
-		<li><b>sequence:</b> This column contains the 20bp sequence of the sgRNA</li>
+		<li><b>sequence:</b> This column contains the (typically 20bp) sequence of the sgRNA</li>
 	</ul>
 	<p>You can choose other header names for these columns. See example below.</p>
 	<u>Example:</u>
@@ -343,9 +355,9 @@
 	</table>
 	<p>
 		Save the spreadsheet as <b>either tab-separated format (.tsv) or comma-separated format (.csv)</b>. 
-		You can use the <b>"Save As"</b> menu item in Excel to do this.
+		You can use the <b>"Save As"</b> menu item in Excel to do so.
 	</p>
-	<p>Use the file browser to select and upload your library file.</p>
+	<p>When your file is ready, use the file browser to select and upload your library file.</p>
 	<p>Next, specify the following parameters:</p>
 	<h5><u>5&rsquo;-adapter: </u></h5>
 	<p>
@@ -367,7 +379,7 @@
 	<p>you can, for example, define TCTTGTGGAAAGGACGAAACACCN as the 5&rsquo;-adapter. </p>
 
 	<h5><u>Identifier for non-targeting controls:</u></h5>
-	<p>If your library contains non-targeting controls, enter an <b>identifier</b> in the library spreadsheet to define sgRNAs containing non-targeting controls. The identifier is a part of the gene_ID that is unique to the non-targeting controls (see example below). If your library does not contain non-targeting controls, enter <b>&ldquo;none&rdquo;</b></p>
+	<p>If your library contains non-targeting controls, enter an <b>identifier</b> in the library spreadsheet to define the corresponding sgRNAs sequences. The identifier is a part of the gene_ID that is unique to the non-targeting controls (see example below). If your library does not contain non-targeting controls, enter <b>&ldquo;none&rdquo;</b></p>
 
 	<table>
 		<tbody>
@@ -417,20 +429,22 @@
 			</tr>
 		</tbody>
 	</table>
-	<p><i>Example:</i> An identifier in this case would be “Non_Target”.</p>
-
-
-
+	<p>The identifier in this case would be <b>“Non_Target”</b>.</p>
 
 
 	<h5><u>Number of sgRNAs per gene:</u></h5>
 	<p>
-		Specifies the number of sgRNAs targeting a single gene (excluding non-targeting controls, miRNAs and other non-genes in your library). 
+		Specify the number of sgRNAs targeting a single gene (e.g. 6 in case of the GeCKO library). If this number varies across the library, choose the number that applies to the majority of library entries. Non-targeting controls, miRNAs or other control entries in the library are excluded. 
 	</p>
+
+
+
+
+
 
 	<h1 id="h-2">2 Description of the PinAPL-Py Analysis output</h1>
    <p>
-		The PinAPL-Py output is structured by logical order into tabs and subtabs on the results page. In addition, all output can be downloaded via the <b>“Download Results Archive”</b> button as a single .zip file. Images are saved both as high-resolution .png as well as as .svg vector graphics which can be further processed in Adobe Illustrator or similar image processing software. Tables are saved as raw text (.tsv), but can be manually opened with Excel and saved as Excel spreadsheets. For convenience, PinAPL-Py can convert tables on-the-fly (see the “Table Format” parameter on the configuration page), at the cost of additional computation time. NOTE for Windows users: To view text files (.txt/.tsv/.csv), <a target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a> is recommended
+		The PinAPL-Py output is structured by logical order into tabs and subtabs on the results page. In addition, all output can be downloaded via the <b>“Download Results”</b> button as a single .zip file. Images are saved both as high-resolution .png as well as as .svg vector graphics which can be further processed in Adobe Illustrator or similar image processing software. Tables are saved as raw text (.txt), but can be manually opened with Excel and saved as Excel spreadsheets. For convenience, PinAPL-Py can convert tables on-the-fly (see the “Table Format” parameter on the configuration page), at the cost of additional computation time. NOTE for Windows users: To view text files (.txt/.tsv/.csv), <a target="blank" href="https://notepad-plus-plus.org/download/v7.2.1.html">Notepad++</a> is recommended
 	</p>
 
 	<br>
@@ -438,140 +452,138 @@
 		<p>NOTE: When the analysis is run with two or more replicate samples for a condition, PinAPL-Py will show an additional sample for that condition (named "&lt;condition name&gt;_avg") where results are averaged across the replicates.</p>
 	</div>
 
-	<h2 id="h-2.1">2.1 Enrichment/Depletion</h2>
 
-	<h5><u>Gene Rankings:</u></h5>
+
+	<h2 id="h-2.1">2.1 Gene Ranking Results</h2>
+
+	<h5><u>Gene Rankings</u></h5>
 
 	<p>This tab contains the results of the gene ranking analysis in a sortable table. The columns are:</p>
 	<ul>
 		<li><b>Gene:</b> Name of gene (as defined in the library file)</li>
-		<li><b>Gene Score:</b> Value of the computed gene metric score. &lt;gene metric&gt; is either aRRA or STARS score, as chosen in on configuration page</li>
-		<li><b>Gene Score p-value</b>: Estimated (one-sided) p-value of the gene score </li>
-		<li><b>Gene Score FDR:</b> Estimated false discovery rate of the achieved gene score</li>
-		<li><b>significant:</b> Statistical significance of the obtained gene metric score. Declared “True” if the FDR is smaller than the significance threshold, defined on the configuration page </li>
-		<li><b># sgRNAs:</b>Number of sgRNAs targeting the particular gene</li>
+		<li><b>Gene Score:</b> Value of the computed gene metric score</li>
+		<li><b>Gene Score p-value</b>: Estimated (one-sided) p-value of the gene score, based on a permutation test where sgRNAs are randomly assinged to genes.</li>
+		<li><b>Significant:</b> Statistical significance of the gene score.</li>
+		<li><b># sgRNAs:</b>Number of sgRNAs targeting the gene</li>
 		<li><b># Signif. sgRNAs:</b> Number of sgRNAs targeting the particular gene that reached statistical significance in the sgRNA ranking</li>
-		<li><b>Avg. log FC:</b> Average log10 fold-change of all sgRNAs targeting the particular gene</li>
 	</ul>
-	<p>Results are sorted by number of significant sgRNAs by default.</p>
+	<p>By default, the table is sorted by p-value. You can sort by other columns (ascending or descending) by clicking on the respective column headers (arrows).</p>
 
-	<div class="callout warning">
-		<p>NOTE: When the analysis is run with two or more replicate samples for a condition, PinAPL-Py will show an additional sample for that condition (named "&lt;condition name&gt;_combined") where p-values from the individual replicates are combined according to Fisher's method.</p>
-	</div>
+	<h5><u>Scatterplots</u></h5>
+	<p>This tab plots the gene score for each gene (alphabetically sorted on the x-axis). Significant scores are plotted in green. Non-targeting controls (if present) are plotted in orange. The selector at the top can be used to highlight a particular gene of interest (After clicking the selection box, you can type first letter of the gene name to find the gene more quickly). </p>
 
-	<h5><u>sgRNA Rankings:</u></h5>
-	<p>This tab contains the results of the sgRNA enrichment/depletion analysis. The columns are:</p>
+	<h5><u>p-Value Distribution</u></h5>
+	<p>This tab shows the distribution of p-values from the gene ranking analysis. Typically, a bimodal distribution is seen, with a small bar on the left end and a large bar on the right end.</p>
+
+	<h5><u>sgRNA Efficacy:</u></h5>
+	<p>This tab shows information about the overall efficacy of sgRNAs targeting the same gene. Genes are categorized by the number of targeting sgRNAs that reached statistically significant enrichment/depletion. Genes having no significant sgRNAs are omitted. </p>
+
+	<h2 id="h-2.2">2.2 sgRNA Ranking Results</h2>
+	
+	<h5><u>Rankings</u></h5>
+
+	<p>This tab contains the results of the sgRNA ranking analysis in a sortable table. The columns are:</p>
 	<ul>
 		<li><b>sgRNA:</b> Identifier of sgRNA </li>
 		<li><b>Gene:</b> Name of target gene </li>
-		<li><b>Counts:</b> Normalized Read count </li>
-		<li><b>Control mean: </b>Average normalized read count in the control samples </li>
-		<li><b>Control StDev:</b> Standard deviation of normalized read counts in the control samples</li>
-		<li><b>Fold Change:</b> The ratio of normalized read counts in the sample to the control average</li>
-		<li><b>p-value:</b> p-value (one-sided) of the normalized read count</li>
-		<li><b>FDR:</b> False discovery rate of the normalized read count</li>
-		<li><b>Significant:</b> Statistical significance of the normalized read count. Declared “True” if the FDR is smaller than the significance threshold, defined on the configuration page</li>
+		<li><b>Counts:</b> Normalized read count </li>
+		<li><b>Control Mean: </b>Average normalized read count of this sgRNA in the control </li>
+		<li><b>Control StDev:</b> Standard deviation of normalized read count in the control</li>
+		<li><b>Fold Change:</b> The ratio of normalized read count in the sample to the control average</li>
+		<li><b>p-value:</b> p-value (one-sided) of the enrichment/depletion of this sgRNA compared to the control</li>
+		<li><b>Significant:</b> Statistical significance of the enrichment/depletion of this sgRNA</li>
 	</ul>
+	<p>By default, the table is sorted by p-value. You can sort by other columns (ascending or descending) by clicking on the respective column headers (arrows).</p>	
 
-	<h5><u>sgRNA_Efficacy:</u></h5>
-	<p>This plot shows information about the overall efficacy of sgRNAs targeting the same gene. Genes are categorized by the number of targeting sgRNAs reaching statistical significance. Genes having no significant sgRNAs are omitted. </p>
+	<h5><u>Plots</u></h5>
+	
+	<h6><u>Treatment vs Control</u></h6>
+	<p>Scatterplots of normalized sgRNA read counts in the sample versus the average normalized count in the controls. The fraction reaching significant enrichment/depletion (dependent on screen type) compared to the control is plotted in green. Non-targeting controls (if present) are plotted in orange. The selector at the top can be used to highlight a particular gene of interest (After clicking the selection box, you can type first letter of the gene name to find the gene more quickly). After highlighting a particular gene, the IDs of the corresponding sgRNAs can be displayed using the checkbox on the far right. Highlighting of non-targeting controls can be switched on or off with the checkbox next to the gene selector.</p>	
 
-	<h5><u>p-values:</u></h5>
-	<p>This tab contains various plots visualizing the fraction of sgRNAs and genes that reached statistical significance in the ranking.</p>
+	<h6><u>Density Plots</u> <span style="color:red">**** NEW in v2.9 ***</span></h6>
+	<p>Same data as the previous tab, but showing a density plot of the sgRNA abundance.</p>	
+
+	<h6><u>Volcano Plots</u></h6>	
+	<p>This tab plots sgRNA p-value against fold-change. The fraction reaching significant enrichment/depletion (dependent on screen type) compared to the control is plotted in green. Non-targeting controls (if present) are plotted in orange. The selector at the top can be used to highlight a particular gene of interest (After clicking the selection box, you can type first letter of the gene name to find the gene more quickly). After highlighting a particular gene, the IDs of the corresponding sgRNAs can be displayed using the checkbox on the far right. Highlighting of non-targeting controls can be switched on or off with the checkbox next to the gene selector. p-values are capped at 1e-16 for technical purposes. </p>
+
+	<h6><u>z-Score Plots</u></h6>
+	<p>This tab shows the fold-change for each sgRNA ranked from lowest to highest. The z-Score is the normalized deviation from the mean read count. The fraction reaching significant enrichment/depletion (dependent on screen type) compared to the control is plotted in green. Non-targeting controls (if present) are plotted in orange. The selector at the top can be used to highlight a particular gene of interest (After clicking the selection box, you can type first letter of the gene name to find the gene more quickly). After highlighting a particular gene, the IDs of the corresponding sgRNAs can be displayed using the checkbox on the far right. Highlighting of non-targeting controls can be switched on or off with the checkbox next to the gene selector.</p>
+	
+	<h6><u>p-Values</u></h6>
+	<p>This tab shows the distribution of p-values from the sgRNA enrichment/depletion analysis.</p>
+
+	<h6><u>Read Count Distribution</u></h6>
+	<p>This tab shows information about the statistical distribution of sgRNA read counts. </p>
 	<ul>
-		<li><b>Gene Significance:</b> The plot shows the distribution of p-values obtained in the gene ranking analysis, both before and after adjustment for multiple tests. In order for low p-values to be credible, this distribution should be noticeably different from a uniform distribution.</li>
-		<li><b>sgRNA Significance:</b> he plot shows the distribution of p-values obtained in the sgRNA ranking analysis, both before and after adjustment for multiple tests. In order for low p-values to be credible, this distribution should be noticeably different from a uniform distribution. </li>
+		<li><b>Left: Lorenz curves and Gini coefficients:</b> The Lorenz curve visualizes the distribution of reads, showing what fraction of sgRNAs (green) or genes (blue) is represented by what fraction of reads. The Gini coefficient quantifies the difference of this distribution from a perfectly even distribution. A perfectly even distribution would result in a diagonal curve (Gini coefficient = 0) and would indicate a complete absence of selection in the screen. An extremely uneven distribution results in a flat curve (Gini coefficient = 1) and would indicate extreme selection (only a single sgRNA/gene is represented in the sequencing data). Thus, the more selective the conditions of the screen are, the closer will the Gini coefficient approach 1.</li>
+		<li><b>Right: Boxplots and histograms:</b> Boxplots and histograms for the read counts per sgRNA (green) or gene (blue), respectively. Outliers are omitted for visualization purposes.</li>
+		<li><b>Bottom: Summary:</b> Descriptive statistics are summarized. sgRNA/gene representation measures the number of sgRNAs/genes detected by at least one read count in the sample (as percentage of the full library). </li>
+	</ul>	
 
-		<li><b>sgRNA Volcano:</b> The plot visualizes the fraction of sgRNAs whose fold change compared to the control yielded statistical significance. One-sided p-values are shown. p-values are capped at 1e-16 for technical purposes. </li>
+	<h6><u>Clusters</u></h6>
+	<p>This tab shows a cluster analysis (heatmap) of all samples in the dataset, based on the most variable or most abundant/depleted sgRNAs (as chosen on the configuration page). Log10 normalized read counts are color-coded from lowest (yellow) to highest (red).
+	</p>
+	
+	<h6><u>Replicate Correlation:</u></h6>
+	<p>Scatterplots showing the normalized sgRNA read counts in one replicate of each condition versus another. Pearson and Spearman correlation coefficients are reported. Non-targeting controls (if present) are plotted in orange. </p>
 
-		<li><b>sgRNA QQ:</b> The plot visualizes the degree by which the p-values obtained from the sgRNA ranking analysis differ from a uniform distribution (=“expected p-values”). In order for low p-values to be credible, they should show noticeable distance from the dashed line. p-values are capped at 1e-16 for technical purposes. </li>
-		<li><b>sgRNA z-Scores:</b> The plot visualizes the fraction of sgRNAs whose z-Score (=normalized deviation from the mean read count) yielded statistical significance.</li>
-	</ul>
-	<h2 id="h-2.2">2.2 Statistics</h2>
-	<h5><u>Read Count Distribution:</u></h5>
-	<p>This tab contains information about the statistical distribution of sgRNA read counts. </p>
+	<h6><u>Read Count Dispersion:</u></h6>
+	<p>This tab shows the distribution of read counts in the control samples only. These data are used to estimate the parameters of the statistical model describing the distribution of sgRNA read counts throughout the rest of the dataset.</p>
 	<ul>
-		<li><b>Lorenz curves and Gini coefficients:</b> The Lorenz curve visualizes the distribution of reads, showing what fraction of sgRNAs/genes is represented by what fraction of reads. The Gini coefficient quantifies the difference of this distribution from a perfectly even distribution. A perfect even distribution results in a diagonal curve (Gini coefficient = 0).  An extreme uneven distribution results in a flat curve (Gini coefficient = 1) (only a single sgRNA/gene is represented by all reads). These statistics can serves as an indicator of the strength of selection in a sample.</li>
-		<li><b>Boxplots, histograms and descriptive statistics:</b> Boxplots and histograms for the read counts per sgRNA or gene, respectively. Outliers are omitted for visualization purposes. Descriptive statistics are summarized below. sgRNA/Gene Representation measures the number of sgRNAs/genes detected by at least one count in the sample (as percentage of the full library). </li>
-	</ul>
-	<h5><u>Read Count Dispersion:</u></h5>
-	<p>This tab shows the distribution of read counts in the control samples. The data shown is used to estimate the parameters for the negative binomial distribution describing the read counts of each sgRNA.</p>
-	<ul>
-		<li><b>Read Count Overdispersion: </b> This plot visualizes the degree of overdispersion in the data, i.e. the degree by which the variance of read counts exceeds the mean (as typically seen in next-generation sequencing datasets).</li>
-		<li><b>Mean/Variance Model:</b> This plot shows shows the computed regression line, which is used to estimate the dispersion, i.e. the relationship between read count variance and mean. The dispersion is needed to estimate the parameters for the negative binomial distributions of each sgRNA.</li>
+		<li><b>Left: Read Count Overdispersion:</b> This plot visualizes the degree of overdispersion in the data, i.e. the degree by which the variance of read counts exceeds the mean (as typically seen in next-generation sequencing datasets). In case of significant overdispersion, a negative binomial model is chosen over a Poisson model.</li>
+		<li><b>Right: Mean/Variance Model:</b> This plot shows shows a regression of log overdispersion against log mean. This is required to compute the parameters of the statistical model.</li>
 	</ul>
 
-	<h5><u>Alignment:</u></h5>
-	<p>This tab summarizes the read alignment process. </p>
-	<ul>
-		<li>
-			<b>Mapping Quality:</b> 
-			Histogram of the overall quality by which the reads mapped to the library. Reads that uniquely align to a single library sequence yield a high mapping quality score. Reads that ambiguously align to multiple library sequences or that do not align to any library sequence yield a low mapping quality score. For more detailed information about computation of the mapping quality score, please refer to the <a class="c5" target="_blank" href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#mapping-quality-higher-more-unique">Bowtie2 manual</a>.
-		</li>
-		<li>
-			<b>Alignment Analysis:</b> 
-			Barplot showing the primary (best) and secondary (second-best) alignment scores achieved for each read. If a read uniquely aligns to only one library sequence, its primary alignment score will be high, and its secondary alignment score will be 0. If a read aligns ambiguously to multiple library sequences, its secondary alignment score will be close to its primary alignment score. If a read does not align to any library sequence, both its primary and secondary alignment scores will be 0. The fraction of reads marked in red is being discarded. 
-		</li>
-		<li>
-			<b>Alignment Results:</b>
-			This text file provides information about the success of the alignment, i.e. about the number of reads in each of the following fractions:
-			<ul>
-				<li><i>Unique Alignments:</i> The read aligns to only one library sequence.</li>
-				<li><i>Alignments above ambiguity tolerance:</i> The read aligns to more than one library sequence, but the difference between best and second-best alignment score is high enough to accept the best score.</li>
-				<li><i>Alignments below ambiguity tolerance:</i> The read aligns to more than one library sequence, but the difference between best and second-best alignment score is not high enough to safely assign the read to one particular library sequence.</li>
-				<li><i>Failed Alignments:</i> The read does not align to any library sequence.</li>
-			</ul>
-			Alignments below ambiguity tolerance and failed alignments are discarded before the remaining data analysis. For an explanation of the parameter settings reported at the bottom of the page, see the <a href="#ALIGNMENT">ALIGNMENT</a> section). 
-		</li>
-	</ul>
 
-	<h5><u>Adapter Trimming:</u></h5>
-	<p>This tab shows the log of the adapter trimming process, as reported by cutadapt. The output is explained in detail in the <a target="_blank" href="http://cutadapt.readthedocs.io/en/stable/guide.html#cutadapt-s-output">cutadapt manual</a>.</p>
+	<h2 id="h-2.3">2.3 Alignment Results</h2>
+	
+	<h5><u>Summary</u></h5>
+	<p>This tab shows the sequencing depth (number of total reads) per sample as well as the fractions of reads successfully or unsuccessfully aligned to the reference library. 
+	Alignment Unique: Only a single match found in the reference library.
+	Alignment Tolerated: Multiple matches found in the reference library, but the difference in matching score between the best and second-best was above the ambiguity threshold.
+	Alignment Ambiguous: Multiple matches found in the reference library, and the difference in matching score between the best and second-best was below the ambiguity threshold.
+	Alignment Failed: No match found in reference library.
+	Reads with failed and ambiguous alignment are discarded prior to the subsequent enrichment/depletion analysis.</p>
+
+	<h5><u>Alignment Statistics</u></h5>
+	<ul>
+		<li><b>Left: Mapping Quality:</b> Histogram of the overall quality by which the reads mapped to the reference library. Reads that uniquely align to a single library sequence yield a high mapping quality score. Reads that ambiguously align to multiple library sequences or that do not align to any library sequence yield a low mapping quality score. For more detailed information about computation of the mapping quality score, please refer to the <a class="c5" target="_blank" href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#mapping-quality-higher-more-unique">Bowtie2 manual</a>.</li>
+		<li><b>Right: Alignment Analysis:</b> Barplot showing the primary (best) and secondary (second-best) alignment scores achieved for each read. If a read perfectly aligns to only one library sequence, its primary alignment score will be maximal, and its secondary alignment score will be 0. If a read aligns ambiguously to multiple library sequences, its secondary alignment score will be close to its primary alignment score. If a read does not align to any library sequence, both its primary and secondary alignment scores will be 0. The fraction of reads marked in red is being discarded prior to enrichment/depletion analysis.</li>
+		<li><b>Bottom: Summary:</b> This text summarizes the the success of the alignment. For an explanation of the parameter settings reported at the bottom of the page, see the <a href="#ALIGNMENT">ALIGNMENT</a> section).  </li>
+	</ul>	
+	
 
 	<h5><u>Sequence Quality:</u></h5>
-	<p>This tab contains graphs for sequence quality control (produced by fastqc). For the full fastqc output, click the “See full report” link </p>
+	<p>This tab provides analyses for sequence quality control (produced by fastqc). For the full fastqc output, click the “See full report” link </p>
 	<ul>
 		<li>
-			<b>Per Base Quality:</b>
-			(upper left): This plot shows the quality distribution for every base position in the read. y-axis is sequence quality score (Phred).
+			<b>Upper Left: Per Base Quality:</b>
+			This plot shows the quality distribution for every base position in the read. y-axis is sequence quality score (Phred). Preferably, the majority of the read is in the green area.
 		</li>
 		<li>
-			<b>Per Sequence Quality:</b>
-			(upper right): This plot shows a sequence quality histogram. y-axis shows number of reads. Preferably, sequence quality should peak at a score >= 35.
+			<b>Upper Right: Per Sequence Quality:</b>
+			This plot shows a sequence quality histogram. y-axis shows number of reads. Preferably, sequence quality should peak at a score >= 35.
 		</li>
 		<li>
-			<b>GC Content:</b>
-			(lower left): This plot shows a histogram of the the GC content. y-axis shows number of reads.
+			<b>Lower Left: GC Content:</b>
+			This plot shows a histogram of the the GC content. y-axis shows number of reads.
 		</li>
 		<li>
-			<b>Per Base Sequence:</b>
-			(lower right): This plot shows the fractions of T, C, A and G for every base position in the read. A balanced mix is typically only seen in the 20 bp sgRNA sequence. 
+			<b>Lower Right: Per Base Sequence Variation:</b>
+			This plot shows the fractions of T, C, A and G for every base position in the read. A balanced mix is typically only seen in the 20 bp sgRNA sequence. 
 		</li>
 	</ul>
 
-	<h5><u>Sequencing Depth:</u></h5>
 
-	<p>This tab shows the sequencing depth (number of total reads) per sample. Results from the alignment analysis are superimposed on each bar.</p>
 
-	<h2 id="h-2.3">2.3 Scatter Plots</h2>
+	<h2 id="h-2.4">2.4 Run Info</h2>
 
-	<h5><u>Treatment vs Control:</u></h5>
-	<p>Scatterplots of normalized sgRNA counts in the sample versus the average normalized count in the controls. The fraction reaching significant enrichment/depletion (dependent on screen type) compared to the control is marked in green.</p>
-	<h5><u>Replicate Correlation:</u></h5>
-	<p>Scatterplots showing the normalized sgRNA counts in one replicate of each condition versus another. Pearson and Spearman correlation coefficients are reported. </p>
-
-	<h2 id="h-2.4">2.4 Heatmap</h2>
-	<p>Clustering of all samples in the dataset, based on to the most variable or most abundant/depleted sgRNAs (as set up on the configuration page). Log10 normalized read counts are color-coded from lowest (yellow) to highest (red).
-	</p>
-
-	<h2 id="h-2.5">2.5 Run Info</h2>
-
-	<h5><u>Output Log:</u></h5>
-	<p>This shows the program execution log.</p>
+	<h5><u>Output Log</u></h5>
+	<p>This shows the program execution log. If you experience technical difficulties during your run, browse the log for error messages as they can provides clues for trouble-shooting.</p>
 	<h5><u>Configuration</u></h5>
-	<p>This file shows the parameter settings used in the run.</p>
+	<p>This file shows the parameter settings used for the analysis run.</p>
 	<h5><u>Sample Names</u></h5>
-	<p>This table linkes file names and sample names (Replicates of the same condition are automatically numbered).</p>
+	<p>This table shows file names and the corresponding sample names. Replicates of the same condition are numbered automatically.</p>
 	
 
 

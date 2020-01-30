@@ -4,3 +4,12 @@ Homestead.json
 Homestead.yaml
 .env
 *.sublime*
+
+# Ignore MacOS clutter
+.DS_Store
+*.DS_Store
+**/.DS_Store
+/*.AppleDouble
+/*.LSOverride
+.icloud
+**/*.icloud

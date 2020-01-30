@@ -26,14 +26,15 @@ $(function () {
 		pager: "#{{ $prefix }}-gene-rankings-pager",
 		rowNum: 10,
 		rowList: [10, 20, 30],
-		sortname: "{{$sortname}}",
-		sortorder: "desc",
+		sortname: "arra_p_value",
+		sortorder: "asc",
 		viewrecords: true,
 		gridview: true,
 		autoencode: true,
 		height: "100%",
-	    autowidth:true,
-	    shrinkToFit:true,
+	    //autowidth:true,
+	    //shrinkToFit:true,
+	    width: 960, //new
 	    emptyrecords: "No records to view",
 	}); 
 }); 

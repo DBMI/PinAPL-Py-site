@@ -35,12 +35,10 @@ class GeneRanking extends Model
 	public static $columns = [
 	  'gene'=>'Gene',
 	  'arra'=>'Gene Score',
-	  'arra_p_value'=>'Gene Score p_value',
-	  'arra_fdr'=>'Gene Score FDR',
-	  'significant'=>'Significant',
+	  'arra_p_value'=>'Gene Score p_value',		  
+	  'significant'=>'Significant',		  
 	  'num_sgrna' => '# sgRNAs',
 	  'num_sig_sgrna'=>"# Signif. sgRNAs",
-	  'avg_log_fc'=>"Avg. Log FC",
 	];
   
 }
