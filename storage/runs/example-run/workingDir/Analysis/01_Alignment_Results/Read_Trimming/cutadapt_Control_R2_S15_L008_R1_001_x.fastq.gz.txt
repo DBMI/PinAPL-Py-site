@@ -2,7 +2,7 @@ This is cutadapt 1.15 with Python 2.7.6
 Command line parameters: -g TCTTGTGGAAAGGACGAAACACCN /workingdir/Data/Control_R2_S15_L008_R1_001_x.fastq.gz -o Trim_Control_R2_S15_L008_R1_001_x.fastq.gz -e 0.1 -m 20 -l 20
 Running on 1 core
 Trimming 1 adapter with at most 10.0% errors in single-end mode ...
-Finished in 48.95 s (98 us/read; 0.61 M reads/minute).
+Finished in 22.33 s (45 us/read; 1.34 M reads/minute).
 
 === Summary ===
 
