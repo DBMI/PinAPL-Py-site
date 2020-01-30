@@ -52,7 +52,7 @@ Route::get('/example-data', function ()
 Route::view('/documentation', 'documentation');
 
 //Return example output results page
-Route::view('/example-results','results',['runName'=>"Example Run", 'hash'=>"example-run"]);
+Route::view('/example-results','results',['runName'=>"Example Run", 'hash'=>"example-run", 'oldVersion'=>false]);
 
 Route::view('/upload-previous','upload_previous');
 Route::post('/upload-previous','RunController@postUploadPrevious');
@@ -84,7 +84,8 @@ Route::get('/run/{hash}', function ($hash)  {
 			return $redirect;
 		}
 		else if ($run->status == "finished") {
-			return view('results',['runName'=>$run->name, 'hash'=>$hash]);
+			$oldVersion = ($hash != 'example-run' && (empty($run->version)) || $run->version != config('docker.tag'));
+			return view('results',['oldVersion'=>$oldVersion, 'runName'=>$run->name, 'hash'=>$hash]);
 		}
 		// else if ($status == 'running' || $status = 'error' || $status = 'queued') {
 		else {

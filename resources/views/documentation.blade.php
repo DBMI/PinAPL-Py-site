@@ -186,7 +186,7 @@
     
 	
 	<h4>Read Counting</h4>
-	<h5><u>Normalization: (default = &lsquo;total &rsquo;): </u></h5>
+	<h5><u>Normalization: (default = &lsquo;cpm &rsquo;): </u></h5>
 	<p>Method of read count normalization.</p>
 	<ul>
 		<li><b>total:</b> Read counts for each sgRNA are divided by the number of total number of reads in the sample and multiplied by the mean total number of read counts across all samples.</li>

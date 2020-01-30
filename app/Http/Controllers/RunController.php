@@ -147,7 +147,8 @@ class RunController extends Controller
 	    $this->generateConfig($req, $run->directory());
 
 	    $startRunScript = app()->basePath()."/app/Scripts/startRun.sh";
-	    $dockerImage = config('docker.image');
+	    $dockerImage = config('docker.image').':'.config('docker.tag');
+	    $run->version = config('docker.tag');
 	    $numCores = config('docker.num_cores');
 	    $dataPath = storage_path("data/$run->data_dir");
 	    $runCmd = "bash $startRunScript $dockerImage $dir $dataPath $numCores > $dir/runStatus.log";

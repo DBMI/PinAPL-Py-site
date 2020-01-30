@@ -157,7 +157,7 @@ return [
 		],
 		"Read Counting" => [
 			"Normalization" => [
-				"default"=>"total",
+				"default"=>"cpm",
 				"help_text"=>"Method of read count normalization. cpm = counts per million reads.",
 				"in_quotes"=>true,
 				"hidden" =>false,

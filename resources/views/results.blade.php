@@ -8,6 +8,13 @@ $sections = [
 ?>
 @extends('layouts.master')
 @section('content')
+	@if($oldVersion)
+		<div class="callout warning">
+			This run was created with an older version of PinAPL-Py than the current version.
+			Some results may not display correctly. However downloading the archive of your run is unaffected.
+
+		</div>
+	@endif
 	<div class="row align-justify collapse">
 		<div class="columns shrink"><h4>{{ $runName }}</h4></div>
 		<div class="columns shrink">
