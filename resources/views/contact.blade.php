@@ -16,7 +16,7 @@
 
 			<p>Workflow development: Philipp Spahn<br>
 			Website development: Tyler Bath<br>
-			Website updates: Darren Chang<br>
+			Website updates: Darren Chang, Tyler Bath<br>
 			Supervision: Olivier Harismendy, Nathan Lewis</p>
 
 			<p>For updates, bug reports, comments, and discussions see our <a href="https://groups.google.com/forum/#!forum/pinapl-py" target="_blank">google group</a></p>
