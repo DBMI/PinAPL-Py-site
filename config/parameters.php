@@ -50,9 +50,155 @@ return [
 				"type"=>'number'
 			]
 		],
+		"Gene Ranking" => [
+			"GeneMetric" => [
+				"display_name"=>"Gene Ranking Metric",
+				"default"=>"SigmaFC",
+				"placeholder" => "SUMLFC",
+				"help_text"=>"Metric for gene ranking analysis.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:SigmaFC,AvgLogFC,aRRA,STARS",
+				"type" =>"select",
+				"options" => ["SigmaFC"=>"SUMLFC","AvgLogFC"=>"AVGLFC", "aRRA"=>"aRRA", "STARS"=>"STARS"]
+			],
+			"Np" => [
+				"display_name"=>"Number of permutations",
+				"default"=>"10000",
+				"help_text"=>"Number of permutations to run to estimate p-values in gene ranking analysis (recommended 10000 for aRRA, 10 for STARS.)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:100000",
+				"type"=>'number'
+			],
+			"alpha_g" => [
+				"display_name"=>"Significance Level",
+				"default"=>"0.01",
+				"help_text"=>"Maximum allowed p-value for sgRNA to be taken into account for aRRA score",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"thr_STARS" => [
+				"display_name"=>"% sgRNAs Included (STARS only)",
+				"default"=>"10",
+				"help_text"=>"Percentage of sgRNAs included in ranking analysis (STARS only)",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:100",
+				"type"=>'number'
+			],
+			"IncludeGeneRankCombination" => [
+				"display_name"=>"IncludeGeneRankCombination",
+				"default"=>"False",
+				"help_text"=>"Fishers statistic for p-value combination",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "string|in:False,True",
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["False"=>"No", "True"=>"Yes"] 
+			],
+			"w_SigmaFC" => [
+				"default"=>"[0,1,2,3,4,5,6]",
+				"help_text"=>"DEFAULT FALSE(?)",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				'placeholder'=>'Yes',
+			],
+		],
+		"sgRNA Ranking" => [			
+			"padj" => [
+				"display_name"=>"p-value Adjustment",
+				"default"=>"Sidak",
+				"help_text"=>"Method for p-value adjustment for multiple tests.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:sidak,bonferroni,fdr_bh",
+				"type" =>"select",
+				"options" => [
+					"sidak"=>"Sidak",
+					"bonferroni" => "Bonferroni",
+					"fdr_bh"=>"FDR (Benjamini/Hochberg)",
+				]
+			],
+			"alpha_s" => [
+				"default"=>"0.01",
+				"display_name"=>"Significance Level",
+				"help_text"=>"Significance level for enrichment/depletion analysis of sgRNAs",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:1",
+				"type"=>'float'
+			],
+			"ClusterBy" => [
+				"display_name"=>"Cluster by...",
+				"default"=>"variance",
+				"placeholder"=>"Highest Variance",
+				"help_text"=>"Clustering of samples either based on most variable sgRNAs or most enriched/depleted sgRNAs.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:variance,counts",
+				"type" =>"select",
+				"options" => ["variance"=>"Highest Variance","counts"=>"Highest Counts"]
+			],
+			"TopN" => [
+				"display_name"=>"Top % of sgRNAs for clustering",
+				"default"=>"25",
+				"help_text"=>"Number of sgRNAs to be taken into account for clustering.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0|max:100",
+				"type"=>'number'
+			],
+		],
+		"Read Counting" => [
+			"Normalization" => [
+				"default"=>"cpm",
+				"help_text"=>"Method of read count normalization. cpm = counts per million reads.",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:total,cpm,size",
+				"type" =>"select",
+				"options" => ["total"=>"total","cpm"=>"cpm","size"=>"size"]
+			],
+			"Cutoff" => [
+				"default"=>"0",
+				"help_text"=>"Read counts lower than this number are set to 0",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"RoundCount" => [
+				"display_name"=>"Round Counts",
+				"default"=>"False",
+				"help_text"=>"Round counts to avoid fractions?",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:False,True",
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["False"=>"No", "True"=>"Yes"]
+			],
+			"repl_avg" => [
+				"display_name"=>"Averaging",
+				"default"=>"median",
+				"placeholder"=>"Median",
+				"help_text"=>"Method of read count averaging",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:median,mean",
+				"type" =>"select",
+				"options" => ["median"=>"Median","mean"=>"Mean"]
+			],
+		],
 		"Alignment" => [
 			"sgRNALength" => [
-				"display_name"=>"sgRNA Length (bp)",
+				"display_name"=>"sgRNA Length",
 				"default"=>"20",
 				"help_text"=>"Length of sgRNA sequence (bp)",
 				"in_quotes"=>false,
@@ -61,7 +207,7 @@ return [
 				"type"=>'number'
 			],
 			"CutErrorTol" => [
-				"display_name"=>"Adapter Error Rate",
+				"display_name"=>"Adapter Error Tolerance",
 				"default"=>"0.1",
 				"help_text"=>"Allowed error rate for Identification of the 5’ adapters. Refer to the cutadapt manual for more information.",
 				"in_quotes"=>false,
@@ -136,14 +282,6 @@ return [
 				'placeholder'=>'No',
 				"options" => ["True"=>"Yes", "False"=>"No"]
 			],
-			"delta" => [
-				"default"=>"1",
-				"help_text"=>"Shift in read counts to avoid errors with zero counts during log transformation, fold change calculation etc.",
-				"in_quotes"=>false,
-				"hidden" =>true,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
 			"R_min" => [
 				"display_name"=>"Minimal Read Length",
 				"default"=>"20",
@@ -153,153 +291,41 @@ return [
 				"rules" => "numeric|min:0",
 				"type"=>'number'
 			],
-		],
-		"Read Counting" => [
-			"Normalization" => [
-				"default"=>"cpm",
-				"help_text"=>"Method of read count normalization. cpm = counts per million reads.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:cpm,size,total",
-				"type" =>"select",
-				"options" => ["cpm"=>"cpm","size"=>"size","total"=>"total"]
-			],
-			"Cutoff" => [
-				"default"=>"0",
-				"help_text"=>"Read counts lower than this number are set to 0",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-			"RoundCount" => [
-				"display_name"=>"Round Counts",
-				"default"=>"False",
-				"help_text"=>"Round counts to avoid fractions?",
+		],	
+		"Plotting" => [
+			"ShowNonTargets" => [
+				"display_name"=> "Show Non-targeting Controls",
+				"default"=>"True",
+				"help_text"=>"Highlight non-targeting control sgRNAs in scatterplots",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "string|in:True,False",
 				"type" =>"select",
-				'placeholder'=>'No',
+				'placeholder'=>'Yes',
 				"options" => ["True"=>"Yes", "False"=>"No"]
 			],
-			"repl_avg" => [
-				"display_name"=>"Averaging",
-				"default"=>"median",
-				"help_text"=>"Method of read count averaging",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:median,mean",
-				"type" =>"select",
-				"options" => ["median"=>"Median","mean"=>"Mean"]
-			],
-		],
-		"Gene Ranking" => [
-			"GeneMetric" => [
-				"display_name"=>"Gene Ranking Metric",
-				"default"=>"aRRA",
-				"help_text"=>"Metric for gene ranking analysis.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:aRRA,STARS,AVGLFC",
-				"type" =>"select",
-				"options" => ["aRRA"=>"aRRA","STARS"=>"STARS", "AVGLFC"=>"AVGLFC"]
-			],
-			"Np" => [
-				"display_name"=>"Number of permutations",
-				"default"=>"1000",
-				"help_text"=>"Number of permutations to run to estimate p-values in gene ranking analysis (recommended 1000 for aRRA, 10 for STARS.)",
+			"scatter_annotate" => [
+				"display_name"=>"Annotate sgRNAs",
+				"default"=>"False",
+				"help_text"=>"Annotate sgRNAs when highlighting a gene in scatterplots",
 				"in_quotes"=>false,
 				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
+				"rules" => "string|in:False,True",
+				"type" =>"select",
+				'placeholder'=>'No',
+				"options" => ["False"=>"No", "True"=>"Yes"]
 			],
-			"P_0" => [
-				"display_name"=>"sgRNA p-value Threshold (aRRA only)",
-				"default"=>"0.01",
-				"help_text"=>"Maximum allowed p-value for sgRNA to be taken into account for aRRA score",
+			"TransparencyLevel" => [
+				"display_name"=> "Transparency Level",
+				"default"=>"0.05",
+				"help_text"=>"Transparency of points in scatterplots",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
-			"thr_STARS" => [
-				"display_name"=>"% sgRNAs Included (STARS only)",
-				"default"=>"10",
-				"help_text"=>"Percentage of sgRNAs included in ranking analysis (STARS only)",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-		],
-		"Statistical Significance" => [
-			"alpha_s" => [
-				"default"=>"0.01",
-				"display_name"=>"Signif. level (sgRNA Ranking)",
-				"help_text"=>"Significance level for enrichment/depletion analysis of sgRNAs",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-			"alpha_g" => [
-				"default"=>"0.01",
-				"display_name"=>"Signif. Level (Gene Ranking)",
-				"help_text"=>"Significance level for enrichment/depletion analysis of genes",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-			"padj" => [
-				"display_name"=>"p-value Adjustment",
-				"default"=>"fdr_bh",
-				"help_text"=>"Method for p-value adjustment for multiple tests.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:fdr_bh,fdr_tsbh,sidak,bonferroni",
-				"type" =>"select",
-				"options" => [
-					"fdr_bh"=>"FDR (Benjamini/Hochberg)",
-					"fdr_tsbh"=>"Two-stage FDR (Benjamini/Hochberg)",
-					"sidak"=>"Sidak",
-					"bonferroni" => "Bonferroni"
-				]
-			],
-			"p_overdisp" => [
-				"display_name"=>"Signif. Level (Model Selection)",
-				"default"=>"0.01",
-				"help_text"=>"p-value threshold for rejecting Poisson distribution of read counts.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0|max:1",
-				"type"=>'float'
-			],
-		],
-		"Sample Clustering" => [
-			"ClusterBy" => [
-				"display_name"=>"Cluster by...",
-				"default"=>"variance",
-				"help_text"=>"Clustering of samples either based on most variable sgRNAs or most enriched/depleted sgRNAs.",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:variance,counts",
-				"type" =>"select",
-				"options" => ["variance"=>"Variance","counts"=>"Counts"]
-			],
-			"TopN" => [
-				"display_name"=>"#sgRNAs for clustering",
-				"default"=>"25",
-				"help_text"=>"Number of sgRNAs to be taken into account for clustering.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|min:0",
-				"type"=>'number'
-			],
-		],
-		"Visualization" => [
 			"dotsize" => [
+				"display_name"=>"Dotsize",
 				"default"=>"10",
 				"help_text"=>"Dot size in scatterplots.",
 				"in_quotes"=>false,
@@ -307,36 +333,83 @@ return [
 				"rules" => "numeric|max:20|min:1",
 				"type"=>'number'
 			],
-			"TransparencyLevel" => [
-				"display_name"=> "Transparency Level",
-				"default"=>"0.1",
-				"help_text"=>"Transparency of points in scatterplots",
+			"dpi" => [
+				"display_name"=>"PNG resolution",
+				"default"=>"300",
+				"help_text"=>"resolution of png graphics.",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "numeric|in:150,300,600",
+				"type"=>'select',
+				"options" => ["150"=>"150", "300"=>"300", "600"=>"600"]
+			],
+			"HitListFormat" => [
+				"display_name"=>"Spreadsheet Format",
+				"default"=>"xlsx",
+				"help_text"=>"Set to Excel to have tables automatically converted to Excel xlsx files. (WARNING: This slows down the workflow)",
+				"in_quotes"=>true,
+				"hidden" =>false,
+				"rules" => "string|in:xlsx,tsv",
+				"type" =>"select",
+				'placeholder'=>'Excel',
+				"options" => ["xlsx"=>"Excel", "tsv"=>"Text Only (tsv)"]
+			],
+			"AutoHighlight" => [
+				"display_name"=>"AutoHighlight Top Hits",
+				"default"=>"True",
+				"help_text"=>"",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				'placeholder'=>'Yes',
+				"options" => ["True"=>"Yes", "False"=>"No"]
+			],
+			"IncludeDensityPlots" => [
+				"display_name"=>"Include Density Plot",
+				"default"=>"True",
+				"help_text"=>"",
+				"in_quotes"=>false,
+				"hidden" =>false,
+				"rules" => "string|in:True,False",
+				"type" =>"select",
+				'placeholder'=>'Yes',
+				"options" => ["True"=>"Yes", "False"=>"No"]
+			],
+			"p_overdisp" => [
+				"display_name"=>"Signif. Level (Model Selection)",
+				"default"=>"0.05",
+				"help_text"=>"p-value threshold for rejecting Poisson distribution of read counts.",
 				"in_quotes"=>false,
 				"hidden" =>false,
 				"rules" => "numeric|min:0|max:1",
 				"type"=>'float'
 			],
-			"scatter_annotate" => [
-				"display_name"=>"sgRNA Annotation",
-				"default"=>"False",
-				"help_text"=>"Annotate sgRNAs when highlighting a gene in scatterplots",
+			"PrintHighlights" => [
+				"default"=>"false",
+				"help_text"=>"print highlighted sgRNA info in console [True/False]",
 				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "string|in:True,False",
+				"hidden" =>true,
+				"rules" => "string|in:False,True",
 				"type" =>"select",
 				'placeholder'=>'No',
-				"options" => ["True"=>"Yes", "False"=>"No"]
+				"options" => ["False"=>"No", "True"=>"Yes"]
 			],
-			"ShowNonTargets" => [
-				"display_name"=> "Highlight non-targeting controls",
-				"default"=>"False",
-				"help_text"=>"Highlight non-targeting control sgRNAs in scatterplots",
+			"FCmin_SigmaFC" => [
+				"default"=>"0",
+				"help_text"=>"minimal FC required for SigmaFC",
 				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "string|in:True,False",
-				"type" =>"select",
-				'placeholder'=>'No',
-				"options" => ["True"=>"Yes", "False"=>"No"]
+				"hidden" =>true,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
+			],
+			"delta" => [
+				"default"=>"1",
+				"help_text"=>"Shift in read counts to avoid errors with zero counts during log transformation, fold change calculation etc.",
+				"in_quotes"=>false,
+				"hidden" =>true,
+				"rules" => "numeric|min:0",
+				"type"=>'number'
 			],
 			"logbase" => [
 				"default"=>"10",
@@ -397,28 +470,7 @@ return [
 				'placeholder'=>'Yes',
 				"options" => ["True"=>"Yes", "False"=>"No"]
 			],
-			"dpi" => [
-				"display_name"=>"PNG Resolution",
-				"default"=>"300",
-				"help_text"=>"Resolution of PNG graphics.",
-				"in_quotes"=>false,
-				"hidden" =>false,
-				"rules" => "numeric|in:150,300,600",
-				"type"=>'select',
-				"options" => ["150"=>"150", "300"=>"300", "600"=>"600"]
-			],
-			"HitListFormat" => [
-				"display_name"=>"Spreadsheet Format",
-				"default"=>"tsv",
-				"help_text"=>"Set to Excel to have tables automatically converted to Excel xlsx files. (WARNING: This slows down the workflow)",
-				"in_quotes"=>true,
-				"hidden" =>false,
-				"rules" => "string|in:tsv,xlsx",
-				"type" =>"select",
-				'placeholder'=>'Text Only (tsv)',
-				"options" => ["tsv"=>"Text Only (tsv)", "xlsx"=>"Excel"]
-			],
-		]
+		],
 	],
 	"directories"=> 
 		"WorkingDir: '/workingdir/'\n".
@@ -429,22 +481,29 @@ return [
 		"ScriptsDir: '/opt/PinAPL-Py/Scripts/'\n".
 		"AlignDir: '/workingdir/Alignments/'\n".
 		"AnalysisDir: '/workingdir/Analysis/'\n".
-		"TrimLogDir: '/workingdir/Analysis/Read_Trimming'\n".
-		"HitDir: '/workingdir/Analysis/sgRNA_Rankings'\n".
-		"GeneDir: '/workingdir/Analysis/Gene_Rankings'\n".
-		"ControlDir: '/workingdir/Analysis/Control/'\n".
-		"HeatDir: '/workingdir/Analysis/Heatmap/'\n".
-		"AlnQCDir: '/workingdir/Analysis/Alignment_Statistics/'\n".
-		"CountQCDir: '/workingdir/Analysis/ReadCount_Statistics/'\n".
-		"ScatterDir: '/workingdir/Analysis/ReadCount_Scatterplots/'\n".
-		"HiLiteDir: '/workingdir/Analysis/ReadCount_Scatterplots/Highlighted_Genes/'\n".
-		"CorrelDir: '/workingdir/Analysis/Replicate_Correlation/'\n".
-		"HiLiteDir2: '/workingdir/Analysis/Replicate_Correlation/Highlighted_Genes'\n".
-		"EffDir: '/workingdir/Analysis/sgRNA_Efficacy/'\n".
-		"DepthDir: '/workingdir/Analysis/Read_Depth/'\n".
-		"SeqQCDir: '/workingdir/Analysis/Sequence_Quality/'\n".
-		"pvalDir: '/workingdir/Analysis/p-values/' \n".
-		"LogFileDir: '/workingdir/Analysis/Log_File/'\n".
+		"TrimLogDir: '/workingdir/Analysis/01_Alignment_Results/Read_Trimming/'\n".	
+		"sgRNARanksDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Rankings/'\n".
+		"GeneDir: '/workingdir/Analysis/03_GeneRanking_Results/Gene_Rankings'\n".
+		"ControlDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/ControlSample_Analysis/'\n".
+		"HeatDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/Heatmap/'\n".
+		"AlnQCDir: '/workingdir/Analysis/01_Alignment_Results/Alignment_Statistics/'\n".
+		"sgRNAReadCountDir: '/workingdir/Analysis/01_Alignment_Results/ReadCounts_per_sgRNA/'\n".
+		"GeneReadCountDir: '/workingdir/Analysis/01_Alignment_Results/ReadCounts_per_Gene/'\n".
+		"CountQCDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/ReadCount_Distribution/'\n".
+		"ScatterDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/'\n".
+		"DensityDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Densities/'\n".	
+		"GenePlotDir: '/workingdir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/'\n".
+		"HiLiteDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/ReadCount_Scatterplots/Highlighted_Genes/'\n".
+		"CorrelDir: '/workingdir/Analysis/02_sgRNA-Ranking_Results/Replicate_Correlation/'\n".
+		"HiLiteDir2: '/workingdir/Analysis/02_sgRNA-Ranking_Results/Replicate_Correlation/Highlighted_Genes/'\n".
+		"EffDir: '/workingdir/Analysis/03_GeneRanking_Results/sgRNA_Efficacy/'\n".
+		"DepthDir: '/workingdir/Analysis/01_Alignment_Results/Read_Depth/'\n".
+		"SeqQCDir: '/workingdir/Analysis/01_Alignment_Results/Sequence_Quality/'\n".
+		"pvalDir_sgRNA: '/workingdir/Analysis/02_sgRNA-Ranking_Results/p-value_Distribution/' \n".
+		"pvalDir_genes: '/workingdir/Analysis/03_GeneRanking_Results/p-value_Distribution/' \n".
+		"LogFileDir: '/workingdir/Analysis/00_Log_File/'\n".
+		"zScoreDir_sgRNA: '/workingdir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/' \n".
+		"VolcanoDir_sgRNA: '/workingdir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/' \n".
 		"bw2Dir: '/usr/bin/'\n".
 		"CutAdaptDir: '/root/.local/bin/'   \n".
 		"STARSDir: '/opt/PinAPL-Py/Scripts/STARS_mod/'\n"
@@ -457,16 +516,24 @@ return [
 		"SeqQCScript: 'CheckSequenceQuality'\n".
 		"TrimScript: 'TrimReads'\n".
 		"AlignScript: 'AlignReads'\n".
+		"ClassifyScript: 'GetReadCounts'\n".
+		"CutoffScript: 'ApplyCutoff'\n".
+		"CleanUpScript: 'RemoveTempOutput'\n".
 		"NormalizeScript: 'NormalizeReadCounts'\n".
 		"AverageCountsScript: 'AverageCounts'\n".
 		"StatsScript: 'AnalyzeReadCounts'\n".
 		"ControlScript: 'AnalyzeControl'\n".
-		"sgRNARankScript: 'FindHits'\n".
+		"sgRNARankScript: 'RanksgRNAs'\n".
+		"zFCScript: 'PlotFCz'\n".
+		"vFCScript: 'PlotFCvolcano'\n".
 		"GeneRankScript: 'RankGenes'\n".
+		"GenePlotScript: 'PlotGeneScores'\n".
 		"CombineScript: 'CombineGeneRanks'\n".
 		"ScatterScript: 'PlotCounts'\n".
+		"DensityScript: 'PlotDensity'\n".
 		"ReplicateScript: 'PlotReplicates'\n".
-		"ClusterScript: 'PlotHeatmap'\n"
+		"ClusterScript: 'PlotHeatmap'\n".
+		"ExtractTop10Script: 'ExtractTop10Genes'\n"
 	,
 	"libraries" => [
 		"Activity-optimized_human_genome-wide.tsv" => "Activity-optimized human genome-wide",

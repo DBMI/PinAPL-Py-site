@@ -41,6 +41,16 @@
 		</div>
 	</div>
 </div>
+
+<br>
+
+<div class="row align-middle">
+	<div class="medium-12 align-center columns">
+	<p><b><span style="color:red">*** NEW VERSION (2/2020) ***<br>
+		Check the Documentation for description of the new features</span></b></p>
+	</div>
+</div>
+
 <footer>
 	<div class="row footer align-center">
 		<div class=" columns">
@@ -83,7 +93,7 @@
 			  padding: 1rem;
 			  background-color: #efefef;
 			  text-align: center;*/
-			margin-top: 6em;
+			margin-top: 2em;
 		}
 	</style>
 @stop

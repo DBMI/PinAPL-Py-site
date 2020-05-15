@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Run;
 
+use Symfony\Component\Yaml\Yaml;
+
 class ResultsController extends Controller
 {
 
@@ -16,16 +18,28 @@ class ResultsController extends Controller
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'p-values', 'withAvgPrefix'=>true ]);
 	}
 	public function getGeneRankings($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>true ]);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_rankings', 'fullSize'=>true, 'withCombinedPrefix'=>false, 'withAvgPrefix'=>true ]);
 	}
 	public function getSgrnaRankings($hash) {
 		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_rankings', 'withAvgPrefix'=>true ]);
 	}
 	public function getSgrnaEfficiency($hash) {
-		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency']);
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'sgrna_efficiency', 'withAvgPrefix'=>true ]);
 	}
 	public function getControl($hash) {
 		return view('results.control_component', ['runHash'=>$hash]);
+	}
+	//added for sgRNA density plots
+	public function getSgrnaDensity($hash) {
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'density_plots', 'withAvgPrefix'=>true]);
+	}
+	//added for Gene tab p-val dist
+	public function getGenePValue($hash) {
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'gene_pvalue', 'withAvgPrefix'=>true]);
+	}
+	//added for sgRNA p-val
+	public function getSgrnaPvalue($hash) {
+		return view('layouts.file_selector', ['withControl' => false, 'runHash'=>$hash, 'result'=>'pvalue_dist', 'withAvgPrefix'=>true]);
 	}
 	/*************************************
 	 *** Statistics
@@ -45,17 +59,28 @@ class ResultsController extends Controller
 	public function getSequencingDepth($hash) {
 		return view('results.sequencing_depth_component', ['runHash'=>$hash]);
 	}
+	//new
+	public function getReadcountDispersion($hash) {
+		return view('results.readcount_dispersion_component', ['runHash'=>$hash]);
+	}
+	public function getReadcountDistribution($hash) {
+		return view('layouts.file_selector', ['withControl' => true, 'runHash'=>$hash, 'result'=>'readcount_distribution', 'withAvgPrefix'=>true]);
+	}
+	public function getReplicateCorrelation($hash) {
+		return view('results.replicate_correlation_component', ['runHash'=>$hash, 'result'=>'replicate_correlation']);
+	}
 	/*************************************
 	 *** Scatter Plots
 	 ************************************/
-	public function getReadCountScatterplots($hash) {
+	/* WIP 9/4/2019
+	public function getScatterplots($hash, $id, $idSingular) {
 		$genes = 
 			\DB::table('gene_rankings')
 				->where('dir',$hash)->orderBy('gene')
 				->distinct()->pluck('gene');
 		$afterSelectorColumn = 
 			"<div class=column>
-				<select id=readcount_scatterplots_gene_selector>
+				<select id=$id+_gene_selector>
 				<option value=none hidden>Select A Gene</option>
 				<option value=none>None</option>";
 
@@ -81,7 +106,7 @@ class ResultsController extends Controller
 				var nonT = ($('#readcount_scatterplots_nontargeting')[0].checked) ? 'True' : 'none';
 				console.log(gene);
 				console.log(prefix);
-				$('#'+prefix+'-readcount-scatterplot').addClass('loader');
+				$('#'+prefix+'-+$idSingular').addClass('loader');
 				$.get('/results/readcount_scatterplots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+showIds+'/'+nonT, function(data) {  
 					$('#'+prefix+'-readcount-scatterplot').attr('src',data);
 					$('#'+prefix+'-readcount-scatterplot').removeClass('loader');
@@ -96,16 +121,213 @@ class ResultsController extends Controller
 		</script>";
 		return view('layouts.file_selector', ['withControl' => false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'readcount_scatterplots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow]);
 	}
-	public function getReplicateCorrelation($hash) {
-		return view('results.replicate_correlation_component', ['runHash'=>$hash]);
+	*/
+	public function getReadCountScatterplots($hash) {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
+		$nonT_bool = $data["ShowNonTargets"];
+		$nonT_checked = $nonT_bool ? "checked" : "";
+		$extraData = ['nonT'=>$nonT_bool];
+		$genes = 
+			\DB::table('gene_rankings')
+				->where('dir',$hash)->orderBy('gene')
+				->distinct()->pluck('gene');
+		$afterSelectorColumn = 
+			"<div class=column>
+				<select id=readcount_scatterplots_gene_selector>
+				<option value=none hidden>Select A Gene</option>
+				<option value=none>None</option>";
+
+		foreach ($genes as $gene) {
+			$afterSelectorColumn.="<option value=$gene>$gene</option>";
+		}
+		$afterSelectorColumn.="</select></div>";
+		$afterSelectorColumn.=
+			"<div class=column>
+				<input type=checkbox id=readcount_scatterplots_nontargeting $nonT_checked>
+				<label for=readcount_scatterplots_nontargeting>Show non-targeting controls</label>
+			</div>
+			<div class=column>
+				<input type=checkbox id=readcount_scatterplots_show_ids>
+				<label for=readcount_scatterplots_show_ids>Show sgRNA IDs</label>
+			</div>";
+		$afterSelectorRow = 
+		"<script>
+			function getReadCountScatterPlot() {
+				var gene = $('#readcount_scatterplots_gene_selector').val();
+				var prefix = $('#readcount_scatterplots_selector').val();
+				var showIds = ($('#readcount_scatterplots_show_ids')[0].checked) ? 'True' : 'False';
+				var nonT = ($('#readcount_scatterplots_nontargeting')[0].checked) ? 'True' : 'False';
+				console.log(gene);
+				console.log(prefix);
+				console.log(showIds);
+				console.log(nonT);
+				$('#'+prefix+'-readcount-scatterplot').addClass('loader');
+				$.get('/results/readcount_scatterplots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+showIds+'/'+nonT, function(data) {  
+					$('#'+prefix+'-readcount-scatterplot').attr('src',data);
+					$('#'+prefix+'-readcount-scatterplot').removeClass('loader');
+				});
+			}
+			$(document).ready(function() {
+				$('#readcount_scatterplots_gene_selector').change(getReadCountScatterPlot);
+				$('#readcount_scatterplots_nontargeting').change(getReadCountScatterPlot);
+				$('#readcount_scatterplots_show_ids').change(getReadCountScatterPlot);
+				$('#readcount_scatterplots_selector').change(getReadCountScatterPlot);
+			});
+		</script>";
+		return view('layouts.file_selector', ['withControl'=>false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'readcount_scatterplots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow,'extraData'=>$extraData]);
+	}
+	//new
+	public function getVolcanoPlots($hash) {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
+		$nonT_bool = $data["ShowNonTargets"];
+		$nonT_checked = $nonT_bool ? "checked" : "";
+		$extraData = ['nonT'=>$nonT_bool];
+		$genes = 
+			\DB::table('gene_rankings')
+				->where('dir',$hash)->orderBy('gene')
+				->distinct()->pluck('gene');
+		$afterSelectorColumn = 
+			"<div class=column>
+				<select id=volcano_plots_gene_selector>
+				<option value=none hidden>Select A Gene</option>
+				<option value=none>None</option>";
+
+		foreach ($genes as $gene) {
+			$afterSelectorColumn.="<option value=$gene>$gene</option>";
+		}
+		$afterSelectorColumn.="</select></div>";
+		$afterSelectorColumn.=
+			"<div class=column>
+				<input type=checkbox id=volcano_plots_nontargeting $nonT_checked>
+				<label for=volcano_plots_nontargeting>Show non-targeting controls</label>
+			</div>
+			<div class=column>
+				<input type=checkbox id=volcano_plots_show_ids>
+				<label for=volcano_plots_show_ids>Show sgRNA IDs</label>
+			</div>";
+		$afterSelectorRow = 
+		"<script>
+			function getVolcanoPlot() {
+				var gene = $('#volcano_plots_gene_selector').val();
+				var prefix = $('#volcano_plots_selector').val();
+				var showIds = ($('#volcano_plots_show_ids')[0].checked) ? 'True' : 'False';
+				var nonT = ($('#volcano_plots_nontargeting')[0].checked) ? 'True' : 'False';
+				console.log(gene);
+				console.log(prefix);
+				$('#'+prefix+'-volcano-plot').addClass('loader');
+				$.get('/results/volcano_plots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+showIds+'/'+nonT, function(data) {  
+					$('#'+prefix+'-volcano-plot').attr('src',data);
+					$('#'+prefix+'-volcano-plot').removeClass('loader');
+				});
+			}
+			$(document).ready(function() {
+				$('#volcano_plots_gene_selector').change(getVolcanoPlot);
+				$('#volcano_plots_nontargeting').change(getVolcanoPlot);
+				$('#volcano_plots_show_ids').change(getVolcanoPlot);
+				$('#volcano_plots_selector').change(getVolcanoPlot);
+			});
+		</script>";
+		return view('layouts.file_selector', ['withControl' => false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'volcano_plots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow,'extraData'=>$extraData]);
+	}
+
+	public function getZscorePlots($hash) {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$data = Yaml::parseFile("$dir/configuration.yaml");
+		$nonT_bool = $data["ShowNonTargets"];
+		$nonT_checked = $nonT_bool ? "checked" : "";
+		$extraData = ['nonT'=>$nonT_bool];
+		$genes = 
+			\DB::table('gene_rankings')
+				->where('dir',$hash)->orderBy('gene')
+				->distinct()->pluck('gene');
+		$afterSelectorColumn = 
+			"<div class=column>
+				<select id=zscore_plots_gene_selector>
+				<option value=none hidden>Select A Gene</option>
+				<option value=none>None</option>";
+
+		foreach ($genes as $gene) {
+			$afterSelectorColumn.="<option value=$gene>$gene</option>";
+		}
+		$afterSelectorColumn.="</select></div>";
+		$afterSelectorColumn.=
+			"<div class=column>
+				<input type=checkbox id=zscore_plots_nontargeting $nonT_checked>
+				<label for=zscore_plots_nontargeting>Show non-targeting controls</label>
+			</div>
+			<div class=column>
+				<input type=checkbox id=zscore_plots_show_ids>
+				<label for=zscore_plots_show_ids>Show sgRNA IDs</label>
+			</div>";
+		$afterSelectorRow = 
+		"<script>
+			function getZscorePlot() {
+				var gene = $('#zscore_plots_gene_selector').val();
+				var prefix = $('#zscore_plots_selector').val();
+				var showIds = ($('#zscore_plots_show_ids')[0].checked) ? 'True' : 'False';
+				var nonT = ($('#zscore_plots_nontargeting')[0].checked) ? 'True' : 'False';
+				console.log(gene);
+				console.log(prefix);
+				$('#'+prefix+'-zscore-plot').addClass('loader');
+				$.get('/results/zscore_plots_gene_select/'+runHash+'/'+prefix+'/'+gene+'/'+showIds+'/'+nonT, function(data) {  
+					$('#'+prefix+'-zscore-plot').attr('src',data);
+					$('#'+prefix+'-zscore-plot').removeClass('loader');
+				});
+			}
+			$(document).ready(function() {
+				$('#zscore_plots_gene_selector').change(getZscorePlot);
+				$('#zscore_plots_nontargeting').change(getZscorePlot);
+				$('#zscore_plots_show_ids').change(getZscorePlot);
+				$('#zscore_plots_selector').change(getZscorePlot);
+			});
+		</script>";
+		return view('layouts.file_selector', ['withControl' => false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'zscore_plots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow,'extraData'=>$extraData]);
+	}
+
+	public function getGenePlots($hash) {
+		$genes = 
+			\DB::table('gene_rankings')
+				->where('dir',$hash)->orderBy('gene')
+				->distinct()->pluck('gene');
+		$afterSelectorColumn = 
+			"<div class=column>
+				<select id=gene_plots_gene_selector>
+				<option value=none hidden>Select A Gene</option>
+				<option value=none>None</option>";
+
+		foreach ($genes as $gene) {
+			$afterSelectorColumn.="<option value=$gene>$gene</option>";
+		}
+		$afterSelectorColumn.="</select></div>";
+		$afterSelectorRow = 
+		"<script>
+			function getGenePlot() {
+				var gene = $('#gene_plots_gene_selector').val();
+				var prefix = $('#gene_plots_selector').val();
+				console.log(gene);
+				console.log(prefix);
+				$('#'+prefix+'-gene-plot').addClass('loader');
+				$.get('/results/gene_plots_gene_select/'+runHash+'/'+prefix+'/'+gene, function(data) {  
+					$('#'+prefix+'-gene-plot').attr('src',data);
+					$('#'+prefix+'-gene-plot').removeClass('loader');
+				});
+			}
+			$(document).ready(function() {
+				$('#gene_plots_gene_selector').change(getGenePlot);
+				$('#gene_plots_selector').change(getGenePlot);
+			});
+		</script>";
+		return view('layouts.file_selector', ['withControl' => false, 'withAvgPrefix'=>true, 'runHash'=>$hash, 'result'=>'gene_plots', 'afterSelectorColumn'=>$afterSelectorColumn, 'afterSelectorRow'=>$afterSelectorRow]);
 	}
 	/*************************************
 	 *** Heatmap
 	 ************************************/
 	public function getHeatmap($hash) {
-		$file = \File::glob(storage_path("/runs/$hash/workingDir/Analysis/Heatmap/*.png"));
+		$file = \File::glob(storage_path("/runs/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/Heatmap/*.png"));
 		$file = array_pop($file);
-		$link = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/Heatmap/".basename($file));
+		$link = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/Heatmap/".basename($file));
 		return view('results.heatmap_component', ["link"=>$link]);
 	}
 	/*************************************
@@ -121,22 +343,64 @@ class ResultsController extends Controller
 	}
 
 
-
-
 	/*************************************
 	 *** Extra
 	 ************************************/
 
 	// Generate new scatter plots with gene selection
-	public function getNewScatterPlot($hash, $prefix, $gene='none', $showIds='none' ,$nonT='none') {
+	public function getNewScatterPlot($hash, $prefix, $gene='none', $showIds, $nonT) {
 		$dir = storage_path("/runs/$hash/workingDir");
-		$highlightedGene = 'Highlighted_Genes/';
+		$highlightedGene = $prefix.'_Highlighted_Genes/';
 		if ($gene == 'none') {
 			$_gene = '';
 			$_id = '';
-			$showIds = 'none';
-			if ($nonT == 'none') {
-				return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/counts_$prefix.png");
+			$showIds = 'False';
+			if ($nonT == 'False') {
+				$_nonT = 'False';
+				$fileName =$highlightedGene."counts_".$prefix."_scatterplot".$_gene.$_id.$_nonT.'.png';
+				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/$fileName")) {
+					$dockerImage = config('docker.image');
+					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+					`$cmd`;
+				}
+				return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/counts_".$prefix."_scatterplot.png");
+			}
+			else {
+				$highlightedGene = '';
+			}
+		}
+		else {
+			$_gene = "_$gene";
+			$_id = ($showIds == 'True') ? '_IDs' : '';
+		}
+		$_nonT = ($nonT == 'True') ? '_nonT' : '';
+		$fileName =$highlightedGene."counts_".$prefix."_scatterplot".$_gene.$_id.$_nonT.'.png';
+		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/$fileName")){
+			$dockerImage = config('docker.image');
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+			`$cmd`;
+		}
+		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/$fileName");
+		return $imgPath;
+	}
+
+	//new
+	public function getNewVolcanoPlot($hash, $prefix, $gene='none', $showIds, $nonT) {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$highlightedGene = $prefix.'_Highlighted_Genes/';
+		if ($gene == 'none') {
+			$_gene = '';
+			$_id = '';
+			$showIds = 'False';
+			if ($nonT == 'False') {
+				$_nonT = 'False';
+				$fileName =$highlightedGene.$prefix."_sgRNA_volcano".$_gene.$_id.$_nonT.'.png';
+				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$fileName")) {
+					$dockerImage = config('docker.image');
+					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCvolcano.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+					`$cmd`;
+				}
+				return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$prefix"."_sgRNA_volcano.png");
 			}
 			else{
 				$highlightedGene = '';
@@ -147,13 +411,76 @@ class ResultsController extends Controller
 			$_id = ($showIds == 'True') ? '_IDs' : '';
 		}
 		$_nonT = ($nonT == 'True') ? '_nonT' : '';
-		$fileName =$highlightedGene."counts_".$prefix.$_gene.$_id.$_nonT.'.png';
-		if(!\File::exists("$dir/Analysis/ReadCount_Scatterplots/$fileName")){
+		$fileName =$highlightedGene.$prefix."_sgRNA_volcano".$_gene.$_id.$_nonT.'.png';
+		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$fileName")){
 			$dockerImage = config('docker.image');
-			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCvolcano.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 			`$cmd`;
 		}
-		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/ReadCount_Scatterplots/$fileName");
+		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$fileName");
+		return $imgPath;
+	}
+
+	public function getNewZscorePlot($hash, $prefix, $gene='none', $showIds, $nonT) {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$highlightedGene = $prefix.'_Highlighted_Genes/';
+		if ($gene == 'none') {
+			$_gene = '';
+			$_id = '';
+			$showIds = 'False';
+			if ($nonT == 'False') {
+				$_nonT = 'False';
+				$fileName =$highlightedGene.$prefix."_sgRNA_zScores".$_gene.$_id.$_nonT.'.png';
+				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$fileName")){
+					$dockerImage = config('docker.image');
+					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCz.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+					`$cmd`;
+				}
+				return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$prefix"."_sgRNA_zScores.png");
+			}
+			else{
+				$highlightedGene = '';
+			}
+		}
+		else {
+			$_gene = "_$gene";
+			$_id = ($showIds == 'True') ? '_IDs' : '';
+		}
+		$_nonT = ($nonT == 'True') ? '_nonT' : '';
+		$fileName =$highlightedGene.$prefix."_sgRNA_zScores".$_gene.$_id.$_nonT.'.png';
+		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$fileName")){
+			$dockerImage = config('docker.image');
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCz.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
+			`$cmd`;
+		}
+		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$fileName");
+		return $imgPath;
+	}
+
+	public function getNewGenePlot($hash, $prefix, $gene='none') {
+		$dir = storage_path("/runs/$hash/workingDir");
+		$highlightedGene = $prefix.'_Highlighted_Genes/';
+		if ($gene == 'none') {
+			$_gene = '';
+			$highlightedGene = '';
+			$fileName =$highlightedGene.$prefix."_GeneScores".$_gene.'.png';
+			if(!\File::exists("$dir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName")){
+				$dockerImage = config('docker.image');
+				$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotGeneScores.py \"$prefix\" \"$gene\"";
+				`$cmd`;
+			}
+			return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$prefix"."_GeneScores.png");
+		}
+		else {
+			$_gene = "_$gene";
+		}
+		$fileName =$highlightedGene.$prefix."_GeneScores".$_gene.'.png';
+		if(!\File::exists("$dir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName")){
+			$dockerImage = config('docker.image');
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotGeneScores.py \"$prefix\" \"$gene\"";
+			`$cmd`;
+		}
+		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName");
 		return $imgPath;
 	}
 

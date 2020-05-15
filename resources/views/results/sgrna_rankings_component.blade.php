@@ -18,13 +18,14 @@ $(function () {
         pager: "#{{ $prefix }}-sgrna-rankings-pager",
         rowNum: 10,
         rowList: [10, 20, 30],
-        sortname: "fdr",
+        sortname: "p_value",
         sortorder: "asc",
         viewrecords: true,
         gridview: true,
         autoencode: true,
         height: "100%",
-        autowidth:true,
+        //autowidth:true,
+        width: 960, //new
         emptyrecords: "No records to view",
     }); 
 }); 

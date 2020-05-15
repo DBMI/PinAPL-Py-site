@@ -4,6 +4,6 @@ Provided
 --}}
 <div class="row align-center">
 	<div class="column shrink">
-		<img src='{{ $link }}'>
+		<img src='{{$link}}'>
 	</div>
 </div>

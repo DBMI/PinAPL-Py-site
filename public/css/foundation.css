@@ -2641,6 +2641,10 @@ select {
   .tabs-panel[aria-hidden="false"] {
     display: block; }
 
+#sgrna_plots_tab.tabs-panel.is-active {
+  padding:0;
+}
+
 .callout {
   position: relative;
   margin: 0 0 1rem 0;
