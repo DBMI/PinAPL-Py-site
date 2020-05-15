@@ -130,6 +130,7 @@ Route::get('/files/{hash}', function ($hash)  {
 // Create the configuration.yaml
 Route::get('/parameters/{hash}', function ($hash)  {
 	try {
+		//TODO handle missing run with 404
 		$run = \App\Run::where('dir',$hash)->firstOrFail();
 		$redirect = $run->redirectFromStatus('setting-parameters');
 		if ($redirect) {
