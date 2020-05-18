@@ -99,10 +99,10 @@
 		// if (ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1 && ua.indexOf('chromium') == -1) { 
 		//   $('#safari-modal').foundation('open');
 		// }
-		var isChrome = !!window.chrome && !!window.chrome.webstore;
-		if (!isChrome) {
-			$('#safari-modal').foundation('open');
-		}
+		//var isChrome = !!window.chrome && !!window.chrome.webstore;
+		//if (!isChrome) {
+		//	$('#safari-modal').foundation('open');
+		//}
 	});
 	@if ($noEmail)
 		$('document').ready(function(){
