@@ -44,12 +44,6 @@
 
 <br>
 
-<div class="row align-middle">
-	<div class="medium-12 align-center columns">
-	<p><b><span style="color:red">*** NEW VERSION (2/2020) ***<br>
-		Check the Documentation for description of the new features</span></b></p>
-	</div>
-</div>
 
 <footer>
 	<div class="row footer align-center">
