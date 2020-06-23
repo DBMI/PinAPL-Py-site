@@ -359,7 +359,7 @@ class ResultsController extends Controller
 				$_nonT = 'False';
 				$fileName =$highlightedGene."counts_".$prefix."_scatterplot".$_gene.$_id.$_nonT.'.png';
 				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/$fileName")) {
-					$dockerImage = config('docker.image');
+					$dockerImage = config('docker.image').':'.config('docker.tag');
 					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 					`$cmd`;
 				}
@@ -376,7 +376,7 @@ class ResultsController extends Controller
 		$_nonT = ($nonT == 'True') ? '_nonT' : '';
 		$fileName =$highlightedGene."counts_".$prefix."_scatterplot".$_gene.$_id.$_nonT.'.png';
 		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_Scatterplots/$fileName")){
-			$dockerImage = config('docker.image');
+			$dockerImage = config('docker.image').':'.config('docker.tag');
 			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotCounts.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 			`$cmd`;
 		}
@@ -396,7 +396,7 @@ class ResultsController extends Controller
 				$_nonT = 'False';
 				$fileName =$highlightedGene.$prefix."_sgRNA_volcano".$_gene.$_id.$_nonT.'.png';
 				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$fileName")) {
-					$dockerImage = config('docker.image');
+					$dockerImage = config('docker.image').':'.config('docker.tag');
 					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCvolcano.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 					`$cmd`;
 				}
@@ -413,7 +413,7 @@ class ResultsController extends Controller
 		$_nonT = ($nonT == 'True') ? '_nonT' : '';
 		$fileName =$highlightedGene.$prefix."_sgRNA_volcano".$_gene.$_id.$_nonT.'.png';
 		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_VolcanoPlots/$fileName")){
-			$dockerImage = config('docker.image');
+			$dockerImage = config('docker.image').':'.config('docker.tag');
 			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCvolcano.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 			`$cmd`;
 		}
@@ -432,7 +432,7 @@ class ResultsController extends Controller
 				$_nonT = 'False';
 				$fileName =$highlightedGene.$prefix."_sgRNA_zScores".$_gene.$_id.$_nonT.'.png';
 				if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$fileName")){
-					$dockerImage = config('docker.image');
+					$dockerImage = config('docker.image').':'.config('docker.tag');
 					$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCz.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 					`$cmd`;
 				}
@@ -449,7 +449,7 @@ class ResultsController extends Controller
 		$_nonT = ($nonT == 'True') ? '_nonT' : '';
 		$fileName =$highlightedGene.$prefix."_sgRNA_zScores".$_gene.$_id.$_nonT.'.png';
 		if(!\File::exists("$dir/Analysis/02_sgRNA-Ranking_Results/sgRNA_z-Scores/$fileName")){
-			$dockerImage = config('docker.image');
+			$dockerImage = config('docker.image').':'.config('docker.tag');
 			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotFCz.py \"$prefix\" \"$gene\" \"$showIds\" \"$nonT\"";
 			`$cmd`;
 		}
@@ -458,31 +458,35 @@ class ResultsController extends Controller
 	}
 
 	public function getNewGenePlot($hash, $prefix, $gene='none') {
+		// path: workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/ToxB_1_Highlighted_Genes/ToxB_1_GeneScores_AACS.png
 		$dir = storage_path("/runs/$hash/workingDir");
-		$highlightedGene = $prefix.'_Highlighted_Genes/';
 		if ($gene == 'none') {
 			$_gene = '';
 			$highlightedGene = '';
-			$fileName =$highlightedGene.$prefix."_GeneScores".$_gene.'.png';
-			if(!\File::exists("$dir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName")){
-				$dockerImage = config('docker.image');
-				$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotGeneScores.py \"$prefix\" \"$gene\"";
-				`$cmd`;
-			}
-			return "/run-images?path=".urlencode("/$hash/workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$prefix"."_GeneScores.png");
-		}
-		else {
+		} else {
 			$_gene = "_$gene";
+			$highlightedGene = $prefix.'_Highlighted_Genes/';
 		}
 		$fileName =$highlightedGene.$prefix."_GeneScores".$_gene.'.png';
-		if(!\File::exists("$dir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName")){
-			$dockerImage = config('docker.image');
-			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotGeneScores.py \"$prefix\" \"$gene\"";
-			`$cmd`;
-		}
+
 		$imgPath = "/run-images?path=".urlencode("/$hash/workingDir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName");
+		if(!\File::exists("$dir/Analysis/03_GeneRanking_Results/GeneScore_Scatterplots/$fileName")){
+			$dockerImage = config('docker.image').':'.config('docker.tag');
+			$cmd = "docker run --rm -v \"$dir\":/workingdir \"$dockerImage\" PlotGeneScores.py \"$prefix\" \"$gene\"";
+			try {
+				exec("$cmd",$output,$execStatus);
+			} catch (\Exception $e) {
+				\Log::error("Error generating GeneScoreScaterPlot for run $hash, prefix $prefix, gene $gene");
+				\Log::error("cmd: $cmd");
+				\Log::error("$e");
+			}
+			if ($execStatus) {
+				\Log::error("Error generating GeneScoreScaterPlot for run $hash, prefix $prefix, gene $gene");
+				\Log::error("cmd: $cmd");
+			}
+		}
 		return $imgPath;
-	}
+	}	
 
 	public function getGeneRankingsQuery(Request $req, $hash,$prefix)
 	{
