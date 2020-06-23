@@ -1,6 +1,6 @@
 <?php
-$fileNameSansExtension = str_replace(".fastq.gz", "", $fileName);
-$fileNameSansExtension = str_replace(".fastq", "", $fileName);
+$fileNameSansExtension = str_replace(".gz", "", $fileName);
+$fileNameSansExtension = str_replace(".fastq", "", $fileNameSansExtension);
 ?>
 <a href="{{ "/run-images?path=".urlencode("/$runHash/workingDir/Analysis/01_Alignment_Results/Sequence_Quality/$fileNameSansExtension"."_fastqc.html") }}">See full report</a>
 
