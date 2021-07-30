@@ -1,4 +1,3 @@
-LibFilename: 'Mouse_improved_genome-wide_KnockOut_v2.tsv'
 seq_5_end: 'GCAGATGGCTCTTTGTCCTAGACATCGAAGACAACACCN'           
 NonTargetPrefix: '(None)'
 NumGuidesPerGene: 5                       

@@ -1,4 +1,3 @@
-LibFilename: 'Brie_Genome-wide_including_Controls.tsv'
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'              
 NonTargetPrefix: 'BRDN0000'
 NumGuidesPerGene: 4                       

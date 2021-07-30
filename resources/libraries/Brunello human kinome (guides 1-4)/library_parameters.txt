@@ -1,4 +1,3 @@
-LibFilename: 'Brunello_kinome_guides1-4.csv'
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       
 NonTargetPrefix: 'Non-Targeting'
 NumGuidesPerGene: 4         

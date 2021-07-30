@@ -1,4 +1,3 @@
-LibFilename: 'Mouse_GeCKOv2_Library_A.csv'            
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       
 NonTargetPrefix: 'NonTargeting'        
 NumGuidesPerGene: 3                       

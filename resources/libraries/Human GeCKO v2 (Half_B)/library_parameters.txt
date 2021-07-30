@@ -1,4 +1,3 @@
-LibFilename: 'Human_GeCKOv2_Library_B.csv'            
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       
 NonTargetPrefix: 'NonTargeting'        
 NumGuidesPerGene: 3                       
