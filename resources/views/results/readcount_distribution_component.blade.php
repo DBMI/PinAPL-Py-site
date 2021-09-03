@@ -9,6 +9,13 @@
 <hr>
 <div class="row align-center">
 	<div class="column shrink">
-		<pre>{{ \File::get(storage_path("runs/$runHash/workingDir/Analysis/02_sgRNA-Ranking_Results/ReadCount_Distribution/$prefix/$prefix"."_ReadCount_Statistics.txt")) }}</pre>
+		@php
+			$file = storage_path("runs/$runHash/workingDir/Analysis/02_sgRNA-Ranking_Results/ReadCount_Distribution/$prefix/$prefix"."_ReadCount_Statistics.txt");
+		@endphp
+		@if(\File::exists($file))
+			<pre>{{ \File::get(storage_path("runs/$runHash/workingDir/Analysis/02_sgRNA-Ranking_Results/ReadCount_Distribution/$prefix/$prefix"."_ReadCount_Statistics.txt")) }}</pre>
+		@else
+			<pre>Read Count Statistics not found</pre>
+		@endif
 	</div>
 </div>
