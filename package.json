@@ -15,6 +15,10 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "forever": "^1.0.0"
+    "binarypack": "0.0.4",
+    "forever": "^1.0.0",
+    "kotrans": "file:node_modules/kotrans",
+    "streamws": "^0.1.1",
+    "underscore": "^1.13.6"
   }
 }
