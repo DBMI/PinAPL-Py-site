@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+use \App\Run;
+use \Illuminate\Support\Facades\File;
+use \Illuminate\Support\Facades\Mail;
+use \App\Mail\RunFinished;
+
+class StartRunTask extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'run:start-task {runId} {task}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Start a run step on the provided run. This is for repairing a run that broke before completion.';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+
+        $runId = $this->argument('runId');
+        try {
+            $run = Run::findOrFail($runId);
+        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            $this->error("Run $runId does not exist");
+            return;
+        }
+
+        switch($task){
+          case 'start'
+            break;
+          case 'compress'
+            dispatch(new \App\Jobs\CompressRun($run));
+            break;
+          case 'import-rankings'
+            $run->importRankings();
+            $run->status = 'finished';
+            $run->save();
+            if (!empty($run->email)) {
+                Mail::to($run->email)->queue(new RunFinished($run));
+            }
+            break;
+          case 'delete'
+            break;
+          default:
+            $this->error("$step is not a valid run task. Valid steps are: start, compress, import-rankings, delete");
+            return;
+        }
+        
+        dispatch((new \App\Jobs\RestartRun($run))->onQueue("start_run"));
+
+
+    }
+}
